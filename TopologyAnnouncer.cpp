@@ -1,0 +1,67 @@
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+// 
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see http://www.gnu.org/licenses/.
+// 
+
+#include "TopologyAnnouncer.h"
+#include "NeighborsAnnouncement_m.h"
+#include "RoutingTableAccess.h"
+
+Define_Module(TopologyAnnouncer);
+
+void TopologyAnnouncer::initialize() {
+    interval = par("updateInterval");
+    rt = RoutingTableAccess().get();
+    scheduler = new cMessage("Scheduler");
+    scheduleAt(simTime(), scheduler);
+    seqNumber = 0;
+}
+
+template <typename iterator>
+void printIter(iterator begin, iterator end){
+    for (iterator it=begin; it != end; it++){
+        std::cout << (*it) << " ";
+    }
+    std::cout << endl;
+}
+
+void TopologyAnnouncer::handleMessage(cMessage *msg) {
+    std::set<IPv4Address> new_neigh = neighbors;
+    seqNumber++;
+    for (unsigned int i = 0; i < rt->getNumRoutes(); i++) {
+        IPv4Route *route = rt->getRoute(i);
+        if (route->getDestination() == route->getGateway()) {
+            //1-hop node
+            new_neigh.insert(route->getDestination());
+        }
+    }
+
+    // Has it changed?
+    if(new_neigh != neighbors){
+        // Send new message
+        NeighborsAnnouncement* announcement = new NeighborsAnnouncement("neighborsAnnouncement");
+        announcement->setNode(rt->getRouterId());
+        announcement->setNeighbors(new_neigh);
+        announcement->setSeqNumber(seqNumber);
+        send(announcement, "out");
+        // Update neighbors
+        neighbors = new_neigh;
+    }
+
+    // Re-schedule msg
+    scheduleAt(simTime()+interval, msg);
+}
+
+TopologyAnnouncer::~TopologyAnnouncer(){
+    cancelAndDelete(scheduler);
+}

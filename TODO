@@ -1,0 +1,18 @@
+* Rename ReliableFlooding to RobustFlooding
+* Sketches as a library
+* Robust flooding --> eliminar aquellos "sketches" viejos
+* Code "properness"
+* Think about using signature as ID on the flooding
+* Think about maps vs unordered_maps
+* Change find --> count in maps
+* TODO baseSketch should be unmodifiable; --> e.g. get already gives you a copy.
+* Unify addr and address
+* Evaluation message should delete sketch that contains
+* IP as ints instead of strs.
+* See how to make SketchMonitor derive from another, more easily.
+* Fix TTL and report ID @ robustflooding
+* Naming everywhere (report --> owner)
+* Document
+* Fix reports & so on so that they are generic to the type of summary
+* GraphServer IP str --> int
+* Flooding --> finish
