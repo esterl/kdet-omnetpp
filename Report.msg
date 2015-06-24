@@ -15,6 +15,7 @@
 cplusplus {{
 #include "IPv4Address.h"
 #include "LinkSummary.h"
+#include "kdet_defs.h"
 #include <unordered_map>
 
 typedef std::unordered_map<int, LinkSummary*> LinkSummariesHash;
@@ -29,5 +30,5 @@ packet Report{
     int TTL;
     IPv4Address reporter;
     LinkSummariesHash summaries;
-    kind = 1;
+    kind = KDET_REPORT_MSG;
 }

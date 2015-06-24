@@ -32,11 +32,14 @@ network kdet
         for i=0..numNodes-1 {
             hosts[i].toGraphServer --> graphServer.in++;
             hosts[i].fromGraphServer <-- graphServer.out++;
-            hosts[i].toTrustedAuthority --> ta.in++;
-        }
+            hosts[i].TAReports --> ta.inReports++;
+            hosts[i].TAGroundTruth --> ta.inGroundTruth++;
+            hosts[i].TAReset <-- ta.out++;        }
         for i=0..numProxies-1 {
             proxies[i].toGraphServer --> graphServer.in++;
             proxies[i].fromGraphServer <-- graphServer.out++;
-            proxies[i].toTrustedAuthority --> ta.in++;
+            proxies[i].TAReports --> ta.inReports++;
+            proxies[i].TAGroundTruth --> ta.inGroundTruth++;
+            proxies[i].TAReset <-- ta.out++;
         }
 }

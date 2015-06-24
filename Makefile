@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for kdet
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -Xsketches/build -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I../inet/src/linklayer/ieee80211/radio -I../inet/src/networklayer/routing/aodv -I../inet/src/networklayer/common -I../inet/src/networklayer/icmpv6 -I../inet/src -I../inet/src/world/obstacles -I../inet/src/networklayer/xmipv6 -I../inet/src/networklayer/contract -I../inet/src/networklayer/autorouting/ipv4 -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/common -I../inet/src/status -I../inet/src/linklayer/radio/propagation -I../inet/src/linklayer/ieee80211/radio/errormodel -I../inet/src/linklayer/radio -I../inet/src/util/headerserializers/tcp -I../inet/src/networklayer/ipv4 -I../inet/src/mobility/contract -I../inet/src/util/headerserializers/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/world/radio -I../inet/src/linklayer/ieee80211/mac -I../inet/src/networklayer/ipv6 -I../inet/src/transport/sctp -I../inet/src/util/headerserializers/udp -I../inet/src/networklayer/ipv6tunneling -I../inet/src/applications/pingapp -I../inet/src/battery/models -I../inet/src/util/headerserializers/ipv6 -I../inet/src/util/headerserializers/sctp -I../inet/src/linklayer/contract -I../inet/src/transport/tcp_common -I../inet/src/networklayer/arp -I../inet/src/transport/udp -L/usr/lib/x86_64-linux-gnu -L../inet/out/$$\(CONFIGNAME\)/src -lcrypto -lssl -linet -DINET_IMPORT -KINET_PROJ=../inet -KNETA_PROJ=../neta
+#  opp_makemake -f --deep -O out -Xsketches/build -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I../inet/src/linklayer/ieee80211/radio -I../inet/src/networklayer/routing/aodv -I../inet/src/networklayer/common -I../inet/src/networklayer/icmpv6 -I../inet/src -I../inet/src/world/obstacles -I../inet/src/networklayer/xmipv6 -I../inet/src/networklayer/contract -I../inet/src/networklayer/autorouting/ipv4 -I../inet/src/util -I../inet/src/transport/contract -I../inet/src/linklayer/common -I../inet/src/status -I../inet/src/linklayer/radio/propagation -I../inet/src/linklayer/ieee80211/radio/errormodel -I../inet/src/linklayer/radio -I../inet/src/util/headerserializers/tcp -I../inet/src/networklayer/ipv4 -I../inet/src/mobility/contract -I../inet/src/util/headerserializers/ipv4 -I../inet/src/base -I../inet/src/util/headerserializers -I../inet/src/world/radio -I../inet/src/linklayer/ieee80211/mac -I../inet/src/networklayer/ipv6 -I../inet/src/transport/sctp -I../inet/src/util/headerserializers/udp -I../inet/src/networklayer/ipv6tunneling -I../inet/src/applications/pingapp -I../inet/src/battery/models -I../inet/src/util/headerserializers/ipv6 -I../inet/src/util/headerserializers/sctp -I../inet/src/linklayer/contract -I../inet/src/transport/tcp_common -I../inet/src/networklayer/arp -I../inet/src/transport/udp -L/usr/lib/x86_64-linux-gnu -L../inet/out/$$\(CONFIGNAME\)/src -lcrypto -lssl -linet -DINET_IMPORT -KINET_PROJ=../inet
 #
 
 # Name of target to be created (-o option)
@@ -73,6 +73,7 @@ O = $(PROJECT_OUTPUT_DIR)/$(CONFIGNAME)/$(PROJECTRELATIVE_PATH)
 # Object files for local .cpp and .msg files
 OBJS = \
     $O/Report.o \
+    $O/Dropper.o \
     $O/ReliableFlooding.o \
     $O/SketchMonitor.o \
     $O/SketchSummary.o \
@@ -86,6 +87,7 @@ OBJS = \
     $O/ReportAck_m.o \
     $O/Report_m.o \
     $O/NeighborsAnnouncement_m.o \
+    $O/DropperReport_m.o \
     $O/CoresUpdate_m.o \
     $O/CoreEvaluation_m.o \
     $O/ReportIdMsg_m.o
@@ -95,13 +97,13 @@ MSGFILES = \
     ReportAck.msg \
     Report.msg \
     NeighborsAnnouncement.msg \
+    DropperReport.msg \
     CoresUpdate.msg \
     CoreEvaluation.msg \
     ReportIdMsg.msg
 
 # Other makefile variables (-K)
 INET_PROJ=../inet
-NETA_PROJ=../neta
 
 #------------------------------------------------------------------------------
 
@@ -203,6 +205,7 @@ $O/Detector.o: Detector.cpp \
 	LinkSummary.h \
 	Report.h \
 	Report_m.h \
+	kdet_defs.h \
 	sketches/cauchy.h \
 	sketches/hash.h \
 	sketches/mersenne.h \
@@ -220,6 +223,37 @@ $O/Detector.o: Detector.cpp \
 	sketches/ttmath/ttmathuint_x86.h \
 	sketches/ttmath/ttmathuint_x86_64.h \
 	sketches/xis.h
+$O/Dropper.o: Dropper.cpp \
+	$(INET_PROJ)/src/base/AbstractQueue.h \
+	$(INET_PROJ)/src/base/Compat.h \
+	$(INET_PROJ)/src/base/ILifecycle.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/ModuleAccess.h \
+	$(INET_PROJ)/src/base/NotifierConsts.h \
+	$(INET_PROJ)/src/base/ProtocolMap.h \
+	$(INET_PROJ)/src/base/QueueBase.h \
+	$(INET_PROJ)/src/base/ReassemblyBuffer.h \
+	$(INET_PROJ)/src/linklayer/contract/MACAddress.h \
+	$(INET_PROJ)/src/networklayer/arp/IARPCache.h \
+	$(INET_PROJ)/src/networklayer/common/INetfilter.h \
+	$(INET_PROJ)/src/networklayer/common/InterfaceEntry.h \
+	$(INET_PROJ)/src/networklayer/common/InterfaceToken.h \
+	$(INET_PROJ)/src/networklayer/contract/IPProtocolId_m.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv4Address.h \
+	$(INET_PROJ)/src/networklayer/ipv4/ICMP.h \
+	$(INET_PROJ)/src/networklayer/ipv4/ICMPAccess.h \
+	$(INET_PROJ)/src/networklayer/ipv4/ICMPMessage.h \
+	$(INET_PROJ)/src/networklayer/ipv4/ICMPMessage_m.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IPv4.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IPv4Datagram.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IPv4Datagram_m.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IPv4FragBuf.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IPv4Route.h \
+	$(INET_PROJ)/src/networklayer/ipv4/IRoutingTable.h \
+	$(INET_PROJ)/src/networklayer/ipv4/RoutingTableAccess.h \
+	Dropper.h \
+	DropperReport_m.h \
+	kdet_defs.h
 $O/GraphServer.o: GraphServer.cpp \
 	$(INET_PROJ)/src/base/Compat.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -258,6 +292,7 @@ $O/ReliableFlooding.o: ReliableFlooding.cpp \
 	ReportAck_m.h \
 	ReportIdMsg_m.h \
 	Report_m.h \
+	kdet_defs.h \
 	sketches/cauchy.h \
 	sketches/hash.h \
 	sketches/mersenne.h \
@@ -287,6 +322,7 @@ $O/Report.o: Report.cpp \
 	LinkSummary.h \
 	Report.h \
 	Report_m.h \
+	kdet_defs.h \
 	sketches/cauchy.h \
 	sketches/hash.h \
 	sketches/mersenne.h \
@@ -348,6 +384,7 @@ $O/SketchMonitor.o: SketchMonitor.cpp \
 	Report_m.h \
 	SketchMonitor.h \
 	SketchSummary.h \
+	kdet_defs.h \
 	sketches/cauchy.h \
 	sketches/hash.h \
 	sketches/mersenne.h \
@@ -414,7 +451,11 @@ $O/TrustedAuthority.o: TrustedAuthority.cpp \
 	$(INET_PROJ)/src/networklayer/ipv4/IPv4Datagram.h \
 	$(INET_PROJ)/src/networklayer/ipv4/IPv4Datagram_m.h \
 	CoreEvaluation_m.h \
+	CoresUpdate_m.h \
+	DropperReport_m.h \
+	GraphServer.h \
 	LinkSummary.h \
+	NeighborsAnnouncement_m.h \
 	TrustedAuthority.h \
 	sketches/cauchy.h \
 	sketches/hash.h \

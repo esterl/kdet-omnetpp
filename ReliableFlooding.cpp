@@ -20,10 +20,7 @@
 #include "IPSocket.h"
 #include "GraphServer.h"
 #include "IPv4ControlInfo.h"
-
-#define KDET_PROTOCOL_NUMBER 158
-#define KDET_REPORT_MSG 1
-#define KDET_ACK_MSG 2
+#include "kdet_defs.h"
 
 Define_Module(ReliableFlooding);
 

@@ -17,6 +17,9 @@
 #define __KDET_TRUSTEDAUTHORITY_H_
 
 #include <omnetpp.h>
+#include <unordered_map>
+#include "GraphServer.h"
+#include "CoreEvaluation_m.h"
 
 /**
  * TODO - Generated class
@@ -25,7 +28,29 @@ class TrustedAuthority : public cSimpleModule
 {
   protected:
     virtual void initialize();
+    virtual void finish();
     virtual void handleMessage(cMessage *msg);
+    virtual void evaluateKDet();
+    virtual void evaluateCore(std::set<IPv4Address> core,
+        std::set<IPv4Address> boundary);
+    virtual double getThreshold(std::set<IPv4Address> core);
+    bool isFaulty(std::set<IPv4Address> core);
+    unsigned numNodes;
+    int* droppedPackets;
+    int* inPackets;
+    int* outPackets;
+    CoreEvaluation** evaluations;
+    double alpha;
+    double beta;
+    double threshold;
+    std::unordered_map<int, int> IPtoIndex;
+    cMessage* timer;
+    GraphServer* graphServer;
+    // Output statistics
+    cOutVector coreEstimation;
+    cOutVector coreIsFaulty;
+    cOutVector coreSize;
+    cOutVector coreDetected;
 };
 
 #endif

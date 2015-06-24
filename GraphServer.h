@@ -28,10 +28,13 @@
  * TODO - protected/private/...?
  */
 typedef std::vector<std::vector<int>> intListList;
+typedef std::vector<std::set<IPv4Address>> IPSetList;
 
 class GraphServer: public cSimpleModule {
 public:
     std::set<IPv4Address> getNeighbors(IPv4Address addr);
+    IPSetList getAllCores();
+    IPSetList getAllBoundaries();
 protected:
     std::map<int, std::string> index_to_name;
     std::map<std::string, int> name_to_index;
@@ -39,6 +42,9 @@ protected:
     int k;
     std::vector<intListList> cores;
     std::vector<intListList> boundaries;
+    IPSetList allCores;
+    IPSetList allBoundaries;
+    bool dirty;
     std::vector<std::set<int>> networkGraph;
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);

@@ -14,6 +14,7 @@
 //
 cplusplus {{
 #include "IPv4Address.h"
+#include "kdet_defs.h"
 }}
 
 class noncobject IPv4Address;
@@ -21,5 +22,5 @@ class noncobject IPv4Address;
 packet ReportAck{
     long id;
     IPv4Address reporter;
-    kind = 2;
+    kind = KDET_ACK_MSG;
 }

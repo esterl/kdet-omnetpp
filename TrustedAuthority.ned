@@ -21,7 +21,11 @@ package kdet;
 simple TrustedAuthority
 {
     parameters:
-        double threshold = default(0.1);
+        double alpha = default(0.05);
+        double beta = default(0.1);
+        double threshold = default(2*alpha*beta/(alpha+beta));
     gates:
-        input in[];
+        input inReports[];
+        input inGroundTruth[];
+        output out[];
 }

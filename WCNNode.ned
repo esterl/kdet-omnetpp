@@ -25,7 +25,9 @@ module WCNNode extends AdhocHost
     gates:
         input fromGraphServer;
         output toGraphServer;
-        output toTrustedAuthority;
+        output TAReports;
+        output TAGroundTruth;
+        input TAReset;
     submodules:
         monitor: KDetProtocol {
             @display("p=635,353");
@@ -36,12 +38,15 @@ module WCNNode extends AdhocHost
         trafGen: <trafGenType> like IIPvXTrafficGenerator {
             @display("p=255,134");
         }
+        dropper: Dropper;
     connections:
         fromGraphServer --> monitor.graphServerIn;
         monitor.IPout --> networkLayer.transportIn++;
         monitor.IPin <-- networkLayer.transportOut++;
         topology.out --> toGraphServer;
-        monitor.detectorOut --> toTrustedAuthority;
+        monitor.detectorOut --> TAReports;
         networkLayer.transportOut++ --> trafGen.ipIn;
         networkLayer.transportIn++ <-- trafGen.ipOut;
+        dropper.in <-- TAReset;
+        dropper.out --> TAGroundTruth;
 }

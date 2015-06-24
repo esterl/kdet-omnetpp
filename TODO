@@ -16,3 +16,4 @@
 * Fix reports & so on so that they are generic to the type of summary
 * GraphServer IP str --> int
 * Flooding --> finish
+* CoreEvaluation --> core from list to set

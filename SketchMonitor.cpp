@@ -19,10 +19,11 @@
 #include "TCPSegment.h"
 #include "ByteArray.h"
 #include "ARP.h"
+#include "kdet_defs.h"
 
 Define_Module(SketchMonitor);
 
-#define DATA_PROTOCOL_NUMBER 258
+
 
 LinkSummary* SketchMonitor::getLinkSummary(IPv4Address address) {
     if (summaries.count(address.getInt()) == 0) {
@@ -48,13 +49,6 @@ INetfilter::IHook::Result SketchMonitor::datagramPreRoutingHook(
 INetfilter::IHook::Result SketchMonitor::datagramForwardHook(
         IPv4Datagram* datagram, const InterfaceEntry* inIE,
         const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
-    // Drop with some prob.
-    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-//        if (std::rand() < 0.5 * double(RAND_MAX)) {
-//            return IHook::DROP;
-//        }
-
-    }
     return IHook::ACCEPT;
 }
 

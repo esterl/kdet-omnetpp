@@ -27,6 +27,44 @@ std::set<IPv4Address> indexToIP(iterator begin, iterator end,
     return result;
 }
 
+bool hasCore(IPSetList coreList, std::set<IPv4Address> core) {
+    for (auto it = coreList.begin(); it != coreList.end(); it++) {
+        if (*it == core) {
+            return true;
+        }
+    }
+    return false;
+}
+// Returns the list of unique cores
+IPSetList GraphServer::getAllCores() {
+    if (dirty) {
+        allCores.clear();
+        allBoundaries.clear();
+        for (unsigned i = 0; i < cores.size(); i++) {
+            // For every node, check if there is any of its cores missing
+            for (unsigned j = 0; j < cores[i].size(); j++) {
+                std::set<IPv4Address> IPcore = indexToIP<>(cores[i][j].begin(),
+                        cores[i][j].end(), index_to_name);
+                if (!hasCore(allCores, IPcore)) {
+                    allCores.push_back(IPcore);
+                    allBoundaries.push_back(
+                            indexToIP(boundaries[i][j].begin(),
+                                    boundaries[i][j].end(), index_to_name));
+                }
+            }
+        }
+        dirty = false;
+    }
+    return allCores;
+}
+
+IPSetList GraphServer::getAllBoundaries() {
+    if (dirty) {
+        getAllCores();
+    }
+    return allBoundaries;
+}
+
 std::set<int> GraphServer::getNeighbors(int node) {
     return networkGraph[node];
 }
@@ -51,6 +89,7 @@ std::set<int> GraphServer::getNeighborhood(std::set<int> nodes) {
 
 void GraphServer::initialize() {
     k = par("k");
+    dirty = true;
 }
 
 void GraphServer::handleMessage(cMessage *msg) {
@@ -171,6 +210,7 @@ std::vector<int> GraphServer::getBoundary(std::vector<int> core) {
 
 // TODO empty igraph_vectors
 void GraphServer::updateCores() {
+    dirty = true;
     cores.clear();
     boundaries.clear();
     for (int i = 0; i < networkGraph.size(); i++) {
@@ -186,8 +226,7 @@ void GraphServer::updateCores() {
 IPSetList GraphServer::indexToIPList(intListList cores) {
     IPSetList list;
     for (auto core = cores.begin(); core != cores.end(); core++) {
-        list.push_back(
-                indexToIP(core->begin(), core->end(), index_to_name));
+        list.push_back(indexToIP(core->begin(), core->end(), index_to_name));
     }
     return list;
 }
