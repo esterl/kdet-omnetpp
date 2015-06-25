@@ -102,10 +102,6 @@ void merge(const SketchHash& hash1, const SketchHash& hash2,
 
 LinkSummary* SketchSummary::operator+(LinkSummary* otherPtr) const {
     SketchSummary* other = dynamic_cast<SketchSummary*>(otherPtr);
-    std::cout << " Summing sketch from " << host << " and " << other->host
-            << endl;
-    std::cout << " Starting with " << from->second_moment() << " and "
-            << other->from->second_moment();
     SketchSummary* result = new SketchSummary();
     // Sum from and to Sketches
     result->from = from->copy();
@@ -119,9 +115,6 @@ LinkSummary* SketchSummary::operator+(LinkSummary* otherPtr) const {
 
 double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
 
-    std::cout << "Estimating drop for : " << host << " and " << neighbor
-            << ". 'from' has " << from->second_moment() << " and 'to' "
-            << to->second_moment() << endl;
     NetworkSketch* sketchIn = to->copy();
     for (auto it = dst.begin(); it != dst.end(); it++) {
         if (core.count(IPv4Address(it->first)) != 0) {
@@ -135,10 +128,8 @@ double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
         }
     }
     double sent = sketchIn->second_moment();
-    std::cout << "Estimated in " << sent << " and estimated out " << sketchOut->second_moment() << " and estimated intersection" << sketchIn->inner_join(sketchOut);
     (*sketchIn) -= (*sketchOut);
     double dropped = sketchIn->second_moment();
-    std::cout << " and estimated dropped " << dropped << endl;
     delete sketchIn;
     delete sketchOut;
     if (sent == 0)
@@ -148,7 +139,6 @@ double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
 
 void SketchSummary::setBaseSketch(cModule* module) {
     if (baseSketch == NULL) {
-        std::cout << "Initializing base sketch" << endl;
         unsigned rows = module->par("sketchNumRows");
         unsigned cols = module->par("sketchNumColumns");
         const char* randGenerator =

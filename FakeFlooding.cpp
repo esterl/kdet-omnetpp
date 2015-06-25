@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "ReliableFlooding.h"
+#include "FakeFlooding.h"
 #include "Ieee802Ctrl_m.h"
 #include "ARP.h"
 #include "IPvXAddressResolver.h"
@@ -22,19 +22,17 @@
 #include "IPv4ControlInfo.h"
 #include "kdet_defs.h"
 
-Define_Module(ReliableFlooding);
+Define_Module(FakeFlooding);
 
-void ReliableFlooding::initialize() {
+void FakeFlooding::initialize() {
     IP = IPv4Address::UNSPECIFIED_ADDRESS;
     cModule* graphSrvModule = getModuleByPath("graphServer");
     graphServer = check_and_cast<GraphServer*>(graphSrvModule);
     timeout = par("timeout");
     TTL = int(par("k")) + 2;
-    IPSocket socket(gate("IPout"));
-    socket.registerProtocol(KDET_PROTOCOL_NUMBER);
 }
 
-void ReliableFlooding::finish() {
+void FakeFlooding::finish() {
     for (auto it = messages.begin(); it != messages.end(); it++) {
         cancelAndDelete(*it);
     }
@@ -43,19 +41,22 @@ void ReliableFlooding::finish() {
     }
 }
 
-void ReliableFlooding::handleMessage(cMessage *msg) {
+void FakeFlooding::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("in")) {
-        reliablyFlood(check_and_cast<Report*>(msg));
+        // Deliver message to app
+        send(msg->dup(), "out");
+        // Flood to the rest
+        newReport(check_and_cast<Report*>(msg));
     } else if (!msg->isSelfMessage()) {
-        if (msg->getKind() == KDET_REPORT_MSG) {
-            // Deliver message
-            send(msg->dup(), "out");
-            // Acknowledge the reception
-            sendAck(check_and_cast<Report*>(msg));
-            // Reliably flood it to neighbors
-            reliablyFlood(check_and_cast<Report*>(msg));
-        } else if (msg->getKind() == KDET_ACK_MSG) {
-            processAck(check_and_cast<ReportAck*>(msg));
+        // Is for me?
+        IPv4Datagram* ipPkt = check_and_cast<IPv4Datagram*>(msg);
+        if (ipPkt->getDestAddress() == getIP()) {
+            cPacket* inMsg = decapsulate(ipPkt);
+            if (inMsg->getKind() == KDET_REPORT_MSG) {
+                processReport(check_and_cast<Report*>(inMsg));
+            } else { // inMsg->getKind() == KDET_ACK_MSG
+                processAck(check_and_cast<ReportAck*>(inMsg));
+            }
         } else {
             delete msg;
         }
@@ -65,84 +66,125 @@ void ReliableFlooding::handleMessage(cMessage *msg) {
     }
 }
 
-void ReliableFlooding::reliablyFlood(Report* report) {
-    if (report->getReporter().isUnspecified()
-            or report->getReporter() == getIP()) {
-        report->setReporter(getIP());
-        report->setId(id++);
-        report->setTTL(TTL);
-        newReport(report);
+void FakeFlooding::newReport(Report *report) {
+    // Set IP
+    report->setReporter(getIP());
+    // Set id
+    report->setId(id++);
+    // Set TTL
+    report->setTTL(TTL);
+    // Deliver locally
+    send(report->dup(), "out");
+    // Reliably Flood
+    reliablyFlood(report);
+}
+
+void FakeFlooding::processReport(Report *report) {
+    // Send ACK
+    sendAck(report);
+    // Deliver locally if is new
+    if (isNew(report)) {
+        send(report->dup(), "out");
+    }
+    // Update TTL
+    int ttlReport = report->getTTL();
+    report->setTTL(--ttlReport);
+    if (ttlReport > 0) {
+        reliablyFlood(report);
     } else {
-        int ttlReport = report->getTTL();
-        ttlReport--;
-        report->setTTL(ttlReport);
-        long reportId = report->getId();
-        if (ttlReport > 0) {
-            newReport(report);
-        } else {
-            delete report;
-        }
+        delete report;
     }
 }
 
-void ReliableFlooding::newReport(Report *report) {
-    // Create IPv4 message:
-    IPv4Datagram* msg = new IPv4Datagram("Sketches report");
-    msg->setTransportProtocol(KDET_PROTOCOL_NUMBER);
-    // TODO do I want something different?
-    msg->setTimeToLive(16);
-    msg->encapsulate(report);
-    // Do we have another report for that Reporter?
+void FakeFlooding::reliablyFlood(Report* report) {
     IPv4Address addr = report->getReporter();
     int index;
     if (IPToIndex.count(addr.getInt()) == 0) {
         index = messages.size();
-        IPToIndex[addr.getInt()] = index;
-        messages.push_back(msg);
+        messages.push_back(encapsulate(report));
         sendTo.push_back(graphServer->getNeighbors(getIP()));
-        // Schedule timeout:
-        ReportIdMsg* timeoutMsg = new ReportIdMsg("Reliable flooding timeout");
-        timeoutMsg->setAddress(report->getReporter());
-        timeoutMsg->setId(report->getId());
-        timeouts.push_back(timeoutMsg);
-        scheduleAt(simTime(), timeoutMsg);
+        scheduleTimeout(index, getIP());
     } else {
-        // Older or newer report?
-        int index = IPToIndex[addr.getInt()];
+        index = IPToIndex[addr.getInt()];
         Report* localReport = check_and_cast<Report*>(
                 messages[index]->getEncapsulatedPacket());
+        // Is it an older or newer report?
         if (report->getId() == localReport->getId()) {
             // Update TTL
             if (report->getTTL() > localReport->getTTL())
                 localReport->setTTL(report->getTTL());
-            delete msg;
-        } else if (report->getId()
-                < check_and_cast<Report*>(
-                        messages[index]->getEncapsulatedPacket())->getId()) {
-            //Delete report
-            std::cout << "Received old report" << endl;
-            delete msg;
+            delete report;
+        } else if (report->getId() < localReport->getId()) {
+            delete report;
         } else {
             delete messages[index];
-            messages[index] = msg;
+            messages[index] = encapsulate(report);
             sendTo[index] = graphServer->getNeighbors(getIP());
+            scheduleTimeout(index, addr);
         }
     }
-
 }
 
-void ReliableFlooding::timeoutExpired(ReportIdMsg* idMsg) {
+bool FakeFlooding::isNew(Report* report) {
+    IPv4Address addr = report->getReporter();
+    int index;
+    if (IPToIndex.count(addr.getInt()) == 0) {
+        return true;
+    } else {
+        index = IPToIndex[addr.getInt()];
+        Report* localReport = check_and_cast<Report*>(
+                messages[index]->getEncapsulatedPacket());
+        // Is it an older or newer report?
+        if (report->getId() > localReport->getId())
+            return true;
+    }
+    return false;
+}
+
+IPv4Datagram* FakeFlooding::encapsulate(Report* report) {
+    IPv4Datagram* msg = new IPv4Datagram("Sketches report");
+    msg->setSrcAddress(getIP());
+    msg->setTransportProtocol(KDET_PROTOCOL_NUMBER);
+    // TODO do I want something different?
+    msg->setTimeToLive(16);
+    msg->encapsulate(report);
+    return msg;
+}
+
+cPacket* FakeFlooding::decapsulate(IPv4Datagram* ipPkt) {
+    cPacket* inMsg = ipPkt->decapsulate();
+    IPv4ControlInfo* ctrlInfo = new IPv4ControlInfo();
+    ctrlInfo->setDestAddr(ipPkt->getDestAddress());
+    ctrlInfo->setSrcAddr((ipPkt->getSrcAddress()));
+    inMsg->setControlInfo(ctrlInfo);
+    delete ipPkt;
+    return inMsg;
+}
+
+void FakeFlooding::scheduleTimeout(int index, IPv4Address addr) {
+    ReportIdMsg* timeoutMsg = new ReportIdMsg("Reliable flooding timeout");
+    timeoutMsg->setAddress(addr);
+    if (index >= timeouts.size()) {
+        timeouts.push_back(timeoutMsg);
+    } else {
+        cancelAndDelete(timeouts[index]);
+        timeouts[index] = timeoutMsg;
+    }
+    scheduleAt(simTime(), timeoutMsg);
+}
+
+void FakeFlooding::timeoutExpired(ReportIdMsg* idMsg) {
     int index = IPToIndex[idMsg->getAddress().getInt()];
     for (auto it = sendTo[index].begin(); it != sendTo[index].end(); it++) {
         IPv4Datagram *msg = messages[index]->dup();
         msg->setDestAddress(*it);
-        send(msg, "IPout");
+        send(msg, "othersOut");
     }
     if (sendTo[index].size() > 0)
         scheduleAt(simTime() + timeout, idMsg);
 }
 
-void ReliableFlooding::sendAck(Report* report) {
+void FakeFlooding::sendAck(Report* report) {
     ReportAck* ack = new ReportAck("Flooding ACK");
     ack->setId(report->getId());
     ack->setReporter(report->getReporter());
@@ -150,13 +192,14 @@ void ReliableFlooding::sendAck(Report* report) {
     IPv4ControlInfo* ctrlInfo = check_and_cast<IPv4ControlInfo*>(
             report->getControlInfo());
     ipPkt->setDestAddress(ctrlInfo->getSrcAddr());
+    ipPkt->setSrcAddress(getIP());
     ipPkt->setTransportProtocol(KDET_PROTOCOL_NUMBER);
     ipPkt->setTimeToLive(16);
     ipPkt->encapsulate(ack);
-    send(ipPkt, "IPout");
+    send(ipPkt, "othersOut");
 }
 
-void ReliableFlooding::processAck(ReportAck* ack) {
+void FakeFlooding::processAck(ReportAck* ack) {
     IPv4ControlInfo* ctrlInfo = check_and_cast<IPv4ControlInfo*>(
             ack->getControlInfo());
     IPv4Address addr = ctrlInfo->getSrcAddr();
@@ -173,7 +216,7 @@ void ReliableFlooding::processAck(ReportAck* ack) {
     }
     delete ack;
 }
-IPv4Address ReliableFlooding::ReliableFlooding::getIP() {
+IPv4Address FakeFlooding::getIP() {
     if (IP.isUnspecified()) {
         IP = IPvXAddressResolver().addressOf(
                 getParentModule()->getParentModule(),

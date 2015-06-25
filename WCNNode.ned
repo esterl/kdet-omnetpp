@@ -28,6 +28,9 @@ module WCNNode extends AdhocHost
         output TAReports;
         output TAGroundTruth;
         input TAReset;
+        // For FakeFlooding
+        output othersOut;
+        input othersIn;
     submodules:
         monitor: KDetProtocol {
             @display("p=635,353");
@@ -41,12 +44,15 @@ module WCNNode extends AdhocHost
         dropper: Dropper;
     connections:
         fromGraphServer --> monitor.graphServerIn;
-        monitor.IPout --> networkLayer.transportIn++;
-        monitor.IPin <-- networkLayer.transportOut++;
+        //monitor.IPout --> networkLayer.transportIn++;
+        //monitor.IPin <-- networkLayer.transportOut++;
         topology.out --> toGraphServer;
         monitor.detectorOut --> TAReports;
         networkLayer.transportOut++ --> trafGen.ipIn;
         networkLayer.transportIn++ <-- trafGen.ipOut;
         dropper.in <-- TAReset;
         dropper.out --> TAGroundTruth;
+        // Fake flooding
+        monitor.IPout --> othersOut;
+        monitor.IPin <-- othersIn;
 }

@@ -33,13 +33,17 @@ module KDetProtocol
         detector: Detector {
             @display("p=51,205");
         }
-        flooding: ReliableFlooding {
+        //flooding: ReliableFlooding {
+        flooding: FakeFlooding {
             @display("p=170,205");
         }
-    connections:
+    connections allowunconnected:
         monitor.reports --> flooding.in;
-        flooding.IPin <-- IPin;
-        flooding.IPout --> IPout;
+        //flooding.IPin <-- IPin;
+        //flooding.IPout --> IPout;
+        // Fake flooding
+        flooding.othersOut --> IPout;
+        flooding.othersIn <-- IPin;
         flooding.out --> detector.reportsIn;
         detector.graphServerIn <-- graphServerIn;
         detector.detectionOut --> detectorOut;

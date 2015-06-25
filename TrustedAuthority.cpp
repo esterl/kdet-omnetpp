@@ -74,7 +74,6 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         inPackets[gate] = report->getInPackets();
         outPackets[gate] = report->getOutPackets();
         droppedPackets[gate] = report->getDroppedPackets();
-        std::cout << "received drop" << droppedPackets[gate];
         delete report;
     } else {
         // Evaluate KDet performance
@@ -135,8 +134,6 @@ inline double max(double a, double b) {
 bool TrustedAuthority::isFaulty(std::set<IPv4Address> core) {
     for (auto node = core.begin(); node != core.end(); node++) {
         int index = IPtoIndex[node->getInt()];
-        std::cout << (*node) << "Dropped " << droppedPackets[index]
-                << "inPackets " << inPackets[index] << endl;
         if (double(droppedPackets[index]) / max(inPackets[index], 1) > alpha)
             return true;
     }

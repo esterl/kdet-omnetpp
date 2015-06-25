@@ -25,7 +25,7 @@ void Detector::initialize() {
     IP = IPvXAddressResolver().addressOf(getParentModule()->getParentModule(),
             IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
     // Start first detection interval
-    timeout = new cMessage();
+    timeout = new cMessage("Detector timeout");
     simtime_t waitTime = getParentModule()->par("waitTime");
     scheduleAt(simTime() + waitTime + (interval / 2), timeout);
 }
@@ -52,7 +52,7 @@ void Detector::handleMessage(cMessage *msg) {
 }
 
 void Detector::updateReports(Report* report) {
-    bool print = (getIP() == IPv4Address("10.0.0.1"));
+    bool print = (getIP() == IPv4Address("10.0.0.2"));
     if (print) {
         std::cout << "Received a report from " << report->getReporter();
         std::cout << " with " << report->getSummaries().size() << " reports"
@@ -85,7 +85,7 @@ void Detector::evaluateCores() {
         std::pair<std::map<int, bool>, double> evaluation = evaluateCore(
                 cores[i], boundaries[i]);
         // Share evaluation
-        CoreEvaluation* evaluationMsg = new CoreEvaluation();
+        CoreEvaluation* evaluationMsg = new CoreEvaluation("Core evaluation");
         evaluationMsg->setReporter(getIP());
         evaluationMsg->setReceivedReports(evaluation.first);
         evaluationMsg->setDropEstimation(evaluation.second);
@@ -97,8 +97,8 @@ void Detector::evaluateCores() {
 
 std::pair<std::map<int, bool>, double> Detector::evaluateCore(
         std::set<IPv4Address> core, std::set<IPv4Address> boundary) {
-    bool print = (getIP() == IPv4Address("10.0.0.1"))
-            & (core.count(IPv4Address("10.0.0.2")) == 1);
+    bool print = (getIP() == IPv4Address("10.0.0.2"))
+            & (core.count(IPv4Address("10.0.0.3")) == 1);
     if (print) {
         std::cout << "Evaluating core with boundary: ";
         for (auto it = boundary.begin(); it != boundary.end(); it++)
@@ -122,23 +122,18 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
             boundaryNode++) {
         // Is there a report for that node?
-        if (print) std::cout << "Boundary node: " << (*boundaryNode);
         if (reports.count(boundaryNode->getInt()) == 0) {
             receivedSketches[boundaryNode->getInt()] = false;
-            std::cout << "Sketch not received" << endl;
         } else {
             receivedSketches[boundaryNode->getInt()] = true;
             LinkSummariesHash summaries =
                     reports[boundaryNode->getInt()]->getSummaries();
             for (auto coreNode = core.begin(); coreNode != core.end();
                     coreNode++) {
-                if (print) std::cout << ". Core node: " << (*coreNode);
                 if (summaries.count(coreNode->getInt()) != 0) {
                     if (globalSummary == NULL) {
-                        if (print) std::cout << "First" << endl;
                         globalSummary = summaries[coreNode->getInt()]->copy();
                     } else {
-                        if (print) std::cout << " adding up" << endl;
                         globalSummary = (*globalSummary)
                                 + summaries[coreNode->getInt()];
                     }

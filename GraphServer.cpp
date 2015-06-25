@@ -120,17 +120,6 @@ int GraphServer::getVertixIndex(IPv4Address node) {
 
 void GraphServer::updateGraph(NeighborsAnnouncement* msg) {
     IPv4Address node = msg->getNode();
-
-// Printers
-    if (node == IPv4Address("10.0.0.3")) {
-        std::cout << "Neighbors for 3 (" << msg->getSeqNumber() << ") :";
-        for (auto it = msg->getNeighbors().begin();
-                it != msg->getNeighbors().end(); it++) {
-            std::cout << (*it) << " ";
-        }
-        std::cout << endl;
-    }
-
     unsigned from = getVertixIndex(node);
     index_to_gate[from] = msg->getArrivalGate()->getIndex();
 // Update edges [Only adds neighbors]:
