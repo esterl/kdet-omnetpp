@@ -103,7 +103,7 @@ void FakeFlooding::reliablyFlood(Report* report) {
         index = messages.size();
         messages.push_back(encapsulate(report));
         sendTo.push_back(graphServer->getNeighbors(getIP()));
-        scheduleTimeout(index, getIP());
+        scheduleTimeout(index, addr);
     } else {
         index = IPToIndex[addr.getInt()];
         Report* localReport = check_and_cast<Report*>(
