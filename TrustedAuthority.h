@@ -39,6 +39,7 @@ class TrustedAuthority : public cSimpleModule
     int* droppedPackets;
     int* inPackets;
     int* outPackets;
+    bool* reportRequested;
     CoreEvaluation** evaluations;
     double alpha;
     double beta;
@@ -49,6 +50,7 @@ class TrustedAuthority : public cSimpleModule
     // Output statistics
     cOutVector coreEstimation;
     cOutVector coreIsFaulty;
+    cOutVector coreReal;
     cOutVector coreSize;
     cOutVector coreDetected;
 };

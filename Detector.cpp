@@ -27,7 +27,7 @@ void Detector::initialize() {
     // Start first detection interval
     timeout = new cMessage("Detector timeout");
     simtime_t waitTime = getParentModule()->par("waitTime");
-    scheduleAt(simTime() + waitTime + (interval / 2), timeout);
+    scheduleAt(simTime() + waitTime + (interval/2), timeout);
 }
 
 void Detector::finish() {
@@ -52,12 +52,6 @@ void Detector::handleMessage(cMessage *msg) {
 }
 
 void Detector::updateReports(Report* report) {
-    bool print = (getIP() == IPv4Address("10.0.0.2"));
-    if (print) {
-        std::cout << "Received a report from " << report->getReporter();
-        std::cout << " with " << report->getSummaries().size() << " reports"
-                << endl;
-    }
     // TODO Report properly signed? (here or at RobustFlooding)
     // Is there a report from that node?
     IPv4Address source = report->getReporter();
@@ -99,24 +93,24 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
         std::set<IPv4Address> core, std::set<IPv4Address> boundary) {
     bool print = (getIP() == IPv4Address("10.0.0.2"))
             & (core.count(IPv4Address("10.0.0.3")) == 1);
-    if (print) {
-        std::cout << "Evaluating core with boundary: ";
-        for (auto it = boundary.begin(); it != boundary.end(); it++)
-            std::cout << it->str() << " ";
-        std::cout << endl;
-        std::cout << "Available reports: ";
-        for (auto it = reports.begin(); it != reports.end(); it++) {
-            std::cout << " " << it->second->getReporter();
-            LinkSummariesHash summaries = it->second->getSummaries();
-            std::cout << " (";
-            for (auto it2 = summaries.begin(); it2 != summaries.end(); it2++){
-                std:: cout << "[" << IPv4Address(it2->first) << "] ";
-                std::cout << it2->second->getHost() << "-->" << it2->second->getNeighbor() << " ";
-            }
-            std::cout << " )" << endl;
-        }
-        std::cout << endl;
-    }
+//    if (print) {
+//        std::cout << "Evaluating core with boundary: ";
+//        for (auto it = boundary.begin(); it != boundary.end(); it++)
+//            std::cout << it->str() << " ";
+//        std::cout << endl;
+//        std::cout << "Available reports: ";
+//        for (auto it = reports.begin(); it != reports.end(); it++) {
+//            std::cout << " " << it->second->getReporter();
+//            LinkSummariesHash summaries = it->second->getSummaries();
+//            std::cout << " (";
+//            for (auto it2 = summaries.begin(); it2 != summaries.end(); it2++){
+//                std:: cout << "[" << IPv4Address(it2->first) << "] ";
+//                std::cout << it2->second->getHost() << "-->" << it2->second->getNeighbor() << " ";
+//            }
+//            std::cout << " )" << endl;
+//        }
+//        std::cout << endl;
+//    }
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
@@ -147,6 +141,7 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
         dropPerc = globalSummary->estimateDrop(core);
         delete globalSummary;
     } else {
+        std::cout << "No summaries" << endl;
         dropPerc = 0.0;
     }
     return make_pair(receivedSketches, dropPerc);

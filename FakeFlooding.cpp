@@ -43,8 +43,6 @@ void FakeFlooding::finish() {
 
 void FakeFlooding::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("in")) {
-        // Deliver message to app
-        send(msg->dup(), "out");
         // Flood to the rest
         newReport(check_and_cast<Report*>(msg));
     } else if (!msg->isSelfMessage()) {
@@ -101,6 +99,7 @@ void FakeFlooding::reliablyFlood(Report* report) {
     int index;
     if (IPToIndex.count(addr.getInt()) == 0) {
         index = messages.size();
+        IPToIndex[addr.getInt()] = index;
         messages.push_back(encapsulate(report));
         sendTo.push_back(graphServer->getNeighbors(getIP()));
         scheduleTimeout(index, addr);

@@ -25,6 +25,7 @@ void TrustedAuthority::initialize() {
     droppedPackets = new int[numNodes];
     inPackets = new int[numNodes];
     outPackets = new int[numNodes];
+    reportRequested = new bool[numNodes];
     evaluations = new CoreEvaluation*[numNodes];
     for (unsigned i = 0; i < numNodes; i++)
         evaluations[i] = NULL;
@@ -32,6 +33,7 @@ void TrustedAuthority::initialize() {
     graphServer = check_and_cast<GraphServer*>(
             getParentModule()->getSubmodule("graphServer"));
     coreIsFaulty.setName("coreIsFaulty");
+    coreReal.setName("coreRealDropProbability");
     coreEstimation.setName("coreEstimation");
     coreSize.setName("coreSize");
     coreDetected.setName("coreDetected");
@@ -65,8 +67,11 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
             scheduleAt(simTime() + 0.01, timer);
         }
         // Ask for ground truth:
-        cMessage* msg = new cMessage();
-        send(msg, "out", gate);
+        if (!reportRequested[gate]) {
+            cMessage* msg = new cMessage();
+            send(msg, "out", gate);
+            reportRequested[gate] = true;
+        }
     } else if (msg->arrivedOn("inGroundTruth")) {
         // Update values
         int gate = msg->getArrivalGate()->getIndex();
@@ -74,6 +79,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         inPackets[gate] = report->getInPackets();
         outPackets[gate] = report->getOutPackets();
         droppedPackets[gate] = report->getDroppedPackets();
+        reportRequested[gate] = false;
         delete report;
     } else {
         // Evaluate KDet performance
@@ -134,6 +140,11 @@ inline double max(double a, double b) {
 bool TrustedAuthority::isFaulty(std::set<IPv4Address> core) {
     for (auto node = core.begin(); node != core.end(); node++) {
         int index = IPtoIndex[node->getInt()];
+        coreReal.record(
+                double(droppedPackets[index]) / max(inPackets[index], 1));
+        std::cout << "Dropped packets by " << *node << " "
+                << double(droppedPackets[index]) << " input packets: "
+                << inPackets[index] << endl;
         if (double(droppedPackets[index]) / max(inPackets[index], 1) > alpha)
             return true;
     }

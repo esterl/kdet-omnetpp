@@ -22,6 +22,7 @@ module WCNNode extends AdhocHost
 {
     parameters:
         string trafGenType;
+        networkLayer.arp.globalARP = true;
     gates:
         input fromGraphServer;
         output toGraphServer;
