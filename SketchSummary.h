@@ -17,7 +17,7 @@
 #define SKETCHSUMMARY_H_
 
 #include "LinkSummary.h"
-#include "sketches.h"
+#include "sketches/sketches.h"
 typedef Sketch<uint32_t> NetworkSketch;
 typedef std::map<uint32_t, NetworkSketch*> SketchHash;
 
@@ -30,8 +30,9 @@ public:
     virtual void updateSummaryPostRouting(IPv4Datagram* pkt);
     virtual void clear();
     virtual LinkSummary* copy()const;
-    virtual LinkSummary* operator+(LinkSummary* otherPtr) const;
+    virtual void add(LinkSummary* otherPtr);
     virtual double estimateDrop(std::set<IPv4Address> core);
+    virtual double getBytes();
     static void setBaseSketch(cModule* module);
     static void setBaseSketch(NetworkSketch* sketch);
     static NetworkSketch* getBaseSketch();

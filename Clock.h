@@ -13,37 +13,22 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#ifndef __KDET_DETECTOR_H_
-#define __KDET_DETECTOR_H_
+#ifndef __KDET_OMNETPP_CLOCK_H_
+#define __KDET_OMNETPP_CLOCK_H_
 
 #include <omnetpp.h>
-#include <utility>
-#include <unordered_map>
-#include <map>
-#include <IPv4Address.h>
-#include "Report.h"
-#include "CoresUpdate_m.h"
 
 /**
  * TODO - Generated class
  */
-class Detector: public cSimpleModule {
-protected:
+class Clock : public cSimpleModule
+{
+  protected:
     virtual void initialize();
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
-    void updateReports(Report* report);
-    virtual void evaluateCores();
-    void updateCores(CoresUpdate* update);
-    std::pair<std::map<int, bool>, double> evaluateCore(
-            std::set<IPv4Address> core, std::set<IPv4Address> boundary);
-    void clearReports();
-    IPv4Address getIP();
-    std::unordered_map<int, Report*> reports;
-    IPSetList cores;
-    IPSetList boundaries;
-    IPv4Address IP;
-    bool faulty;
+    cMessage* timer;
+    simtime_t interval;
 };
 
 #endif

@@ -23,8 +23,6 @@
 
 Define_Module(SketchMonitor);
 
-
-
 LinkSummary* SketchMonitor::getLinkSummary(IPv4Address address) {
     if (summaries.count(address.getInt()) == 0) {
         summaries[address.getInt()] = new SketchSummary();
@@ -89,11 +87,7 @@ void SketchMonitor::initialize() {
     // Initialize the rest of parameters
     IP = IPvXAddressResolver().addressOf(getParentModule()->getParentModule(),
             IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
-    interval = getParentModule()->par("interval");
-    // Schedule next reset
-    resetMsg = new cMessage();
-    simtime_t waitTime = getParentModule()->par("waitTime");
-    scheduleAt(simTime() + waitTime + interval, resetMsg);
+    faulty = par("faulty");
 }
 
 void SketchMonitor::handleMessage(cMessage *msg) {
@@ -101,16 +95,20 @@ void SketchMonitor::handleMessage(cMessage *msg) {
     Report* report = new Report();
     report->setReporter(getIP());
     report->setSummaries(summaries);
+    report->setBogus(faulty);
     send(report, "reports");
     // Clear sketches
     resetSummaries();
-    // Re-schedule timeout
-    scheduleAt(simTime() + interval, msg);
+    delete msg;
 }
 
 void SketchMonitor::finish() {
-    cancelAndDelete(resetMsg);
     // TODO check what else to delete
+    // TODO delete summaries
+    for (auto it = summaries.begin(); it != summaries.end(); it++) {
+        delete it->second;
+    }
+    summaries.clear();
 }
 void SketchMonitor::resetSummaries() {
     for (auto it = summaries.begin(); it != summaries.end(); it++) {

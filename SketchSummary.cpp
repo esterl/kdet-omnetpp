@@ -16,6 +16,7 @@
 #include <SketchSummary.h>
 #include <IPv4Serializer.h>
 #include <openssl/md5.h>
+#include <math.h> // log2
 
 // TODO look the proper length
 #define     MAXBUFLENGTH   65536
@@ -35,9 +36,11 @@ SketchSummary::~SketchSummary() {
     for (auto it = src.begin(); it != src.end(); it++) {
         delete it->second;
     }
+    src.clear();
     for (auto it = dst.begin(); it != dst.end(); it++) {
         delete it->second;
     }
+    dst.clear();
 }
 
 void SketchSummary::updateSummaryPreRouting(IPv4Datagram* pkt) {
@@ -75,7 +78,9 @@ void SketchSummary::clear() {
 
 LinkSummary* SketchSummary::copy() const{
     SketchSummary* summary = new SketchSummary(host, neighbor);
+    delete summary->from;
     summary->from = from->copy();
+    delete summary->to;
     summary->to = to->copy();
     for (auto it = src.begin(); it != src.end(); it++) {
         summary->src[it->first] = it->second->copy();
@@ -86,31 +91,22 @@ LinkSummary* SketchSummary::copy() const{
     return summary;
 }
 
-void merge(const SketchHash& hash1, const SketchHash& hash2,
-        SketchHash& result) {
-    for (auto it = hash1.begin(); it != hash1.end(); it++) {
-        result[it->first] = it->second->copy();
-    }
+void merge(SketchHash& hash1, const SketchHash& hash2) {
     for (auto it = hash2.begin(); it != hash2.end(); it++) {
-        if (result.count(it->first) == 0) {
-            result[it->first] = it->second->copy();
+        if (hash1.count(it->first) == 0) {
+            hash1[it->first] = it->second->copy();
         } else {
-            (*result[it->first]) += *(it->second);
+            (*hash1[it->first]) += *(it->second);
         }
     }
 }
 
-LinkSummary* SketchSummary::operator+(LinkSummary* otherPtr) const {
+void SketchSummary::add(LinkSummary* otherPtr) {
     SketchSummary* other = dynamic_cast<SketchSummary*>(otherPtr);
-    SketchSummary* result = new SketchSummary();
-    // Sum from and to Sketches
-    result->from = from->copy();
-    *(result->from) += *(other->from);
-    result->to = to->copy();
-    *(result->to) += *(other->to);
-    merge(src, other->src, result->src);
-    merge(dst, other->dst, result->dst);
-    return result;
+    (*from) += *(other->from);
+    (*to) += *(other->to);
+    merge(src, other->src);
+    merge(dst, other->dst);
 }
 
 double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
@@ -135,6 +131,20 @@ double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
     if (sent == 0)
         return 0.0;
     return dropped / sent;
+}
+
+double SketchSummary::getBytes(){
+    // Sum the bytes required to store each Sketch
+    double bytes = 0.;
+    bytes += from->get_bytes();
+    bytes += to->get_bytes();
+    for (auto it = src.begin(); it != src.end(); it++) {
+            bytes += (*it->second).get_bytes();
+    }
+    for (auto it = dst.begin(); it != dst.end(); it++) {
+            bytes += (*it->second).get_bytes();
+    }
+    return bytes;
 }
 
 void SketchSummary::setBaseSketch(cModule* module) {

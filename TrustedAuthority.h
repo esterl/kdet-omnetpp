@@ -20,32 +20,34 @@
 #include <unordered_map>
 #include "GraphServer.h"
 #include "CoreEvaluation_m.h"
+#include <iostream>
+#include <fstream>
 
 /**
  * TODO - Generated class
  */
-class TrustedAuthority : public cSimpleModule
-{
-  protected:
+class TrustedAuthority: public cSimpleModule {
+protected:
     virtual void initialize();
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     virtual void evaluateKDet();
     virtual void evaluateCore(std::set<IPv4Address> core,
-        std::set<IPv4Address> boundary);
+            std::set<IPv4Address> boundary);
+    bool collusion(IPv4Address boundaryNode, std::set<IPv4Address> core);
     virtual double getThreshold(std::set<IPv4Address> core);
     bool isFaulty(std::set<IPv4Address> core);
+    void clearEvaluations();
     unsigned numNodes;
     int* droppedPackets;
     int* inPackets;
     int* outPackets;
-    bool* reportRequested;
-    CoreEvaluation** evaluations;
+    bool* faulty;
+    std::vector<CoreEvaluation*>* evaluations;
     double alpha;
     double beta;
     double threshold;
     std::unordered_map<int, int> IPtoIndex;
-    cMessage* timer;
     GraphServer* graphServer;
     // Output statistics
     cOutVector coreEstimation;
@@ -53,6 +55,8 @@ class TrustedAuthority : public cSimpleModule
     cOutVector coreReal;
     cOutVector coreSize;
     cOutVector coreDetected;
+    // CSV file
+    std::ofstream cvsFile;
 };
 
 #endif

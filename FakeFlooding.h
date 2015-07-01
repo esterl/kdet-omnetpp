@@ -57,6 +57,7 @@ private:
     simtime_t timeout;
     GraphServer* graphServer;
     IPv4Address IP;
+    cOutVector overhead;
 };
 
 #endif

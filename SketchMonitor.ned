@@ -23,6 +23,8 @@ simple SketchMonitor like IMonitor
         string sketchAvgFunc @enum("median", "mean", "trimmean") = default("mean");
         string sketchHashFunction @enum("cw2", "cw4", "tab") = default("cw2");
         string sketchType @enum("AGMS", "FAGMS", "FastCount") = default("FastCount");
+        bool faulty = default(false);
     gates:
+        input clock;
         output reports;
 }

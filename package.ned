@@ -29,25 +29,32 @@ network kdet
         graphServer: GraphServer;
         ta: TrustedAuthority;
         flooder: Flooder;
+        clock: Clock;
     connections:
         for i=0..numNodes-1 {
             hosts[i].toGraphServer --> graphServer.in++;
             hosts[i].fromGraphServer <-- graphServer.out++;
             hosts[i].TAReports --> ta.inReports++;
             hosts[i].TAGroundTruth --> ta.inGroundTruth++;
-            hosts[i].TAReset <-- ta.out++;
             hosts[i].othersOut --> flooder.in++;
             hosts[i].othersIn <-- flooder.out++;
         }
-
+        
         for i=0..numProxies-1 {
             proxies[i].toGraphServer --> graphServer.in++;
             proxies[i].fromGraphServer <-- graphServer.out++;
             proxies[i].TAReports --> ta.inReports++;
             proxies[i].TAGroundTruth --> ta.inGroundTruth++;
-            proxies[i].TAReset <-- ta.out++;
             proxies[i].othersOut --> flooder.in++;
             proxies[i].othersIn <-- flooder.out++;
 
         }
+        for i=0..2, for j=0..numNodes-1 {
+            clock.out++ --> hosts[j].clock[i];
+        }
+        for i=0..2, for j=0..numProxies-1 {
+            clock.out++ --> proxies[j].clock[i];
+        }
+        clock.out++ --> ta.clock;
+
 }

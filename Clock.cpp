@@ -13,20 +13,23 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package kdet;
+#include "Clock.h"
 
-//
-// TODO auto-generated module
-//
-simple TrustedAuthority
+Define_Module(Clock);
+
+void Clock::initialize()
 {
-    parameters:
-        double alpha = default(0.05);
-        double beta = default(0.1);
-        double threshold = default(2*alpha*beta/(alpha+beta));
-        string resultsFile = default("results/TA.csv");
-    gates:
-        input inReports[];
-        input inGroundTruth[];
-        input clock;
+    interval = par("interval");
+    timer = new cMessage();
+    scheduleAt(par("waitTime"), timer);
+}
+
+void Clock::finish(){
+    cancelAndDelete(timer);
+}
+void Clock::handleMessage(cMessage *msg)
+{
+    for (unsigned i = 0; i < gateSize("out"); i++)
+        send(msg->dup(), "out",i);
+    scheduleAt(simTime()+ interval, msg);
 }

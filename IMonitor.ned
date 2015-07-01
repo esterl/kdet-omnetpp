@@ -18,5 +18,6 @@ package kdet;
 moduleinterface IMonitor
 {
     gates:
+        input clock;
         output reports;
 }

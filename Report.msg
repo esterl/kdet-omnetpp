@@ -28,7 +28,8 @@ packet Report{
     @customize(true);
     long id;
     int TTL;
+    bool bogus;
     IPv4Address reporter;
-    LinkSummariesHash summaries;
+    //LinkSummariesHash summaries;
     kind = KDET_REPORT_MSG;
 }

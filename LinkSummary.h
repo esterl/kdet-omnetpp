@@ -16,25 +16,23 @@
 #ifndef LINKSUMMARY_H_
 #define LINKSUMMARY_H_
 
-#include <sketches.h>
 #include <IPvXAddress.h>
 #include <IPv4Datagram.h>
-
-typedef Sketch<uint32_t> NetworkSketch;
 
 class LinkSummary {
 public:
     LinkSummary(IPv4Address hostIP = IPv4Address::UNSPECIFIED_ADDRESS,
             IPv4Address neighborIP = IPv4Address::UNSPECIFIED_ADDRESS) {host=hostIP; neighbor=neighborIP;};
-    virtual ~LinkSummary() {};
+    virtual ~LinkSummary() { };
     virtual IPv4Address getHost(){ return host; };
     virtual IPv4Address getNeighbor(){ return neighbor; };
     virtual void updateSummaryPreRouting(IPv4Datagram* pkt) = 0;
     virtual void updateSummaryPostRouting(IPv4Datagram* pkt) = 0;
     virtual void clear() = 0;
     virtual LinkSummary* copy() const = 0;
-    virtual LinkSummary* operator+(LinkSummary* other) const{};
+    virtual void add(LinkSummary* other) = 0;
     virtual double estimateDrop(std::set<IPv4Address> core) = 0;
+    virtual double getBytes() = 0;
 protected:
     IPv4Address host;
     IPv4Address neighbor;

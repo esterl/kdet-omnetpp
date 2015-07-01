@@ -21,11 +21,15 @@ module KDetProtocol
         string monitorType = default("SketchMonitor");
         double interval @unit(s) = default(5s);
         double waitTime @unit(s) = default(60s);
+        bool faulty = default(false);
+        monitor.faulty = faulty;
+        detector.faulty = faulty;
     gates:
         output IPout;
         input IPin;
         input graphServerIn;
         output detectorOut;
+        input clock[2];
     submodules:
         monitor: <monitorType> like IMonitor {
             @display("p=170,84");
@@ -47,4 +51,6 @@ module KDetProtocol
         flooding.out --> detector.reportsIn;
         detector.graphServerIn <-- graphServerIn;
         detector.detectionOut --> detectorOut;
+        clock[0] --> monitor.clock;
+        clock[1] --> detector.clock;
 }

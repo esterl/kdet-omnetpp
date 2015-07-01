@@ -21,15 +21,12 @@
 Define_Module(TrustedAuthority);
 
 void TrustedAuthority::initialize() {
-    numNodes = gateSize("out");
+    numNodes = gateSize("inReports");
     droppedPackets = new int[numNodes];
     inPackets = new int[numNodes];
     outPackets = new int[numNodes];
-    reportRequested = new bool[numNodes];
-    evaluations = new CoreEvaluation*[numNodes];
-    for (unsigned i = 0; i < numNodes; i++)
-        evaluations[i] = NULL;
-    timer = NULL;
+    faulty = new bool[numNodes];
+    evaluations = new std::vector<CoreEvaluation*>[numNodes];
     graphServer = check_and_cast<GraphServer*>(
             getParentModule()->getSubmodule("graphServer"));
     coreIsFaulty.setName("coreIsFaulty");
@@ -40,15 +37,19 @@ void TrustedAuthority::initialize() {
     alpha = par("alpha");
     beta = par("beta");
     threshold = par("threshold");
+    // CSV
+    cvsFile.open(par("resultsFile").stringValue());
+    cvsFile << "Header" << endl;
 }
 
 void TrustedAuthority::finish() {
     delete[] inPackets;
     delete[] outPackets;
     delete[] droppedPackets;
-    for (unsigned i = 0; i < numNodes; i++)
-        delete evaluations[i];
+    delete[] faulty;
+    clearEvaluations();
     delete[] evaluations;
+    cvsFile.close();
 }
 
 void TrustedAuthority::handleMessage(cMessage *msg) {
@@ -58,20 +59,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         CoreEvaluation* evaluation = check_and_cast<CoreEvaluation*>(msg);
         IPv4Address addr = evaluation->getReporter();
         IPtoIndex[addr.getInt()] = gate;
-        if (evaluations[gate] != NULL)
-            delete evaluations[gate];
-        evaluations[gate] = evaluation;
-        // Schedule
-        if (timer == NULL) {
-            timer = new cMessage();
-            scheduleAt(simTime() + 0.01, timer);
-        }
-        // Ask for ground truth:
-        if (!reportRequested[gate]) {
-            cMessage* msg = new cMessage();
-            send(msg, "out", gate);
-            reportRequested[gate] = true;
-        }
+        evaluations[gate].push_back(evaluation);
     } else if (msg->arrivedOn("inGroundTruth")) {
         // Update values
         int gate = msg->getArrivalGate()->getIndex();
@@ -79,18 +67,31 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         inPackets[gate] = report->getInPackets();
         outPackets[gate] = report->getOutPackets();
         droppedPackets[gate] = report->getDroppedPackets();
-        reportRequested[gate] = false;
+        faulty[gate] = report->getFaulty();
         delete report;
+    } else if (msg->arrivedOn("clock")) {
+        // Schedule evaluation just a bit later
+        scheduleAt(simTime() + 0.03, msg);
     } else {
         // Evaluate KDet performance
         evaluateKDet();
+        // TODO Delete all info
+        // Clear reports
+        clearEvaluations();
         delete msg;
-        timer = NULL;
     }
 }
 
+std::string coreToString(std::set<IPv4Address> core) {
+    std::ostringstream result;
+    for (auto it = core.begin(); it != core.end(); it++) {
+        result << (*it) << ";";
+    }
+    return result.str();
+}
+
 void TrustedAuthority::evaluateKDet() {
-    // Get list of cores & boundaries
+// Get list of cores & boundaries
     IPSetList cores = graphServer->getAllCores();
     IPSetList boundaries = graphServer->getAllBoundaries();
 
@@ -104,31 +105,60 @@ void TrustedAuthority::evaluateKDet() {
 void TrustedAuthority::evaluateCore(std::set<IPv4Address> core,
         std::set<IPv4Address> boundary) {
     bool detected = false;
+    // Base entry
+    std::ostringstream os;
+    os << simTime() << "," << "'" << coreToString(core) << "'" << ","
+            << isFaulty(core) << ",";
+    std::ostringstream estimations;
+    estimations << "'";
+    bool bogus = false;
     for (auto node = boundary.begin(); node != boundary.end(); node++) {
-        // Get the evaluation from that node:
-        CoreEvaluation* evaluation = evaluations[IPtoIndex[(*node).getInt()]];
-        // Look for the evaluation of the given core:
-        IPList evalCore_l = evaluation->getCore();
-        IPSet evalCore = std::set<IPv4Address>(evalCore_l.begin(),
-                evalCore_l.end());
-        if (evalCore == core) {
-            // Is there any report missing?
-            BoolMap recReports = evaluation->getReceivedReports();
-            for (auto it = recReports.begin(); it != recReports.end(); it++) {
-                if (!(it->second)) {
-                    detected = true;
+        // Get the evaluations from that node:
+        std::vector<CoreEvaluation*>* evaluationList =
+                &evaluations[IPtoIndex[(*node).getInt()]];
+        for (auto evaluation = evaluationList->begin();
+                evaluation != evaluationList->end(); evaluation++) {
+            // Look for the evaluation of the given core:
+            IPList evalCore_l = (*evaluation)->getCore();
+            IPSet evalCore = std::set<IPv4Address>(evalCore_l.begin(),
+                    evalCore_l.end());
+            if (evalCore == core) {
+                // Is there any report missing?
+                BoolMap recReports = (*evaluation)->getReceivedReports();
+                for (auto it = recReports.begin(); it != recReports.end();
+                        it++) {
+                    if (!(it->second)) {
+                        detected = true;
+                    }
                 }
+                // Is the estimation worst than expected?
+                double estimation = (*evaluation)->getDropEstimation();
+                coreEstimation.record(estimation);
+                // cvsFile << os.str() << estimation << endl;
+                estimations << estimation << ",";
+                detected = detected | (estimation > getThreshold(core));
+                coreDetected.record(detected);
+                // Is the boundary node faulty and avoids detection of a core?
+                if (faulty[IPtoIndex[node->getInt()]] & collusion(*node, core))
+                    bogus = true;
             }
-            // Is the estimation worst than expected?
-            double estimation = evaluation->getDropEstimation();
-            coreEstimation.record(estimation);
-            detected = detected | (estimation > getThreshold(core));
-            coreDetected.record(detected);
         }
 
     }
+    estimations << "'";
+    cvsFile << os.str() << estimations.str() << "," << bogus << endl;
 }
 
+bool TrustedAuthority::collusion(IPv4Address boundaryNode,
+        std::set<IPv4Address> core) {
+    // Is there any neighbor of boundaryNode in the core & faulty?
+    std::set<IPv4Address> neighbors = graphServer->getNeighbors(boundaryNode);
+    for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
+        if (faulty[IPtoIndex[it->getInt()]] & core.count(*it) != 0)
+            return true;
+    }
+    return false;
+}
 double TrustedAuthority::getThreshold(std::set<IPv4Address> core) {
     return threshold;
 }
@@ -142,11 +172,16 @@ bool TrustedAuthority::isFaulty(std::set<IPv4Address> core) {
         int index = IPtoIndex[node->getInt()];
         coreReal.record(
                 double(droppedPackets[index]) / max(inPackets[index], 1));
-        std::cout << "Dropped packets by " << *node << " "
-                << double(droppedPackets[index]) << " input packets: "
-                << inPackets[index] << endl;
         if (double(droppedPackets[index]) / max(inPackets[index], 1) > alpha)
             return true;
     }
     return false;
+}
+
+void TrustedAuthority::clearEvaluations() {
+    for (unsigned i = 0; i < numNodes; i++) {
+        for (auto it = evaluations[i].begin(); it != evaluations[i].end(); it++)
+            delete (*it);
+        evaluations[i].clear();
+    }
 }

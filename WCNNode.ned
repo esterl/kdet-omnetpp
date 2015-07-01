@@ -22,13 +22,16 @@ module WCNNode extends AdhocHost
 {
     parameters:
         string trafGenType;
+        bool faulty = default(false);
+        dropper.faulty = faulty;
+        monitor.faulty = faulty;
         networkLayer.arp.globalARP = true;
     gates:
         input fromGraphServer;
         output toGraphServer;
         output TAReports;
         output TAGroundTruth;
-        input TAReset;
+		input clock[3];		
         // For FakeFlooding
         output othersOut;
         input othersIn;
@@ -51,9 +54,13 @@ module WCNNode extends AdhocHost
         monitor.detectorOut --> TAReports;
         networkLayer.transportOut++ --> trafGen.ipIn;
         networkLayer.transportIn++ <-- trafGen.ipOut;
-        dropper.in <-- TAReset;
         dropper.out --> TAGroundTruth;
         // Fake flooding
         monitor.IPout --> othersOut;
         monitor.IPin <-- othersIn;
+        // Clock
+        for i=0..1 {
+            clock[i] --> monitor.clock[i];
+        }
+        clock[2] --> dropper.clock;
 }

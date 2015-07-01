@@ -18,15 +18,11 @@ package kdet;
 //
 // TODO auto-generated module
 //
-simple TrustedAuthority
+simple Clock
 {
     parameters:
-        double alpha = default(0.05);
-        double beta = default(0.1);
-        double threshold = default(2*alpha*beta/(alpha+beta));
-        string resultsFile = default("results/TA.csv");
+        double interval @unit(s) = default(5s);
+        double waitTime @unit(s) = default(20s);
     gates:
-        input inReports[];
-        input inGroundTruth[];
-        input clock;
+        output out[];
 }

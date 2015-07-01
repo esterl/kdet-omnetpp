@@ -48,12 +48,10 @@ protected:
     IPv4Address getIPAddress(IPv4Datagram* datagram);
     SketchSummary* findSummary(IPv4Address addr);
     IPv4Address getIP();
-    typedef std::unordered_map<int, LinkSummary*> LinkSummariesHash;
     LinkSummariesHash summaries;
     IPv4* ipLayer;
     IPv4Address IP;
-    simtime_t interval;
-    cMessage* resetMsg;
+    bool faulty;
 };
 
 #endif

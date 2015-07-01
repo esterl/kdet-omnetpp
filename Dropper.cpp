@@ -63,6 +63,7 @@ INetfilter::IHook::Result Dropper::datagramLocalOutHook(
 }
 
 void Dropper::initialize() {
+    faulty = par("faulty");
     // Register Hook
     IPv4* ipLayer = check_and_cast<IPv4*>(findModuleWhereverInNode("ip", this));
     // TODO check the priority that should have
@@ -78,6 +79,7 @@ void Dropper::handleMessage(cMessage *msg) {
     report->setDroppedPackets(droppedPackets);
     report->setOutPackets(outPackets);
     report->setInPackets(inPackets);
+    report->setFaulty(faulty);
     send(report, "out");
     // Reset counters
     droppedPackets = 0;

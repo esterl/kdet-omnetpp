@@ -20,7 +20,10 @@ package kdet;
 //
 simple Detector
 {
+    parameters:
+        bool faulty = default(false);
     gates:
+        input clock;
         input graphServerIn;
         input reportsIn;
         output detectionOut;

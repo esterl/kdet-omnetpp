@@ -30,6 +30,7 @@ void FakeFlooding::initialize() {
     graphServer = check_and_cast<GraphServer*>(graphSrvModule);
     timeout = par("timeout");
     TTL = int(par("k")) + 2;
+    overhead.setName("Overhead");
 }
 
 void FakeFlooding::finish() {
@@ -178,6 +179,9 @@ void FakeFlooding::timeoutExpired(ReportIdMsg* idMsg) {
         IPv4Datagram *msg = messages[index]->dup();
         msg->setDestAddress(*it);
         send(msg, "othersOut");
+        // Record Bytes sent
+        Report* report = check_and_cast<Report*>(msg->getEncapsulatedPacket());
+        overhead.record(report->getBytes());
     }
     if (sendTo[index].size() > 0)
         scheduleAt(simTime() + timeout, idMsg);

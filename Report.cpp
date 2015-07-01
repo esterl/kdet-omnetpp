@@ -11,29 +11,34 @@ Register_Class(Report);
 
 void Report::copy(const Report& other) {
     if (this == &other)
-            return;
+        return;
     // Delete summaries
     for (auto it = summaries_var.begin(); it != summaries_var.end(); it++) {
         delete it->second;
     }
+    summaries_var.clear();
     setId(other.getId());
     setTTL(other.getTTL());
     setReporter(other.getReporter());
-    setSummaries(other.getSummaries());
+    setSummaries(other.summaries_var);
 }
 
-Report::Report(const Report& other) :
-        Report_Base(other) {
-    setId(other.getId());
-    setTTL(other.getTTL());
-    setReporter(other.getReporter());
-    setSummaries(other.getSummaries());
+Report::Report(const Report& other):Report_Base(other){
+    setSummaries(other.summaries_var);
+}
+
+Report::~Report() {
+    // Delete summaries
+    for (auto it = summaries_var.begin(); it != summaries_var.end(); it++) {
+        delete it->second;
+    }
+    summaries_var.clear();
 }
 
 Report& Report::operator=(const Report& other) {
     if (this == &other)
         return *this;
-    Report_Base::operator=(other);
+    cPacket::operator=(other);
     copy(other);
     return *this;
 }
@@ -43,7 +48,8 @@ Report* Report::dup() const {
 }
 
 void Report::setSummaries(const LinkSummariesHash& summaries) {
-    if (summaries_var == summaries) return;
+    if (&summaries == &summaries_var)
+        return;
     // Delete old summaries
     for (auto it = summaries_var.begin(); it != summaries_var.end(); it++) {
         delete it->second;
@@ -52,4 +58,16 @@ void Report::setSummaries(const LinkSummariesHash& summaries) {
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
         summaries_var[it->first] = it->second->copy();
     }
+}
+
+LinkSummariesHash Report::getSummaries(){
+    return summaries_var;
+}
+
+double Report::getBytes() {
+    double bytes = 0;
+    for (auto it = summaries_var.begin(); it != summaries_var.end(); it++) {
+        bytes += it->second->getBytes();
+    }
+    return bytes;
 }

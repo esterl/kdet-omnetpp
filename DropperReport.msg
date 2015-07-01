@@ -20,4 +20,5 @@ packet DropperReport {
     int droppedPackets;
     int inPackets;
     int outPackets;
+    bool faulty;
 }

@@ -29,4 +29,5 @@ message CoreEvaluation{
 	BoolMap receivedReports;
 	IPList core;
 	double dropEstimation;    
+	bool bogus;
 }

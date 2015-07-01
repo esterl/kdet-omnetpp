@@ -21,26 +21,23 @@ Define_Module(Detector);
 
 void Detector::initialize() {
     // Initialize local variables
-    interval = getParentModule()->par("interval");
     IP = IPvXAddressResolver().addressOf(getParentModule()->getParentModule(),
             IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
-    // Start first detection interval
-    timeout = new cMessage("Detector timeout");
-    simtime_t waitTime = getParentModule()->par("waitTime");
-    scheduleAt(simTime() + waitTime + (interval/2), timeout);
+    //WATCH(reports);
+    faulty = par("faulty");
 }
 
 void Detector::finish() {
-    cancelAndDelete(timeout);
     clearReports();
 }
 
 void Detector::handleMessage(cMessage *msg) {
-    if (msg->isSelfMessage()) {
+    if (msg->arrivedOn("clock")) {
+        // Schedule evaluation just a bit later, so that we have all sketches
+        scheduleAt(simTime() + 0.01, msg);
+    } else if (msg->isSelfMessage()) {
         evaluateCores();
-        // Re-schedule evaluation
-        scheduleAt(simTime() + interval, msg);
-        // Empty reports
+        delete msg;
         clearReports();
     } else if (msg->arrivedOn("graphServerIn")) {
         updateCores(check_and_cast<CoresUpdate*>(msg));
@@ -85,6 +82,7 @@ void Detector::evaluateCores() {
         evaluationMsg->setDropEstimation(evaluation.second);
         evaluationMsg->setCore(
                 std::vector<IPv4Address>(cores[i].begin(), cores[i].end()));
+        evaluationMsg->setBogus(faulty);
         send(evaluationMsg, "detectionOut");
     }
 }
@@ -128,20 +126,20 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
                     if (globalSummary == NULL) {
                         globalSummary = summaries[coreNode->getInt()]->copy();
                     } else {
-                        globalSummary = (*globalSummary)
-                                + summaries[coreNode->getInt()];
+                        // Memory leak
+                        globalSummary->add(summaries[coreNode->getInt()]);
                     }
                 }
             }
         }
     }
     double dropPerc;
-    if (globalSummary) {
+    if (globalSummary != NULL) {
         // Estimate the drop %
         dropPerc = globalSummary->estimateDrop(core);
         delete globalSummary;
     } else {
-        std::cout << "No summaries" << endl;
+        //std::cout << "No summaries" << endl;
         dropPerc = 0.0;
     }
     return make_pair(receivedSketches, dropPerc);

@@ -43,6 +43,7 @@ protected:
     unsigned inPackets;
     unsigned outPackets;
     unsigned droppedPackets;
+    bool faulty;
 };
 
 #endif

@@ -22,7 +22,8 @@ simple Dropper
 {
     parameters:
         volatile double dropProbability = default(0.0);
+        bool faulty = default(false);
     gates:
-        input in;
+        input clock;
         output out;
 }
