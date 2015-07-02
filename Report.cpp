@@ -64,6 +64,12 @@ LinkSummariesHash Report::getSummaries(){
     return summaries_var;
 }
 
+void Report::optimizeSummaries(std::set<IPv4Address> coreNodes){
+    for (auto it = summaries_var.begin(); it != summaries_var.end(); it++){
+        it->second->optimizeSummary(coreNodes);
+    }
+}
+
 double Report::getBytes() {
     double bytes = 0;
     for (auto it = summaries_var.begin(); it != summaries_var.end(); it++) {

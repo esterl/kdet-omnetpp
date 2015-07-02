@@ -33,6 +33,7 @@ public:
     virtual void add(LinkSummary* otherPtr);
     virtual double estimateDrop(std::set<IPv4Address> core);
     virtual double getBytes();
+    virtual void optimizeSummary(std::set<IPv4Address> coreNodes);
     static void setBaseSketch(cModule* module);
     static void setBaseSketch(NetworkSketch* sketch);
     static NetworkSketch* getBaseSketch();

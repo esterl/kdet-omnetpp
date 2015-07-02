@@ -34,6 +34,7 @@ protected:
     virtual void evaluateKDet();
     virtual void evaluateCore(std::set<IPv4Address> core,
             std::set<IPv4Address> boundary);
+    std::string getRealDropProbability(IPSet core);
     bool collusion(IPv4Address boundaryNode, std::set<IPv4Address> core);
     virtual double getThreshold(std::set<IPv4Address> core);
     bool isFaulty(std::set<IPv4Address> core);

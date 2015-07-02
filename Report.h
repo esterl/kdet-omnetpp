@@ -23,6 +23,7 @@ public:
     virtual Report *dup() const;
     virtual void setSummaries(const LinkSummariesHash& summaries);
     LinkSummariesHash getSummaries();
+    virtual void optimizeSummaries(std::set<IPv4Address> address);
     virtual double getBytes();
 };
 

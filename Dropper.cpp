@@ -35,7 +35,6 @@ INetfilter::IHook::Result Dropper::datagramForwardHook(
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
         inPackets++;
         if (std::rand() < double(par("dropProbability")) * double(RAND_MAX)) {
-            std::cout << "Dropped packet" << endl;
             droppedPackets++;
             return IHook::DROP;
         }

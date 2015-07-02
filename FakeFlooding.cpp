@@ -74,6 +74,8 @@ void FakeFlooding::newReport(Report *report) {
     report->setTTL(TTL);
     // Deliver locally
     send(report->dup(), "out");
+    // Optimize Report size:
+    report->optimizeSummaries(graphServer->getNeighbors(getIP(), par("k")));
     // Reliably Flood
     reliablyFlood(report);
 }

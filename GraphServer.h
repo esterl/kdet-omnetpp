@@ -33,6 +33,7 @@ typedef std::vector<std::set<IPv4Address>> IPSetList;
 class GraphServer: public cSimpleModule {
 public:
     std::set<IPv4Address> getNeighbors(IPv4Address addr);
+    std::set<IPv4Address> getNeighbors(IPv4Address, unsigned);
     IPSetList getAllCores();
     IPSetList getAllBoundaries();
 protected:

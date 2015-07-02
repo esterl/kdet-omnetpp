@@ -75,6 +75,19 @@ std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr) {
     return indexToIP(neighbors.begin(), neighbors.end(), index_to_name);
 }
 
+std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr, unsigned hops) {
+    if (hops==0) return std::set<IPv4Address>();
+    std::set<IPv4Address> neighbors = getNeighbors(addr);
+    std::set<IPv4Address> result = neighbors;
+    // TODO optimize - don't ask twice for somebody's neighbors
+    for (auto it=neighbors.begin(); it != neighbors.end(); it++){
+        std::set<IPv4Address> partial_result = getNeighbors(*it, hops-1);
+        result.insert(partial_result.begin(), partial_result.end());
+    }
+    result.erase(addr);
+    return result;
+}
+
 std::set<int> GraphServer::getNeighborhood(std::set<int> nodes) {
     std::set<int> neighborhood;
     for (auto it = nodes.begin(); it != nodes.end(); it++) {

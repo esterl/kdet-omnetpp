@@ -89,26 +89,6 @@ void Detector::evaluateCores() {
 
 std::pair<std::map<int, bool>, double> Detector::evaluateCore(
         std::set<IPv4Address> core, std::set<IPv4Address> boundary) {
-    bool print = (getIP() == IPv4Address("10.0.0.2"))
-            & (core.count(IPv4Address("10.0.0.3")) == 1);
-//    if (print) {
-//        std::cout << "Evaluating core with boundary: ";
-//        for (auto it = boundary.begin(); it != boundary.end(); it++)
-//            std::cout << it->str() << " ";
-//        std::cout << endl;
-//        std::cout << "Available reports: ";
-//        for (auto it = reports.begin(); it != reports.end(); it++) {
-//            std::cout << " " << it->second->getReporter();
-//            LinkSummariesHash summaries = it->second->getSummaries();
-//            std::cout << " (";
-//            for (auto it2 = summaries.begin(); it2 != summaries.end(); it2++){
-//                std:: cout << "[" << IPv4Address(it2->first) << "] ";
-//                std::cout << it2->second->getHost() << "-->" << it2->second->getNeighbor() << " ";
-//            }
-//            std::cout << " )" << endl;
-//        }
-//        std::cout << endl;
-//    }
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
@@ -126,7 +106,6 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
                     if (globalSummary == NULL) {
                         globalSummary = summaries[coreNode->getInt()]->copy();
                     } else {
-                        // Memory leak
                         globalSummary->add(summaries[coreNode->getInt()]);
                     }
                 }

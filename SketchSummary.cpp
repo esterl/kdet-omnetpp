@@ -110,7 +110,6 @@ void SketchSummary::add(LinkSummary* otherPtr) {
 }
 
 double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
-
     NetworkSketch* sketchIn = to->copy();
     for (auto it = dst.begin(); it != dst.end(); it++) {
         if (core.count(IPv4Address(it->first)) != 0) {
@@ -120,7 +119,7 @@ double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
     NetworkSketch* sketchOut = from->copy();
     for (auto it = src.begin(); it != src.end(); it++) {
         if (core.count(IPv4Address(it->first)) != 0) {
-            (*sketchOut) -= (*it->second);
+           (*sketchOut) -= (*it->second);
         }
     }
     double sent = sketchIn->second_moment();
@@ -145,6 +144,23 @@ double SketchSummary::getBytes(){
             bytes += (*it->second).get_bytes();
     }
     return bytes;
+}
+
+void removeNonCoreSketches(SketchHash& sketches, std::set<IPv4Address> coreNodes){
+    std::set<int> nonCoreNodes;
+    for (auto it = sketches.begin(); it != sketches.end(); it++) {
+        if (coreNodes.count(IPv4Address(it->first))==0){
+            nonCoreNodes.insert(it->first);
+        }
+    }
+    for (auto it=nonCoreNodes.begin(); it != nonCoreNodes.end(); it++){
+        delete sketches[*it];
+        sketches.erase(*it);
+    }
+}
+void SketchSummary::optimizeSummary(std::set<IPv4Address> coreNodes){
+    removeNonCoreSketches(src, coreNodes);
+    removeNonCoreSketches(dst, coreNodes);
 }
 
 void SketchSummary::setBaseSketch(cModule* module) {
