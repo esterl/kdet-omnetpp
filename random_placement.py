@@ -23,6 +23,14 @@ def get_min_distance(positions, x, y):
     distances = [ math.sqrt((x - pos[0])**2 + (y - pos[1])**2) for pos in positions ]
     return min(distances)
 
+def get_num_closer(positions, x, y, radius):
+    distances = [ math.sqrt((x - pos[0])**2 + (y - pos[1])**2) for pos in positions ]
+    result = 0
+    for distance in distances:
+        if distance < radius:
+            result += 1
+    return result
+
 def get_random_position(positions, radius):
     (x_0, y_0) = choose_random(positions)
     d = random.uniform(radius/2, radius)
@@ -33,7 +41,7 @@ def getNpositions(N, radius):
     positions = [(0,0)]
     for i in range(N-1):
         (x, y) = get_random_position(positions, radius)
-        while get_min_distance(positions, x, y) < radius/10:
+        while get_min_distance(positions, x, y) < radius/5 and get_num_closer(positions, x, y, radius) > 4:
             (x, y) = get_random_position(positions, radius)
         positions += [ (x,y) ]
     return positions
@@ -44,6 +52,8 @@ def generate():
         [General]
         network = kdet
         experiment-label = {{ expLabel }}
+        output-vector-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.vec
+        output-scalar-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.sca
         sim-time-limit = 65s
         **.numNodes = {{ nHosts }}
         **.numProxies = {{ nProxies }}
@@ -110,7 +120,7 @@ def generate():
         **.hosts[*].trafGenType = "IPvXTrafGen"
         **.proxies[*].trafGenType = "IPvXTrafSink"
 
-        **.hosts[*].trafGen.startTime = uniform(60s,100s)
+        **.hosts[*].trafGen.startTime = uniform(20s,100s)
         **.hosts[*].trafGen.sendInterval = 100ms
         **.hosts[*].trafGen.numPackets = 100
         **.hosts[*].trafGen.protocol = 258
@@ -128,7 +138,7 @@ def generate():
         **.waitTime = 20s  
     """))
     nHosts = 20
-    nProxies = 3
+    nProxies = 6
     positions = getNpositions(nHosts+nProxies, 200)
     random.shuffle(positions)
     faulty = random.sample(range(nHosts), int(nHosts*float(sys.argv[4])))
