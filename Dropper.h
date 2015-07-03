@@ -39,6 +39,7 @@ public:
             const InterfaceEntry*& outIE, IPv4Address& nextHopAddr);
 protected:
     virtual void initialize();
+    virtual void finish();
     virtual void handleMessage(cMessage *msg);
     unsigned inPackets;
     unsigned outPackets;

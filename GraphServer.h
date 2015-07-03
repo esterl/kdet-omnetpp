@@ -37,8 +37,8 @@ public:
     IPSetList getAllCores();
     IPSetList getAllBoundaries();
 protected:
-    std::map<int, std::string> index_to_name;
-    std::map<std::string, int> name_to_index;
+    std::map<int, int> index_to_ip;
+    std::map<int, int> ip_to_index;
     std::map<int, int> index_to_gate;
     int k;
     std::vector<intListList> cores;

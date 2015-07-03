@@ -111,7 +111,7 @@ void TrustedAuthority::evaluateKDet() {
 std::pair<bool, double> getNodeEvaluation(
         std::vector<CoreEvaluation*>& evaluationList, IPSet core) {
     bool detected = false;
-    double estimation = 0.0;
+    double estimation = -1;
     for (auto evaluation = evaluationList.begin();
             evaluation != evaluationList.end(); evaluation++) {
         // Look for the evaluation of the requested core

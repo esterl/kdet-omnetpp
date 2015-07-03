@@ -72,6 +72,10 @@ void Dropper::initialize() {
     droppedPackets = 0;
 }
 
+void Dropper::finish(){
+    recordScalar("DropProbability", double(par("dropProbability")));
+    recordScalar("HostFaulty", bool(par("faulty")));
+}
 void Dropper::handleMessage(cMessage *msg) {
     // Send report
     DropperReport* report = new DropperReport();

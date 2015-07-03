@@ -19,10 +19,10 @@ Define_Module(GraphServer);
 
 template<typename iterator>
 std::set<IPv4Address> indexToIP(iterator begin, iterator end,
-        std::map<int, std::string>& dictionary) {
+        std::map<int, int>& dictionary) {
     std::set<IPv4Address> result;
     for (iterator it = begin; it != end; it++) {
-        result.insert(IPv4Address(dictionary[*it].c_str()));
+        result.insert(IPv4Address(dictionary[*it]));
     }
     return result;
 }
@@ -44,12 +44,12 @@ IPSetList GraphServer::getAllCores() {
             // For every node, check if there is any of its cores missing
             for (unsigned j = 0; j < cores[i].size(); j++) {
                 std::set<IPv4Address> IPcore = indexToIP<>(cores[i][j].begin(),
-                        cores[i][j].end(), index_to_name);
+                        cores[i][j].end(), index_to_ip);
                 if (!hasCore(allCores, IPcore)) {
                     allCores.push_back(IPcore);
                     allBoundaries.push_back(
                             indexToIP(boundaries[i][j].begin(),
-                                    boundaries[i][j].end(), index_to_name));
+                                    boundaries[i][j].end(), index_to_ip));
                 }
             }
         }
@@ -70,18 +70,20 @@ std::set<int> GraphServer::getNeighbors(int node) {
 }
 
 std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr) {
-    int index = name_to_index[addr.str()];
+    int index = ip_to_index[addr.getInt()];
     std::set<int> neighbors = getNeighbors(index);
-    return indexToIP(neighbors.begin(), neighbors.end(), index_to_name);
+    return indexToIP(neighbors.begin(), neighbors.end(), index_to_ip);
 }
 
-std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr, unsigned hops) {
-    if (hops==0) return std::set<IPv4Address>();
+std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr,
+        unsigned hops) {
+    if (hops == 0)
+        return std::set<IPv4Address>();
     std::set<IPv4Address> neighbors = getNeighbors(addr);
     std::set<IPv4Address> result = neighbors;
     // TODO optimize - don't ask twice for somebody's neighbors
-    for (auto it=neighbors.begin(); it != neighbors.end(); it++){
-        std::set<IPv4Address> partial_result = getNeighbors(*it, hops-1);
+    for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
+        std::set<IPv4Address> partial_result = getNeighbors(*it, hops - 1);
         result.insert(partial_result.begin(), partial_result.end());
     }
     result.erase(addr);
@@ -119,14 +121,14 @@ void GraphServer::handleMessage(cMessage *msg) {
 int GraphServer::getVertixIndex(IPv4Address node) {
     unsigned index;
 // Is the node in the map?
-    if (name_to_index.find(node.str()) == name_to_index.end()) {
+    if (ip_to_index.find(node.getInt()) == ip_to_index.end()) {
         //Add a vertex to the graph
         index = networkGraph.size();
         networkGraph.push_back(std::set<int>());
-        index_to_name[index] = node.str();
-        name_to_index[node.str()] = index;
+        index_to_ip[index] = node.getInt();
+        ip_to_index[node.getInt()] = index;
     } else {
-        index = name_to_index[node.str()];
+        index = ip_to_index[node.getInt()];
     }
     return index;
 }
@@ -140,20 +142,29 @@ void GraphServer::updateGraph(NeighborsAnnouncement* msg) {
             it++) {
         unsigned to = getVertixIndex(*it);
         networkGraph[from].insert(to);
+        // Make it bi-directional
+        networkGraph[to].insert(from);
     }
     updateCores();
 }
 
 std::vector<std::vector<int>> GraphServer::getCores(int node) {
-    std::set<int> usedNodes, neighbors;
+    std::set<int> usedNodes, neighbors, possibleNodes;
     std::vector<std::vector<int>> cores;
     std::vector<int> partialCore;
     usedNodes.insert(node);
     for (int i = 1; i <= k; i++) {
         neighbors = getNeighbors(node);
-        std::vector<std::vector<int>> cores_i = getCoresRecursive(i,
-                partialCore, neighbors, usedNodes);
-        cores.insert(cores.end(), cores_i.begin(), cores_i.end());
+        for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
+            possibleNodes.clear();
+            possibleNodes.insert(*it);
+            std::vector<std::vector<int>> cores_i = getCoresRecursive(i,
+                    partialCore, possibleNodes, usedNodes);
+            usedNodes.insert(*it);
+            cores.insert(cores.end(), cores_i.begin(), cores_i.end());
+        }
+        usedNodes.clear();
+        usedNodes.insert(node);
     }
     return cores;
 }
@@ -228,7 +239,7 @@ void GraphServer::updateCores() {
 IPSetList GraphServer::indexToIPList(intListList cores) {
     IPSetList list;
     for (auto core = cores.begin(); core != cores.end(); core++) {
-        list.push_back(indexToIP(core->begin(), core->end(), index_to_name));
+        list.push_back(indexToIP(core->begin(), core->end(), index_to_ip));
     }
     return list;
 }

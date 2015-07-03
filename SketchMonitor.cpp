@@ -109,6 +109,7 @@ void SketchMonitor::finish() {
         delete it->second;
     }
     summaries.clear();
+    recordScalar("HostIP", getIP().getInt());
 }
 void SketchMonitor::resetSummaries() {
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
