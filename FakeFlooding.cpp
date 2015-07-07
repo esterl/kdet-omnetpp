@@ -183,7 +183,8 @@ void FakeFlooding::timeoutExpired(ReportIdMsg* idMsg) {
         send(msg, "othersOut");
         // Record Bytes sent
         Report* report = check_and_cast<Report*>(msg->getEncapsulatedPacket());
-        overhead.record(report->getBytes());
+        if (report->getBytes() != 0)
+            overhead.record(report->getBytes());
     }
     if (sendTo[index].size() > 0)
         scheduleAt(simTime() + timeout, idMsg);
