@@ -13,11 +13,11 @@ network kdet
     submodules:
         hosts[numNodes]: WCNNode {
             parameters:
-                @display("r=,,#707070");
+                @display("r=,,#707070;");
         }
         proxies[numProxies]: WCNNode {
             parameters:
-                @display("r=,,#007070");
+                @display("r=,,#007070;");
         }
         channelControl: ChannelControl {
             parameters:
@@ -26,10 +26,18 @@ network kdet
         configurator: IPv4NetworkConfigurator {
             @display("p=140,50");
         }
-        graphServer: GraphServer;
-        ta: TrustedAuthority;
-        flooder: Flooder;
-        clock: Clock;
+        graphServer: GraphServer {
+            @display("p=407,250");
+        }
+        ta: TrustedAuthority {
+            @display("p=60,161");
+        }
+        flooder: Flooder {
+            @display("p=407,161");
+        }
+        clock: Clock {
+            @display("p=60,250");
+        }
     connections:
         for i=0..numNodes-1 {
             hosts[i].toGraphServer --> graphServer.in++;
@@ -39,7 +47,7 @@ network kdet
             hosts[i].othersOut --> flooder.in++;
             hosts[i].othersIn <-- flooder.out++;
         }
-        
+
         for i=0..numProxies-1 {
             proxies[i].toGraphServer --> graphServer.in++;
             proxies[i].fromGraphServer <-- graphServer.out++;

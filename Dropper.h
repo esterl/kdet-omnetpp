@@ -44,6 +44,9 @@ protected:
     unsigned inPackets;
     unsigned outPackets;
     unsigned droppedPackets;
+    unsigned totalIn;
+    unsigned totalOut;
+    unsigned totalDropped;
     bool faulty;
 };
 

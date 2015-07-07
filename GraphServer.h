@@ -48,6 +48,7 @@ protected:
     bool dirty;
     std::vector<std::set<int>> networkGraph;
     virtual void initialize();
+    virtual void finish();
     virtual void handleMessage(cMessage *msg);
     void updateGraph(NeighborsAnnouncement* msg);
     std::set<int> getNeighbors(int node);

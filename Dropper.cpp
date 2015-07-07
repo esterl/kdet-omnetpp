@@ -34,11 +34,14 @@ INetfilter::IHook::Result Dropper::datagramForwardHook(
     // Drop with some prob.
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
         inPackets++;
+        totalIn++;
         if (std::rand() < double(par("dropProbability")) * double(RAND_MAX)) {
             droppedPackets++;
+            totalDropped;
             return IHook::DROP;
         }
         outPackets++;
+        totalOut++;
     }
     return IHook::ACCEPT;
 }
@@ -75,6 +78,8 @@ void Dropper::initialize() {
 void Dropper::finish(){
     recordScalar("DropProbability", double(par("dropProbability")));
     recordScalar("HostFaulty", bool(par("faulty")));
+    recordScalar("TotalDropped", totalDropped);
+    recordScalar("TotalIn", totalIn);
 }
 void Dropper::handleMessage(cMessage *msg) {
     // Send report

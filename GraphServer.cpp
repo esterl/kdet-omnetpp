@@ -107,6 +107,10 @@ void GraphServer::initialize() {
     dirty = true;
 }
 
+void GraphServer::finish(){
+    recordScalar("TotalNodes", networkGraph.size());
+    // TODO save average num neighbs.
+}
 void GraphServer::handleMessage(cMessage *msg) {
     NeighborsAnnouncement* announcement =
             check_and_cast<NeighborsAnnouncement*>(msg);

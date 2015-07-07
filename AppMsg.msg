@@ -13,24 +13,17 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-#include "Clock.h"
+cplusplus {{
+#include "IPv4Address.h"
+#include <vector>
+#include <utility>
 
-Define_Module(Clock);
+typedef std::vector<std::pair<double, long>> PairList;
+}}
 
-void Clock::initialize()
-{
-    interval = par("interval");
-    timer = new cMessage();
-    scheduleAt(par("waitTime"), timer);
-}
-
-void Clock::finish(){
-    cancelAndDelete(timer);
-    recordScalar("Interval", interval);
-}
-void Clock::handleMessage(cMessage *msg)
-{
-    for (unsigned i = 0; i < gateSize("out"); i++)
-        send(msg->dup(), "out",i);
-    scheduleAt(simTime()+ interval, msg);
+class noncobject IPv4Address;
+class noncobject PairList;
+packet AppMsg {
+    IPv4Address IPAddress;
+    PairList responses;
 }
