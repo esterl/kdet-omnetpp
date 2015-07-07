@@ -46,7 +46,11 @@ def getNpositions(N, radius):
         positions += [ (x,y) ]
     return positions
 
-
+def getRandomFiles(N):
+    import glob
+    filenames = glob.glob("traffic/trafGen*.0")
+    return random.sample(filenames, N)
+    
 def generate():
     template = Template( textwrap.dedent("""
         [General]
@@ -54,26 +58,20 @@ def generate():
         experiment-label = {{ expLabel }}
         output-vector-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.vec
         output-scalar-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.sca
-        sim-time-limit = 65s
+        sim-time-limit = 120s
         **.numNodes = {{ nHosts }}
         **.numProxies = {{ nProxies }}
-        **.mobility.numHosts = 100
+        **.mobility.numHosts = 200
         **.resultsFile = "results/TA{{ expLabel }}.csv"
         num-rngs = 3
         **.mobility.rng-0 = 1
         **.wlan[*].mac.rng-0 = 2
         #debug-on-errors = true
+        **.interval = {{ interval }}s
 
         tkenv-plugin-path = ../../../etc/plugins
 
         **.channelNumber = 0
-
-        # channel physical parameters
-        *.channelControl.carrierFrequency = 2.4GHz
-        *.channelControl.pMax = 2.0mW
-        *.channelControl.sat = -110dBm
-        *.channelControl.alpha = 2
-        *.channelControl.numChannels = 1
 
         # mobility
         {% for i in range(nHosts) %}
@@ -92,21 +90,6 @@ def generate():
         **.mobility.constraintAreaMaxZ = 0m
         **.mobilityType = "StationaryMobility"
 
-        # nic settings
-        **.wlan[*].bitrate = 2Mbps
-        **.wlan[*].mgmt.frameCapacity = 10
-        **.wlan[*].mac.address = "auto"
-        **.wlan[*].mac.maxQueueSize = 14
-        **.wlan[*].mac.rtsThresholdBytes = 3000B
-        **.wlan[*].mac.retryLimit = 7
-        **.wlan[*].mac.cwMinData = 7
-        **.wlan[*].mac.cwMinMulticast = 31
-        **.wlan[*].radio.transmitterPower = 2mW
-        **.wlan[*].radio.thermalNoise = -110dBm
-        **.wlan[*].radio.sensitivity = -85dBm
-        **.wlan[*].radio.pathLossAlpha = 2
-        **.wlan[*].radio.snirThreshold = 4dB
-
         #### Malicious behavior
         {% for i in faulty %}
         **.hosts[{{ i }}].*.dropProbability = {{ dropFaulty }}
@@ -117,15 +100,14 @@ def generate():
         **.k = {{ k }}
 
         #### Traffic Generator
-        **.hosts[*].trafGenType = "IPvXTrafGen"
-        **.proxies[*].trafGenType = "IPvXTrafSink"
+        **.trafGenType = "WCNTrafGen"
 
-        **.hosts[*].trafGen.startTime = uniform(20s,100s)
-        **.hosts[*].trafGen.sendInterval = 100ms
-        **.hosts[*].trafGen.numPackets = 100
+        **.hosts[*].trafGen.startTime = 20s
         **.hosts[*].trafGen.protocol = 258
-        **.hosts[*].trafGen.packetLength = 800B
-        **.hosts[*].trafGen.destAddresses = "proxies[*]"
+        {% for i in range(nProxies) %}
+        **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}} ]"
+        **.hosts[{{ i }}].trafGen.filename = "{{ selectedFile[i]}}"
+        {% endfor  %}
         **.proxies[*].trafGen.protocol = 258
 
         ### Vector recording
@@ -137,11 +119,11 @@ def generate():
         **.Tc_redundancy = 2    
         **.waitTime = 20s  
     """))
-    nHosts = 20
-    nProxies = 6
-    positions = getNpositions(nHosts+nProxies, 200)
+    nHosts = 55
+    nProxies = 4
+    positions = getNpositions(nHosts+nProxies, 750)
     random.shuffle(positions)
-    faulty = random.sample(range(nHosts), int(nHosts*float(sys.argv[4])))
+    faulty = random.sample(range(nHosts), int(nHosts*float(sys.argv[5])))
     context = {
         'expLabel': sys.argv[1],
         'nHosts': nHosts,
@@ -149,7 +131,10 @@ def generate():
         'positions': positions,
         'dropFaulty': float(sys.argv[2]),
         'k': int(sys.argv[3]),
+        'interval': sys.argv[4],
         'faulty': faulty,
+        'selectedProxy': [ random.choice(range(nProxies)) for i in range(nHosts) ],
+        'selectedFile': getRandomFiles(nHosts),
     }
     print template.render(context)
 

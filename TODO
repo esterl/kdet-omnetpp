@@ -19,3 +19,132 @@
 * CoreEvaluation --> core from list to set
 * Remove from ReportIdMsg id
 * Reorder FakeFlooding.*
+* Header TA cvs
+
+Valgrind
+==3314==     in use at exit: 214,486 bytes in 1,234 blocks
+==3314==   total heap usage: 25,143,566 allocs, 25,142,332 frees, 4,716,499,662 bytes allocated
+==3314== 
+==3314== 23 bytes in 1 blocks are definitely lost in loss record 12 of 77
+==3314==    at 0x4C2B800: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x452485: TrustedAuthority::initialize() (TrustedAuthority.cpp:28)
+==3314==    by 0x427E89: cComponent::initialize(int) (in /home/ester/omnetpp-4.6/samples/kdet/out/gcc-debug/kdet)
+==3314==    by 0x76BA53A: cModule::initializeModules(int) (cmodule.cc:1362)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314==    by 0x76BA151: cModule::callInitialize() (cmodule.cc:1306)
+==3314==    by 0x76DCC4A: cSimulation::startRun() (csimulation.cc:395)
+==3314==    by 0x6DA09E5: EnvirBase::startRun() (envirbase.cc:872)
+==3314==    by 0x72D78B6: Cmdenv::run() (cmdenv.cc:283)
+==3314==    by 0x6D9CADC: EnvirBase::run(int, char**, cConfiguration*) (envirbase.cc:279)
+==3314==    by 0x6D99F0C: setupUserInterface(int, char**) (startup.cc:239)
+==3314==    by 0x6D9AD0A: evMain (evmain.cc:38)
+==3314== 
+==3314== 48 bytes in 1 blocks are possibly lost in loss record 29 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x439BFE: Hash_CW4<unsigned int, unsigned long>::copy() (hash.tpp:116)
+==3314==    by 0x43C0F6: FastCount_Sketch<unsigned int>::FastCount_Sketch(FastCount_Sketch<unsigned int>*) (sketches.tpp:360)
+==3314==    by 0x43AB7A: FastCount_Sketch<unsigned int>::copy() (sketches.tpp:440)
+==3314==    by 0x4360F3: SketchSummary::getBaseSketch() (SketchSummary.cpp:192)
+==3314==    by 0x434DBB: SketchSummary::SketchSummary(IPv4Address, IPv4Address) (SketchSummary.cpp:30)
+==3314==    by 0x433F6C: SketchMonitor::findSummary(IPv4Address) (SketchMonitor.cpp:134)
+==3314==    by 0x433883: SketchMonitor::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (SketchMonitor.cpp:60)
+==3314==    by 0x5F23666: IPv4::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (IPv4.cc:1036)
+==3314==    by 0x5F21544: IPv4::fragmentPostRouting(IPv4Datagram*, InterfaceEntry const*, IPv4Address) (IPv4.cc:697)
+==3314==    by 0x5F201AF: IPv4::routeUnicastPacketFinish(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:487)
+==3314==    by 0x5F2001A: IPv4::routeUnicastPacket(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:479)
+==3314== 
+==3314== 1,656 bytes in 23 blocks are definitely lost in loss record 56 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x5EBD0EC: IPv4NetworkConfigurator::optimizeRoutes(std::vector<IPv4Route*, std::allocator<IPv4Route*> >&) (IPv4NetworkConfigurator.cc:2164)
+==3314==    by 0x5EBC0CC: IPv4NetworkConfigurator::addStaticRoutes(IPv4NetworkConfigurator::IPv4Topology&) (IPv4NetworkConfigurator.cc:1854)
+==3314==    by 0x5EB0AF6: IPv4NetworkConfigurator::computeConfiguration() (IPv4NetworkConfigurator.cc:117)
+==3314==    by 0x5EB0B5D: IPv4NetworkConfigurator::ensureConfigurationComputed(IPv4NetworkConfigurator::IPv4Topology&) (IPv4NetworkConfigurator.cc:124)
+==3314==    by 0x5EB0EA7: IPv4NetworkConfigurator::configureInterface(InterfaceEntry*) (IPv4NetworkConfigurator.cc:161)
+==3314==    by 0x5ECD7C4: IPv4NodeConfigurator::configureNode() (IPv4NodeConfigurator.cc:127)
+==3314==    by 0x5ECD1C6: IPv4NodeConfigurator::initialize(int) (IPv4NodeConfigurator.cc:70)
+==3314==    by 0x76BA53A: cModule::initializeModules(int) (cmodule.cc:1362)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314== 
+==3314== 20,240 bytes in 506 blocks are definitely lost in loss record 70 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x5EBCF64: IPv4NetworkConfigurator::optimizeRoutes(std::vector<IPv4Route*, std::allocator<IPv4Route*> >&) (IPv4NetworkConfigurator.cc:2135)
+==3314==    by 0x5EBC0CC: IPv4NetworkConfigurator::addStaticRoutes(IPv4NetworkConfigurator::IPv4Topology&) (IPv4NetworkConfigurator.cc:1854)
+==3314==    by 0x5EB0AF6: IPv4NetworkConfigurator::computeConfiguration() (IPv4NetworkConfigurator.cc:117)
+==3314==    by 0x5EB0B5D: IPv4NetworkConfigurator::ensureConfigurationComputed(IPv4NetworkConfigurator::IPv4Topology&) (IPv4NetworkConfigurator.cc:124)
+==3314==    by 0x5EB0EA7: IPv4NetworkConfigurator::configureInterface(InterfaceEntry*) (IPv4NetworkConfigurator.cc:161)
+==3314==    by 0x5ECD7C4: IPv4NodeConfigurator::configureNode() (IPv4NodeConfigurator.cc:127)
+==3314==    by 0x5ECD1C6: IPv4NodeConfigurator::initialize(int) (IPv4NodeConfigurator.cc:70)
+==3314==    by 0x76BA53A: cModule::initializeModules(int) (cmodule.cc:1362)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314==    by 0x76BA58D: cModule::initializeModules(int) (cmodule.cc:1373)
+==3314== 
+==3314== 30,224 (128 direct, 30,096 indirect) bytes in 1 blocks are definitely lost in loss record 74 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x433F5B: SketchMonitor::findSummary(IPv4Address) (SketchMonitor.cpp:134)
+==3314==    by 0x433883: SketchMonitor::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (SketchMonitor.cpp:60)
+==3314==    by 0x5F23666: IPv4::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (IPv4.cc:1036)
+==3314==    by 0x5F21544: IPv4::fragmentPostRouting(IPv4Datagram*, InterfaceEntry const*, IPv4Address) (IPv4.cc:697)
+==3314==    by 0x5F201AF: IPv4::routeUnicastPacketFinish(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:487)
+==3314==    by 0x5F2001A: IPv4::routeUnicastPacket(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:479)
+==3314==    by 0x5F1F827: IPv4::datagramLocalOut(IPv4Datagram*, InterfaceEntry const*, IPv4Address) (IPv4.cc:389)
+==3314==    by 0x5F1F13E: IPv4::handlePacketFromHL(cPacket*) (IPv4.cc:320)
+==3314==    by 0x5F1E29E: IPv4::endService(cPacket*) (IPv4.cc:131)
+==3314==    by 0x5DE3E3E: AbstractQueue::doEndService() (AbstractQueue.cc:76)
+==3314==    by 0x5DE3E03: AbstractQueue::doStartService() (AbstractQueue.cc:71)
+==3314== 
+==3314== 30,224 (48 direct, 30,176 indirect) bytes in 1 blocks are definitely lost in loss record 75 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x43950E: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned int const, Sketch<unsigned int>*> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==3314==    by 0x438C07: std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_get_node() (stl_tree.h:370)
+==3314==    by 0x437EF8: std::_Rb_tree_node<std::pair<unsigned int const, Sketch<unsigned int>*> >* std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned int&&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int&&>&&, std::tuple<>&&) (stl_tree.h:403)
+==3314==    by 0x4376C1: std::_Rb_tree_iterator<std::pair<unsigned int const, Sketch<unsigned int>*> > std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned int&&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::piecewise_construct_t const&, std::tuple<unsigned int&&>&&, std::tuple<>&&) (stl_tree.h:1669)
+==3314==    by 0x4368DC: std::map<unsigned int, Sketch<unsigned int>*, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::operator[](unsigned int&&) (stl_map.h:484)
+==3314==    by 0x4350AA: SketchSummary::updateSummaryPreRouting(IPv4Datagram*) (SketchSummary.cpp:52)
+==3314==    by 0x4337A2: SketchMonitor::datagramPreRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (SketchMonitor.cpp:42)
+==3314==    by 0x5F23286: IPv4::datagramPreRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (IPv4.cc:1004)
+==3314==    by 0x5F1E728: IPv4::handleIncomingDatagram(IPv4Datagram*, InterfaceEntry const*) (IPv4.cc:185)
+==3314==    by 0x5F1E3C6: IPv4::endService(cPacket*) (IPv4.cc:143)
+==3314==    by 0x5DE3E3E: AbstractQueue::doEndService() (AbstractQueue.cc:76)
+==3314== 
+==3314== 60,400 (96 direct, 60,304 indirect) bytes in 2 blocks are definitely lost in loss record 76 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x43950E: __gnu_cxx::new_allocator<std::_Rb_tree_node<std::pair<unsigned int const, Sketch<unsigned int>*> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==3314==    by 0x438C07: std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_get_node() (stl_tree.h:370)
+==3314==    by 0x437EF8: std::_Rb_tree_node<std::pair<unsigned int const, Sketch<unsigned int>*> >* std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_create_node<std::piecewise_construct_t const&, std::tuple<unsigned int&&>, std::tuple<> >(std::piecewise_construct_t const&, std::tuple<unsigned int&&>&&, std::tuple<>&&) (stl_tree.h:403)
+==3314==    by 0x4376C1: std::_Rb_tree_iterator<std::pair<unsigned int const, Sketch<unsigned int>*> > std::_Rb_tree<unsigned int, std::pair<unsigned int const, Sketch<unsigned int>*>, std::_Select1st<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::_M_emplace_hint_unique<std::piecewise_construct_t const&, std::tuple<unsigned int&&>, std::tuple<> >(std::_Rb_tree_const_iterator<std::pair<unsigned int const, Sketch<unsigned int>*> >, std::piecewise_construct_t const&, std::tuple<unsigned int&&>&&, std::tuple<>&&) (stl_tree.h:1669)
+==3314==    by 0x4368DC: std::map<unsigned int, Sketch<unsigned int>*, std::less<unsigned int>, std::allocator<std::pair<unsigned int const, Sketch<unsigned int>*> > >::operator[](unsigned int&&) (stl_map.h:484)
+==3314==    by 0x4351CE: SketchSummary::updateSummaryPostRouting(IPv4Datagram*) (SketchSummary.cpp:63)
+==3314==    by 0x4338B1: SketchMonitor::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (SketchMonitor.cpp:61)
+==3314==    by 0x5F23666: IPv4::datagramPostRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (IPv4.cc:1036)
+==3314==    by 0x5F21544: IPv4::fragmentPostRouting(IPv4Datagram*, InterfaceEntry const*, IPv4Address) (IPv4.cc:697)
+==3314==    by 0x5F201AF: IPv4::routeUnicastPacketFinish(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:487)
+==3314==    by 0x5F2001A: IPv4::routeUnicastPacket(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*, IPv4Address) (IPv4.cc:479)
+==3314== 
+==3314== 60,448 (256 direct, 60,192 indirect) bytes in 2 blocks are definitely lost in loss record 77 of 77
+==3314==    at 0x4C2B0E0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==3314==    by 0x433F5B: SketchMonitor::findSummary(IPv4Address) (SketchMonitor.cpp:134)
+==3314==    by 0x433774: SketchMonitor::datagramPreRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (SketchMonitor.cpp:41)
+==3314==    by 0x5F23286: IPv4::datagramPreRoutingHook(IPv4Datagram*, InterfaceEntry const*, InterfaceEntry const*&, IPv4Address&) (IPv4.cc:1004)
+==3314==    by 0x5F1E728: IPv4::handleIncomingDatagram(IPv4Datagram*, InterfaceEntry const*) (IPv4.cc:185)
+==3314==    by 0x5F1E3C6: IPv4::endService(cPacket*) (IPv4.cc:143)
+==3314==    by 0x5DE3E3E: AbstractQueue::doEndService() (AbstractQueue.cc:76)
+==3314==    by 0x5DE3E03: AbstractQueue::doStartService() (AbstractQueue.cc:71)
+==3314==    by 0x5DE3D25: AbstractQueue::handleMessage(cMessage*) (AbstractQueue.cc:55)
+==3314==    by 0x5F1E1E4: IPv4::handleMessage(cMessage*) (IPv4.cc:119)
+==3314==    by 0x76DD77F: cSimulation::doOneEvent(cSimpleModule*) (csimulation.cc:617)
+==3314==    by 0x72D7F01: Cmdenv::simulate() (cmdenv.cc:425)
+==3314== 
+==3314== LEAK SUMMARY:
+==3314==    definitely lost: 22,447 bytes in 536 blocks
+==3314==    indirectly lost: 180,768 bytes in 635 blocks
+==3314==      possibly lost: 48 bytes in 1 blocks
+==3314==    still reachable: 11,223 bytes in 62 blocks
+==3314==         suppressed: 0 bytes in 0 blocks
+==3314== Reachable blocks (those to which a pointer was found) are not shown.
+==3314== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==3314== 
+==3314== For counts of detected and suppressed errors, rerun with: -v
+==3314== ERROR SUMMARY: 8 errors from 8 contexts (suppressed: 0 from 0)
