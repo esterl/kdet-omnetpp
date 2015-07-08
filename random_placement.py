@@ -104,7 +104,7 @@ def generate():
 
         **.hosts[*].trafGen.startTime = 20s
         **.hosts[*].trafGen.protocol = 258
-        {% for i in range(nHosts) %}
+        {% for i in range(nHosts) if i not in faulty %}
         **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}}]"
         **.hosts[{{ i }}].trafGen.filename = "{{ selectedFile[i]}}"
         {% endfor  %}
@@ -119,7 +119,7 @@ def generate():
         **.Tc_redundancy = 2    
         **.waitTime = 20s  
     """))
-    nHosts = 3
+    nHosts = 10
     nProxies = 2
     positions = getNpositions(nHosts+nProxies, 750)
     random.shuffle(positions)

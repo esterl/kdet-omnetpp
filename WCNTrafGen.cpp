@@ -43,6 +43,8 @@ bool WCNTrafGen::processFileLine(bool& direction, double& deltaTime,
             // Bytes
             std::getline(buffer, field, ',');
             bytes = std::stol(field);
+            if (bytes > 2280)
+                bytes = 2280;
             return true;
         }
     }
