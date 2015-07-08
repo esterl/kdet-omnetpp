@@ -27,7 +27,7 @@ Define_Module(WCNTrafGen);
 simsignal_t WCNTrafGen::rcvdPkSignal = registerSignal("rcvdPk");
 simsignal_t WCNTrafGen::sentPkSignal = registerSignal("sentPk");
 
-void WCNTrafGen::processFileLine(bool& direction, double& deltaTime,
+bool WCNTrafGen::processFileLine(bool& direction, double& deltaTime,
         long &bytes) {
     if (file.is_open() & file.good()) {
         std::string line, field;
@@ -43,8 +43,10 @@ void WCNTrafGen::processFileLine(bool& direction, double& deltaTime,
             // Bytes
             std::getline(buffer, field, ',');
             bytes = std::stol(field);
+            return true;
         }
     }
+    return false;
 }
 
 std::vector<std::pair<double, long>> WCNTrafGen::readAndScheduleNextIn() {
@@ -54,18 +56,19 @@ std::vector<std::pair<double, long>> WCNTrafGen::readAndScheduleNextIn() {
             bool direction;
             double deltaTime;
             long bytes;
-            processFileLine(direction, deltaTime, bytes);
-            // Look for the first "IN" message:
-            lastScheduled += deltaTime;
-            if (direction == IN) {
-                AppMsg* msg = new AppMsg();
-                msg->setByteLength(bytes);
-                msg->setIPAddress(getIP());
-                scheduleAt(lastScheduled, msg);
-                pendingMessages.push_back(msg);
-                break;
-            } else {
-                result.push_back(std::make_pair(deltaTime, bytes));
+            if (processFileLine(direction, deltaTime, bytes)) {
+                // Look for the first "IN" message:
+                lastScheduled += deltaTime;
+                if (direction == IN) {
+                    AppMsg* msg = new AppMsg();
+                    msg->setByteLength(bytes);
+                    msg->setIPAddress(getIP());
+                    scheduleAt(lastScheduled, msg);
+                    pendingMessages.push_back(msg);
+                    break;
+                } else {
+                    result.push_back(std::make_pair(deltaTime, bytes));
+                }
             }
         }
     }

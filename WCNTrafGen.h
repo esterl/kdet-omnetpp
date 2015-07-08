@@ -39,7 +39,7 @@ protected:
     static simsignal_t sentPkSignal;
     static simsignal_t rcvdPkSignal;
 private:
-    void processFileLine(bool& direction, double& deltaTime, long &bytes);
+    bool processFileLine(bool& direction, double& deltaTime, long &bytes);
     std::vector<std::pair<double, long>> readAndScheduleNextIn();
     IPv4Address getIP();
     std::ifstream file;

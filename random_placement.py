@@ -48,7 +48,7 @@ def getNpositions(N, radius):
 
 def getRandomFiles(N):
     import glob
-    filenames = glob.glob("traffic/trafGen*.0")
+    filenames = glob.glob("traffic/trafGen*.5")
     return random.sample(filenames, N)
     
 def generate():
@@ -104,8 +104,8 @@ def generate():
 
         **.hosts[*].trafGen.startTime = 20s
         **.hosts[*].trafGen.protocol = 258
-        {% for i in range(nProxies) %}
-        **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}} ]"
+        {% for i in range(nHosts) %}
+        **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}}]"
         **.hosts[{{ i }}].trafGen.filename = "{{ selectedFile[i]}}"
         {% endfor  %}
         **.proxies[*].trafGen.protocol = 258
@@ -119,8 +119,8 @@ def generate():
         **.Tc_redundancy = 2    
         **.waitTime = 20s  
     """))
-    nHosts = 55
-    nProxies = 4
+    nHosts = 3
+    nProxies = 2
     positions = getNpositions(nHosts+nProxies, 750)
     random.shuffle(positions)
     faulty = random.sample(range(nHosts), int(nHosts*float(sys.argv[5])))
