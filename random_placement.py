@@ -115,12 +115,12 @@ def generate():
         **.flooding.*.vector-recording = true
         **.vector-recording = false
         # Routing
-        **.routingProtocol = "OLSR"
+        **.routingProtocol = "OLSR_ETX"
         **.Tc_redundancy = 2    
         **.waitTime = 20s  
     """))
-    nHosts = 10
-    nProxies = 2
+    nHosts = 55
+    nProxies = 6
     positions = getNpositions(nHosts+nProxies, 750)
     random.shuffle(positions)
     faulty = random.sample(range(nHosts), int(nHosts*float(sys.argv[5])))
