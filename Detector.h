@@ -23,7 +23,7 @@
 #include <IPv4Address.h>
 #include "Report.h"
 #include "CoresUpdate_m.h"
-
+#include "CoreEvaluation_m.h"
 /**
  * TODO - Generated class
  */
@@ -35,8 +35,8 @@ protected:
     void updateReports(Report* report);
     virtual void evaluateCores();
     void updateCores(CoresUpdate* update);
-    std::pair<std::map<int, bool>, double> evaluateCore(
-            std::set<IPv4Address> core, std::set<IPv4Address> boundary);
+    void evaluateCore(std::set<IPv4Address> core,
+            std::set<IPv4Address> boundary, CoreEvaluation* msg);
     void clearReports();
     IPv4Address getIP();
     std::unordered_map<int, Report*> reports;

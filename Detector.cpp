@@ -73,13 +73,10 @@ void Detector::updateCores(CoresUpdate* update) {
 
 void Detector::evaluateCores() {
     for (unsigned i = 0; i < cores.size(); i++) {
-        std::pair<std::map<int, bool>, double> evaluation = evaluateCore(
-                cores[i], boundaries[i]);
         // Share evaluation
         CoreEvaluation* evaluationMsg = new CoreEvaluation("Core evaluation");
         evaluationMsg->setReporter(getIP());
-        evaluationMsg->setReceivedReports(evaluation.first);
-        evaluationMsg->setDropEstimation(evaluation.second);
+        evaluateCore(cores[i], boundaries[i], evaluationMsg);
         evaluationMsg->setCore(
                 std::vector<IPv4Address>(cores[i].begin(), cores[i].end()));
         evaluationMsg->setBogus(faulty);
@@ -87,8 +84,8 @@ void Detector::evaluateCores() {
     }
 }
 
-std::pair<std::map<int, bool>, double> Detector::evaluateCore(
-        std::set<IPv4Address> core, std::set<IPv4Address> boundary) {
+void Detector::evaluateCore(std::set<IPv4Address> core,
+        std::set<IPv4Address> boundary, CoreEvaluation* msg) {
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
@@ -112,16 +109,23 @@ std::pair<std::map<int, bool>, double> Detector::evaluateCore(
             }
         }
     }
-    double dropPerc;
+    double dropPerc, inPkts, outPkts;
     if (globalSummary != NULL) {
         // Estimate the drop %
         dropPerc = globalSummary->estimateDrop(core);
+        inPkts = globalSummary->estimateIn(core);
+        outPkts = globalSummary->estimateOut(core);
         delete globalSummary;
     } else {
         //std::cout << "No summaries" << endl;
         dropPerc = 0.0;
+        inPkts = 0.0;
+        outPkts = 0.0;
     }
-    return make_pair(receivedSketches, dropPerc);
+    msg->setDropEstimation(dropPerc);
+    msg->setInEstimation(inPkts);
+    msg->setOutEstimation(outPkts);
+    msg->setReceivedReports(receivedSketches);
 }
 
 void Detector::clearReports() {

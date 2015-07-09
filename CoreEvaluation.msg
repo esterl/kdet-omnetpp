@@ -28,6 +28,8 @@ message CoreEvaluation{
     IPv4Address reporter;
 	BoolMap receivedReports;
 	IPList core;
-	double dropEstimation;    
+	double dropEstimation;
+	double inEstimation;
+	double outEstimation;
 	bool bogus;
 }

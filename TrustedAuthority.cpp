@@ -46,7 +46,9 @@ void TrustedAuthority::initialize() {
     threshold = par("threshold");
     // CSV
     cvsFile.open(par("resultsFile").stringValue());
-    cvsFile << "Timestamp, Core, Detected, Estimation, Real, Collusion" << endl;
+    cvsFile
+            << "Timestamp, Core, Detected, DropEstimation, InEstimation, OutEstimation, Real, Collusion"
+            << endl;
 }
 
 void TrustedAuthority::finish() {
@@ -108,10 +110,9 @@ void TrustedAuthority::evaluateKDet() {
     }
 }
 
-std::pair<bool, double> getNodeEvaluation(
+std::pair<bool, CoreEvaluation*> getNodeEvaluation(
         std::vector<CoreEvaluation*>& evaluationList, IPSet core) {
     bool detected = false;
-    double estimation = -1;
     for (auto evaluation = evaluationList.begin();
             evaluation != evaluationList.end(); evaluation++) {
         // Look for the evaluation of the requested core
@@ -123,11 +124,11 @@ std::pair<bool, double> getNodeEvaluation(
                 if (!(it->second))
                     detected = true;
             }
-            // Get Estimation
-            estimation = (*evaluation)->getDropEstimation();
+            return std::make_pair(detected, *evaluation);
         }
     }
-    return std::make_pair(detected, estimation);
+    CoreEvaluation* evaluation = NULL;
+    return std::make_pair(detected, evaluation);
 }
 
 void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary) {
@@ -136,22 +137,36 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary) {
     std::ostringstream os;
     os << simTime() << "," << "'" << coreToString(core) << "'" << ","
             << isFaulty(core) << ",";
-    std::ostringstream estimations;
-    estimations << "'";
+    std::ostringstream dropEstimations, inEstimations, outEstimations;
+    dropEstimations << "'";
+    inEstimations << "'";
+    outEstimations << "'";
     bool bogus = false;
     for (auto node = boundary.begin(); node != boundary.end(); node++) {
         // Get the evaluations from that node:
-        std::pair<bool, double> evaluation = getNodeEvaluation(
+        std::pair<bool, CoreEvaluation*> evaluation = getNodeEvaluation(
                 evaluations[IPtoIndex[(*node).getInt()]], core);
-        estimations << evaluation.second << ",";
+        if (evaluation.second != NULL) {
+            dropEstimations << evaluation.second->getDropEstimation() << ",";
+            inEstimations << evaluation.second->getInEstimation() << ",";
+            outEstimations << evaluation.second->getOutEstimation() << ",";
+        } else {
+            dropEstimations << -1 << ",";
+            inEstimations << -1 << ",";
+            outEstimations << -1 << ",";
+        }
         // Update detected
-        detected = evaluation.first | (evaluation.second > getThreshold(core));
+        detected = evaluation.first
+                | (evaluation.second->getDropEstimation() > getThreshold(core));
         // Update collusion
         if (faulty[IPtoIndex[node->getInt()]] & collusion(*node, core))
             bogus = true;
     }
-    estimations << "'";
-    cvsFile << os.str() << estimations.str() << ","
+    dropEstimations << "'";
+    inEstimations << "'";
+    outEstimations << "'";
+    cvsFile << os.str() << dropEstimations.str() << "," << inEstimations.str()
+            << "," << outEstimations.str() << ","
             << getRealDropProbability(core) << "," << bogus << endl;
 }
 

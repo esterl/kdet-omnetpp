@@ -132,6 +132,29 @@ double SketchSummary::estimateDrop(std::set<IPv4Address> core) {
     return dropped / sent;
 }
 
+double SketchSummary::estimateIn(std::set<IPv4Address> core) {
+    NetworkSketch* sketchIn = to->copy();
+    for (auto it = dst.begin(); it != dst.end(); it++) {
+        if (core.count(IPv4Address(it->first)) != 0) {
+            (*sketchIn) -= (*it->second);
+        }
+    }
+    double received = sketchIn->second_moment();
+    delete sketchIn;
+    return received;
+}
+
+double SketchSummary::estimateOut(std::set<IPv4Address> core) {
+    NetworkSketch* sketchOut = from->copy();
+    for (auto it = src.begin(); it != src.end(); it++) {
+        if (core.count(IPv4Address(it->first)) != 0) {
+           (*sketchOut) -= (*it->second);
+        }
+    }
+    double sent = sketchOut->second_moment();
+    delete sketchOut;
+    return sent;
+}
 double SketchSummary::getBytes(){
     // Sum the bytes required to store each Sketch
     double bytes = 0.;

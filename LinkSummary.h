@@ -32,6 +32,8 @@ public:
     virtual LinkSummary* copy() const = 0;
     virtual void add(LinkSummary* other) = 0;
     virtual double estimateDrop(std::set<IPv4Address> core) = 0;
+    virtual double estimateIn(std::set<IPv4Address> core) = 0;
+    virtual double estimateOut(std::set<IPv4Address> core) = 0;
     virtual double getBytes() = 0;
     virtual void optimizeSummary(std::set<IPv4Address> coreNodes) = 0;
 protected:
