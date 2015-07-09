@@ -1,7 +1,5 @@
-* *.vec -- Record only != 0
 * Rename ReliableFlooding to RobustFlooding
 * Sketches as a library
-* Robust flooding --> eliminar aquellos "sketches" viejos
 * Code "properness"
 * Think about using signature as ID on the flooding
 * Think about maps vs unordered_maps
@@ -23,3 +21,5 @@
 * Header TA cvs
 * Fix memory leak ip routes
 * Reorder TrustedAuthority.cpp
+* FakeFlooding --> Use IP + Broadcast
+* Migrate to INET 3.0

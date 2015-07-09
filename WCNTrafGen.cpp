@@ -60,12 +60,16 @@ std::vector<std::pair<double, long>> WCNTrafGen::readAndScheduleNextIn() {
             long bytes;
             if (processFileLine(direction, deltaTime, bytes)) {
                 // Look for the first "IN" message:
-                lastScheduled += deltaTime;
+                simtime_t time = deltaTime + startTime;
                 if (direction == IN) {
                     AppMsg* msg = new AppMsg();
                     msg->setByteLength(bytes);
                     msg->setIPAddress(getIP());
-                    scheduleAt(lastScheduled, msg);
+                    if (time < simTime()) {
+                        scheduleAt(simTime(), msg);
+                    } else {
+                        scheduleAt(time, msg);
+                    }
                     pendingMessages.push_back(msg);
                     break;
                 } else {
@@ -148,17 +152,21 @@ void WCNTrafGen::replyAppMsg(AppMsg* msg) {
     numReceived++;
     // Schedule a message for each required response
     std::vector<std::pair<double, long>> responses = msg->getResponses();
-    simtime_t schedTime = simTime();
+    simtime_t schedTime;
     IPv4ControlInfo *ctrl =
             dynamic_cast<IPv4ControlInfo *>(msg->getControlInfo());
     IPv4Address ip = ctrl->getSrcAddr();
     for (auto it = responses.begin(); it != responses.end(); it++) {
         AppMsg* newMsg = new AppMsg();
-        schedTime += it->first;
+        schedTime = it->first + startTime;
         newMsg->setByteLength(it->second);
         newMsg->setIPAddress(ip);
         pendingMessages.push_back(newMsg);
-        scheduleAt(schedTime, newMsg);
+        if (schedTime < simTime()) {
+            scheduleAt(simTime(), newMsg);
+        } else {
+            scheduleAt(schedTime, newMsg);
+        }
     }
     delete msg;
 }

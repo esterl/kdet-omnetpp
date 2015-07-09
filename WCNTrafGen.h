@@ -35,7 +35,6 @@ protected:
     int numSent;
     int numReceived;
     simtime_t startTime;
-    simtime_t lastScheduled;
     static simsignal_t sentPkSignal;
     static simsignal_t rcvdPkSignal;
 private:
