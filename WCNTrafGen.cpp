@@ -87,7 +87,6 @@ void WCNTrafGen::initialize(int stage) {
     if (stage == 0) {
         protocol = par("protocol");
         startTime = par("startTime");
-        lastScheduled = startTime;
         numSent = 0;
         numReceived = 0;
         WATCH(numSent);
