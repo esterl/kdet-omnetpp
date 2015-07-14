@@ -115,10 +115,12 @@ WCNTrafGen::~WCNTrafGen() {
 }
 
 void WCNTrafGen::handleMessage(cMessage *msg) {
-    if (msg->isSelfMessage()) {
-        newAppMsg(check_and_cast<AppMsg*>(msg));
-    } else {
-        replyAppMsg(check_and_cast<AppMsg*>(msg));
+    if (dynamic_cast<AppMsg*>(msg)) {
+        if (msg->isSelfMessage()) {
+            newAppMsg(check_and_cast<AppMsg*>(msg));
+        } else {
+            replyAppMsg(check_and_cast<AppMsg*>(msg));
+        }
     }
 }
 

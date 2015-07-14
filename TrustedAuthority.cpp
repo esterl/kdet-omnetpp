@@ -45,10 +45,12 @@ void TrustedAuthority::initialize() {
     beta = par("beta");
     threshold = par("threshold");
     // CSV
-    cvsFile.open(par("resultsFile").stringValue());
-    cvsFile
-            << "Timestamp, Core, Detected, DropEstimation, InEstimation, OutEstimation, Real, Collusion"
+    nodeCSV.open(std::string("node_") + par("resultsFile").stringValue());
+    nodeCSV << "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped"
             << endl;
+    coreCSV.open(std::string("core_") + par("resultsFile").stringValue());
+    coreCSV << "Timestamp, Core, Detected, DropEstimation, InEstimation, "
+            << "OutEstimation, DropReal, InReal, OutReal, Collusion" << endl;
 }
 
 void TrustedAuthority::finish() {
@@ -58,7 +60,8 @@ void TrustedAuthority::finish() {
     delete[] faulty;
     clearEvaluations();
     delete[] evaluations;
-    cvsFile.close();
+    nodeCSV.close();
+    coreCSV.close();
 }
 
 void TrustedAuthority::handleMessage(cMessage *msg) {
@@ -103,10 +106,25 @@ void TrustedAuthority::evaluateKDet() {
     IPSetList cores = graphServer->getAllCores();
     IPSetList boundaries = graphServer->getAllBoundaries();
 
+    std::vector<double> *estimatedIn = new std::vector<double>[numNodes];
+    std::vector<double> *estimatedDropped = new std::vector<double>[numNodes];
     for (unsigned i = 0; i < cores.size(); i++) {
-        evaluateCore(cores[i], boundaries[i]);
+        std::pair<double, double> evaluation = evaluateCore(cores[i],
+                boundaries[i]);
+        for (auto node = cores[i].begin(); node != cores[i].end(); node++) {
+            estimatedIn[IPtoIndex[node->getInt()]].push_back(evaluation.first);
+            estimatedDropped[IPtoIndex[node->getInt()]].push_back(evaluation.second);
+        }
         coreSize.record(cores[i].size());
         coreIsFaulty.record(isFaulty(cores[i]));
+    }
+    // Record values in nodeCSV
+    for (unsigned i = 0; i < numNodes; i++) {
+        for (unsigned j = 0; j < estimatedIn[i].size(); j++) {
+            // "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped"
+            nodeCSV << simTime() << ", " << estimatedIn[i][j] << ", "
+                    << estimatedDropped[i][j] << endl;
+        }
     }
 }
 
@@ -131,29 +149,36 @@ std::pair<bool, CoreEvaluation*> getNodeEvaluation(
     return std::make_pair(detected, evaluation);
 }
 
-void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary) {
+std::pair<double, double> TrustedAuthority::evaluateCore(IPSet core, IPSet boundary) {
     bool detected = false;
-    // Base entry
+// Base entry
     std::ostringstream os;
     os << simTime() << "," << "'" << coreToString(core) << "'" << ","
             << isFaulty(core) << ",";
-    std::ostringstream dropEstimations, inEstimations, outEstimations;
-    dropEstimations << "'";
-    inEstimations << "'";
-    outEstimations << "'";
+    double dropEstimation, inEstimation, outEstimation;
+    dropEstimation = -1;
+    inEstimation = -1;
+    outEstimation = -1;
     bool bogus = false;
     for (auto node = boundary.begin(); node != boundary.end(); node++) {
         // Get the evaluations from that node:
         std::pair<bool, CoreEvaluation*> evaluation = getNodeEvaluation(
                 evaluations[IPtoIndex[(*node).getInt()]], core);
         if (evaluation.second != NULL) {
-            dropEstimations << evaluation.second->getDropEstimation() << ",";
-            inEstimations << evaluation.second->getInEstimation() << ",";
-            outEstimations << evaluation.second->getOutEstimation() << ",";
+            if (dropEstimation == -1 || inEstimation == -1 || outEstimation == -1){
+                dropEstimation = evaluation.second->getDropEstimation();
+                inEstimation = evaluation.second->getInEstimation();
+                outEstimation = evaluation.second->getOutEstimation();
+            }else{
+                if (dropEstimation != evaluation.second->getDropEstimation())
+                    std::cout << "Received different drop estimations for the same core" << endl;
+                if (inEstimation != evaluation.second->getInEstimation())
+                    std::cout << "Received different in estimations for the same core" << endl;
+                if (outEstimation != evaluation.second->getOutEstimation())
+                    std::cout << "Received different in estimations for the same core" << endl;
+            }
         } else {
-            dropEstimations << -1 << ",";
-            inEstimations << -1 << ",";
-            outEstimations << -1 << ",";
+            std::cout << "Estimation not received from " << *node << endl;
         }
         // Update detected
         detected = evaluation.first
@@ -162,22 +187,24 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary) {
         if (faulty[IPtoIndex[node->getInt()]] & collusion(*node, core))
             bogus = true;
     }
-    dropEstimations << "'";
-    inEstimations << "'";
-    outEstimations << "'";
-    cvsFile << os.str() << dropEstimations.str() << "," << inEstimations.str()
-            << "," << outEstimations.str() << ","
-            << getRealDropProbability(core) << "," << bogus << endl;
+    coreCSV << os.str() << dropEstimation << "," << inEstimation
+            << "," << outEstimation << ","
+            << getRealValues(core) << "," << bogus << endl;
+    return std::make_pair(inEstimation, dropEstimation);
 }
 
-std::string TrustedAuthority::getRealDropProbability(IPSet core) {
+std::string TrustedAuthority::getRealValues(IPSet core) {
     std::ostringstream os;
-    os << "'";
+    double dropped = 0;
+    double in = 0;
+    double out = 0;
     for (auto node = core.begin(); node != core.end(); node++) {
         unsigned index = IPtoIndex[node->getInt()];
-        os << double(droppedPackets[index]) / max(inPackets[index], 1) << ",";
+        dropped += droppedPackets[index];
+        in += inPackets[index];
+        out += outPackets[index];
     }
-    os << "'";
+    os << dropped << ", " << in << ", " << out;
     return os.str();
 }
 

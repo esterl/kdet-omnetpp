@@ -32,9 +32,9 @@ protected:
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     virtual void evaluateKDet();
-    virtual void evaluateCore(std::set<IPv4Address> core,
+    virtual std::pair<double, double> evaluateCore(std::set<IPv4Address> core,
             std::set<IPv4Address> boundary);
-    std::string getRealDropProbability(IPSet core);
+    std::string getRealValues(IPSet core);
     bool collusion(IPv4Address boundaryNode, std::set<IPv4Address> core);
     virtual double getThreshold(std::set<IPv4Address> core);
     bool isFaulty(std::set<IPv4Address> core);
@@ -57,7 +57,8 @@ protected:
     cOutVector coreSize;
     cOutVector coreDetected;
     // CSV file
-    std::ofstream cvsFile;
+    std::ofstream coreCSV;
+    std::ofstream nodeCSV;
 };
 
 #endif
