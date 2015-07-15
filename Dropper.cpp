@@ -37,7 +37,7 @@ INetfilter::IHook::Result Dropper::datagramForwardHook(
         totalIn++;
         if (std::rand() < double(par("dropProbability")) * double(RAND_MAX)) {
             droppedPackets++;
-            totalDropped;
+            totalDropped++;
             return IHook::DROP;
         }
         outPackets++;

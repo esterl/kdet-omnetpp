@@ -45,10 +45,10 @@ void TrustedAuthority::initialize() {
     beta = par("beta");
     threshold = par("threshold");
     // CSV
-    nodeCSV.open(std::string("node_") + par("resultsFile").stringValue());
-    nodeCSV << "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped"
+    nodeCSV.open(std::string("results/node_") + par("resultsFile").stringValue());
+    nodeCSV << "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped, NodeDrop, NodeIn, NodeOut"
             << endl;
-    coreCSV.open(std::string("core_") + par("resultsFile").stringValue());
+    coreCSV.open(std::string("results/core_") + par("resultsFile").stringValue());
     coreCSV << "Timestamp, Core, Detected, DropEstimation, InEstimation, "
             << "OutEstimation, DropReal, InReal, OutReal, Collusion" << endl;
 }
@@ -122,10 +122,13 @@ void TrustedAuthority::evaluateKDet() {
     for (unsigned i = 0; i < numNodes; i++) {
         for (unsigned j = 0; j < estimatedIn[i].size(); j++) {
             // "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped"
-            nodeCSV << simTime() << ", " << estimatedIn[i][j] << ", "
-                    << estimatedDropped[i][j] << endl;
+            nodeCSV << simTime() << ", "  << i << "," << estimatedIn[i][j] << ", "
+                    << estimatedDropped[i][j] << "," << droppedPackets[i] << "," 
+                    << inPackets[i] << ", " << outPackets[i] << endl;
         }
     }
+    delete [] estimatedIn;
+    delete [] estimatedDropped;
 }
 
 std::pair<bool, CoreEvaluation*> getNodeEvaluation(
