@@ -203,7 +203,7 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
             bogusEval = true;
     }
     coreCSV << os.str() << dropEstimation << "," << inEstimation << ","
-            << outEstimation << "," << getRealValues(core) << "," << bogus
+            << outEstimation << "," << getRealValues(core) << "," << bogusEval
             << endl;
 }
 
