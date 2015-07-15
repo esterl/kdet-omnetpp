@@ -32,8 +32,8 @@ protected:
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     virtual void evaluateKDet();
-    virtual std::pair<double, double> evaluateCore(std::set<IPv4Address> core,
-            std::set<IPv4Address> boundary);
+    virtual void evaluateCore(std::set<IPv4Address> core,
+            std::set<IPv4Address> boundary, double&, double&, bool&);
     std::string getRealValues(IPSet core);
     bool collusion(IPv4Address boundaryNode, std::set<IPv4Address> core);
     virtual double getThreshold(std::set<IPv4Address> core);
