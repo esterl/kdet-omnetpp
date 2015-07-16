@@ -70,6 +70,8 @@ std::set<int> GraphServer::getNeighbors(int node) {
 }
 
 std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr) {
+    if (ip_to_index.count(addr.getInt()) == 0)
+        return std::set<IPv4Address>();
     int index = ip_to_index[addr.getInt()];
     std::set<int> neighbors = getNeighbors(index);
     return indexToIP(neighbors.begin(), neighbors.end(), index_to_ip);

@@ -28,9 +28,9 @@ INetfilter::IHook::Result Dropper::datagramPreRoutingHook(
 
 // TODO added just for now
 #include <cstdlib>
-INetfilter::IHook::Result Dropper::datagramForwardHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+INetfilter::IHook::Result Dropper::datagramForwardHook(IPv4Datagram* datagram,
+        const InterfaceEntry* inIE, const InterfaceEntry*& outIE,
+        IPv4Address& nextHopAddr) {
     // Drop with some prob.
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
         inPackets++;
@@ -52,15 +52,14 @@ INetfilter::IHook::Result Dropper::datagramPostRoutingHook(
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result Dropper::datagramLocalInHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE) {
+INetfilter::IHook::Result Dropper::datagramLocalInHook(IPv4Datagram* datagram,
+        const InterfaceEntry* inIE) {
     return IHook::ACCEPT;
 }
 
 // TODO this should be done by another class
-INetfilter::IHook::Result Dropper::datagramLocalOutHook(
-        IPv4Datagram* datagram, const InterfaceEntry*& outIE,
-        IPv4Address& nextHopAddr) {
+INetfilter::IHook::Result Dropper::datagramLocalOutHook(IPv4Datagram* datagram,
+        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
     return IHook::ACCEPT;
 }
 
@@ -75,7 +74,7 @@ void Dropper::initialize() {
     droppedPackets = 0;
 }
 
-void Dropper::finish(){
+void Dropper::finish() {
     recordScalar("DropProbability", double(par("dropProbability")));
     recordScalar("HostFaulty", bool(par("faulty")));
     recordScalar("TotalDropped", totalDropped);
@@ -83,7 +82,7 @@ void Dropper::finish(){
 }
 void Dropper::handleMessage(cMessage *msg) {
     // Send report
-    DropperReport* report = new DropperReport();
+    DropperReport* report = new DropperReport("Dropper report");
     report->setDroppedPackets(droppedPackets);
     report->setOutPackets(outPackets);
     report->setInPackets(inPackets);

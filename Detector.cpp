@@ -34,7 +34,7 @@ void Detector::finish() {
 void Detector::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("clock")) {
         // Schedule evaluation just a bit later, so that we have all sketches
-        scheduleAt(simTime() + 0.01, msg);
+        scheduleAt(simTime() + simtime_t(getParentModule()->par("interval"))/5, msg);
     } else if (msg->isSelfMessage()) {
         evaluateCores();
         delete msg;
@@ -117,11 +117,11 @@ void Detector::evaluateCore(std::set<IPv4Address> core,
         outPkts = globalSummary->estimateOut(core);
         delete globalSummary;
     } else {
-        //std::cout << "No summaries" << endl;
         dropPerc = 0.0;
         inPkts = 0.0;
         outPkts = 0.0;
     }
+
     msg->setDropEstimation(dropPerc);
     msg->setInEstimation(inPkts);
     msg->setOutEstimation(outPkts);

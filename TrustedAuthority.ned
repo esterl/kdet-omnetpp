@@ -25,6 +25,7 @@ simple TrustedAuthority
         double beta = default(0.1);
         double threshold = default(2*alpha*beta/(alpha+beta));
         string resultsFile = default("results/TA.csv");
+        double interval @unit(s);
     gates:
         input inReports[];
         input inGroundTruth[];

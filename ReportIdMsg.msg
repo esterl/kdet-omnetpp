@@ -20,5 +20,5 @@ class noncobject IPv4Address;
 
 message ReportIdMsg{
     IPv4Address address;
-    long id;
+    int tries=4;
 }

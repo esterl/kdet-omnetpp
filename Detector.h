@@ -42,6 +42,7 @@ protected:
     std::unordered_map<int, Report*> reports;
     IPSetList cores;
     IPSetList boundaries;
+    //std::set<IPv4Address> boundaryNodes;
     IPv4Address IP;
     bool faulty;
 };

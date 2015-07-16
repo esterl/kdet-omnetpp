@@ -37,8 +37,8 @@ module KDetProtocol
         detector: Detector {
             @display("p=51,205");
         }
-        //flooding: ReliableFlooding {
-        flooding: FakeFlooding {
+        flooding: RobustFlooding {
+        //flooding: FakeFlooding {
             @display("p=170,205");
         }
     connections allowunconnected:

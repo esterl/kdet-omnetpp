@@ -74,6 +74,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         IPv4Address addr = evaluation->getReporter();
         IPtoIndex[addr.getInt()] = gate;
         evaluations[gate].push_back(evaluation);
+        // Received all evaluations?
     } else if (msg->arrivedOn("inGroundTruth")) {
         // Update values
         int gate = msg->getArrivalGate()->getIndex();
@@ -85,7 +86,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         delete report;
     } else if (msg->arrivedOn("clock")) {
         // Schedule evaluation just a bit later
-        scheduleAt(simTime() + 0.03, msg);
+        scheduleAt(simTime() + simtime_t(par("interval"))/3, msg);
     } else {
         // Evaluate KDet performance
         evaluateKDet();
@@ -173,28 +174,39 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
         std::pair<bool, CoreEvaluation*> evaluation = getNodeEvaluation(
                 evaluations[IPtoIndex[(*node).getInt()]], core);
         if (evaluation.second != NULL) {
-            if (dropEstimation == -1 || inEstimation == -1
-                    || outEstimation == -1) {
-                dropEstimation = evaluation.second->getDropEstimation();
-                inEstimation = evaluation.second->getInEstimation();
-                outEstimation = evaluation.second->getOutEstimation();
+            if (!evaluation.first) {
+                if (dropEstimation == -1 || inEstimation == -1
+                        || outEstimation == -1) {
+                    dropEstimation = evaluation.second->getDropEstimation();
+                    inEstimation = evaluation.second->getInEstimation();
+                    outEstimation = evaluation.second->getOutEstimation();
+                } else {
+                    if (dropEstimation
+                            != evaluation.second->getDropEstimation())
+                        std::cout << simTime()
+                                << "Received different drop estimations for the same core: "
+                                << dropEstimation << " "
+                                << evaluation.second->getDropEstimation()
+                                << endl;
+                    if (inEstimation != evaluation.second->getInEstimation())
+                        std::cout << simTime()
+                                << "Received different in estimations for the same core: "
+                                << inEstimation << " "
+                                << evaluation.second->getInEstimation() << endl;
+                    if (outEstimation != evaluation.second->getOutEstimation())
+                        std::cout << simTime()
+                                << "Received different out estimations for the same core: "
+                                << outEstimation << " "
+                                << evaluation.second->getOutEstimation()
+                                << endl;
+                }
             } else {
-                if (dropEstimation != evaluation.second->getDropEstimation())
-                    std::cout
-                            << "Received different drop estimations for the same core"
-                            << endl;
-                if (inEstimation != evaluation.second->getInEstimation())
-                    std::cout
-                            << "Received different in estimations for the same core"
-                            << endl;
-                if (outEstimation != evaluation.second->getOutEstimation())
-                    std::cout
-                            << "Received different in estimations for the same core"
-                            << endl;
+                std::cout << *node << ";";
             }
         } else {
             std::cout << "Estimation not received from " << *node << endl;
         }
+
         // Update detected
         detected = evaluation.first
                 | (evaluation.second->getDropEstimation() > getThreshold(core));
@@ -202,6 +214,7 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
         if (faulty[IPtoIndex[node->getInt()]] & collusion(*node, core))
             bogusEval = true;
     }
+    std::cout << endl;
     coreCSV << os.str() << dropEstimation << "," << inEstimation << ","
             << outEstimation << "," << getRealValues(core) << "," << bogusEval
             << endl;

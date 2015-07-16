@@ -32,9 +32,9 @@ network kdet
         ta: TrustedAuthority {
             @display("p=60,161");
         }
-        flooder: Flooder {
-            @display("p=407,161");
-        }
+//        flooder: Flooder {
+//            @display("p=407,161");
+//        }
         clock: Clock {
             @display("p=60,250");
         }
@@ -44,8 +44,8 @@ network kdet
             hosts[i].fromGraphServer <-- graphServer.out++;
             hosts[i].TAReports --> ta.inReports++;
             hosts[i].TAGroundTruth --> ta.inGroundTruth++;
-            hosts[i].othersOut --> flooder.in++;
-            hosts[i].othersIn <-- flooder.out++;
+//            hosts[i].othersOut --> flooder.in++;
+//            hosts[i].othersIn <-- flooder.out++;
         }
 
         for i=0..numProxies-1 {
@@ -53,8 +53,8 @@ network kdet
             proxies[i].fromGraphServer <-- graphServer.out++;
             proxies[i].TAReports --> ta.inReports++;
             proxies[i].TAGroundTruth --> ta.inGroundTruth++;
-            proxies[i].othersOut --> flooder.in++;
-            proxies[i].othersIn <-- flooder.out++;
+//            proxies[i].othersOut --> flooder.in++;
+//            proxies[i].othersIn <-- flooder.out++;
 
         }
         for i=0..2, for j=0..numNodes-1 {
