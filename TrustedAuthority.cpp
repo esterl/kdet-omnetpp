@@ -45,12 +45,10 @@ void TrustedAuthority::initialize() {
     beta = par("beta");
     threshold = par("threshold");
     // CSV
-    nodeCSV.open(
-            std::string("results/node_") + par("resultsFile").stringValue());
+    nodeCSV.open(par("nodeResults").stringValue());
     nodeCSV << "Timestamp, Node, CoreEstimationIn, CoresEstimationDropped, "
             << "Collusion, NodeDrop, NodeIn, NodeOut" << endl;
-    coreCSV.open(
-            std::string("results/core_") + par("resultsFile").stringValue());
+    coreCSV.open(par("coreResults").stringValue());
     coreCSV << "Timestamp, Core, Detected, DropEstimation, InEstimation, "
             << "OutEstimation, DropReal, InReal, OutReal, Collusion" << endl;
 }
