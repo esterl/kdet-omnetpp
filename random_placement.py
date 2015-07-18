@@ -41,7 +41,7 @@ def getNpositions(N, radius):
     for i in range(N-1):
         (x, y) = get_random_position(positions, radius)
         while ( get_min_distance(positions, x, y) < radius/5 and 
-                get_num_closer(positions, x, y, radius) > 4 ):
+                get_num_closer(positions, x, y, radius) > 2 ):
             (x, y) = get_random_position(positions, radius)
         positions += [ (x,y) ]
     return positions
