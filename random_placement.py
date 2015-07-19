@@ -22,6 +22,13 @@ def get_min_distance(positions, x, y):
     distances = [ math.sqrt((x-pos[0])**2 + (y-pos[1])**2) for pos in positions ]
     return min(distances)
 
+def get_next_min_distance(positions, x, y, radius):
+    distances = [ math.sqrt((x-pos[0])**2 + (y-pos[1])**2) for pos in positions ]
+    distances_filtered = [ d for d in distances if d > radius ]
+    if not distances_filtered:
+        return float("inf")
+    return min(distances_filtered)
+
 def get_num_closer(positions, x, y, radius):
     distances = [ math.sqrt((x-pos[0])**2 + (y-pos[1])**2) for pos in positions ]
     result = 0
@@ -29,6 +36,20 @@ def get_num_closer(positions, x, y, radius):
         if distance < radius:
             result += 1
     return result
+
+def get_max_neighbors(positions, radius):
+    max_val = 0
+    for i in range(len(positions)):
+        max_val = max(max_val, get_num_neighbors(positions, i, radius))
+    return max_val
+
+def get_num_neighbors(positions, i, radius):
+    result = 0
+    (x0, y0) = positions[i]
+    for x,y in positions:
+        if math.sqrt((x-x0)**2 + (y-y0)**2) < radius:
+            result += 1
+    return result - 1
 
 def get_random_position(positions, radius):
     (x_0, y_0) = choose_random(positions)
@@ -40,8 +61,9 @@ def getNpositions(N, radius):
     positions = [(0,0)]
     for i in range(N-1):
         (x, y) = get_random_position(positions, radius)
-        while ( get_min_distance(positions, x, y) < radius/5 and 
-                get_num_closer(positions, x, y, radius) > 2 ):
+        while ( get_min_distance(positions, x, y) < radius/5 or 
+                #get_next_min_distance(positions, x, y, radius) < 1.25*radius or
+                get_max_neighbors(positions + [(x,y)], radius) > 5):
             (x, y) = get_random_position(positions, radius)
         positions += [ (x,y) ]
     return positions

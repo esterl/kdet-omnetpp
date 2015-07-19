@@ -76,6 +76,7 @@ def generate(context_file, interval, k, experiment_label):
         **.routingProtocol = "OLSR"
         **.Tc_redundancy = 2    
         **.waitTime = 20s  
+        **.maxDistance = 750m
     """))
     print template.render(context)
 

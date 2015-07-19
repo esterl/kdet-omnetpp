@@ -16,7 +16,17 @@
 #include "GraphServer.h"
 
 Define_Module(GraphServer);
-
+std::string networkToString(std::vector<std::set<int>> network, std::map<int, int> index_to_ip) {
+    std::stringstream ss;
+    for (unsigned i=0; i<network.size(); i++) {
+        ss << "[" << IPv4Address(index_to_ip[i]) << "]";
+        for (auto neighbor = network[i].begin(); neighbor != network[i].end(); neighbor++) {
+            ss << IPv4Address(index_to_ip[*neighbor]) << ";";
+        }
+        ss << endl;
+    }
+    return ss.str();
+}
 template<typename iterator>
 std::set<IPv4Address> indexToIP(iterator begin, iterator end,
         std::map<int, int>& dictionary) {
@@ -107,9 +117,10 @@ std::set<int> GraphServer::getNeighborhood(std::set<int> nodes) {
 void GraphServer::initialize() {
     k = par("k");
     dirty = true;
+    WATCH(networkString);
 }
 
-void GraphServer::finish(){
+void GraphServer::finish() {
     recordScalar("TotalNodes", networkGraph.size());
     // TODO save average num neighbs.
 }
@@ -151,6 +162,7 @@ void GraphServer::updateGraph(NeighborsAnnouncement* msg) {
         // Make it bi-directional
         networkGraph[to].insert(from);
     }
+    networkString = networkToString(networkGraph, index_to_ip);
     updateCores();
 }
 

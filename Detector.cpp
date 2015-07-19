@@ -34,7 +34,10 @@ void Detector::finish() {
 void Detector::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("clock")) {
         // Schedule evaluation just a bit later, so that we have all sketches
-        scheduleAt(simTime() + simtime_t(getParentModule()->par("interval"))/5, msg);
+        scheduleAt(
+                simTime()
+                        + simtime_t(getParentModule()->par("interval")) * .8,
+                msg);
     } else if (msg->isSelfMessage()) {
         evaluateCores();
         delete msg;
@@ -121,7 +124,6 @@ void Detector::evaluateCore(std::set<IPv4Address> core,
         inPkts = 0.0;
         outPkts = 0.0;
     }
-
     msg->setDropEstimation(dropPerc);
     msg->setInEstimation(inPkts);
     msg->setOutEstimation(outPkts);

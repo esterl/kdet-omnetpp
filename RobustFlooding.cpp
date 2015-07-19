@@ -34,7 +34,7 @@ void RobustFlooding::initialize() {
     simtime_t interval = par("interval");
     // TODO check if +2 or +1
     TTL = int(par("k")) + 1;
-    timeout = interval / 20. / TTL;
+    timeout = 0.5;
     overhead.setName("Overhead");
 
     // Register protocol:
@@ -143,6 +143,8 @@ void RobustFlooding::reliablyFlood(Report *report) {
             scheduleTimeout(index, addr);
         } else {
             sendTo.push_back(std::set<IPv4Address>());
+            // Null timeout
+            timeouts.push_back(NULL);
         }
         sendToStr.push_back(printSet(sendTo[index]));
     } else {

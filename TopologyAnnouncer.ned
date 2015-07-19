@@ -21,7 +21,7 @@ package kdet;
 simple TopologyAnnouncer
 {
     parameters:
-        double updateInterval @unit(s) = default(1s);
+        double updateInterval @unit(s) = default(5s);
     gates:
         output out;
 }

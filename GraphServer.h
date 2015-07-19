@@ -47,6 +47,7 @@ protected:
     IPSetList allBoundaries;
     bool dirty;
     std::vector<std::set<int>> networkGraph;
+    std::string networkString;
     virtual void initialize();
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
