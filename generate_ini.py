@@ -15,7 +15,7 @@ def generate(context_file, interval, k, experiment_label):
         experiment-label = {{ expLabel }}
         output-vector-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.vec
         output-scalar-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.sca
-        sim-time-limit = 120s
+        sim-time-limit = 240s
         **.numNodes = {{ nHosts }}
         **.numProxies = {{ nProxies }}
         **.mobility.numHosts = 200

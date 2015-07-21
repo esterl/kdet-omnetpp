@@ -84,7 +84,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
         delete report;
     } else if (msg->arrivedOn("clock")) {
         // Schedule evaluation just a bit later
-        scheduleAt(simTime() + simtime_t(par("interval"))/3, msg);
+        scheduleAt(simTime() + simtime_t(par("interval"))*.9, msg);
     } else {
         // Evaluate KDet performance
         evaluateKDet();

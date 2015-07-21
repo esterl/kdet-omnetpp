@@ -51,7 +51,8 @@ void RobustFlooding::finish() {
         cancelAndDelete(*it);
     }
     for (auto it = timeouts.begin(); it != timeouts.end(); it++) {
-        cancelAndDelete(*it);
+        if ( *it != NULL)
+            cancelAndDelete(*it);
     }
 
 }
@@ -230,7 +231,8 @@ void RobustFlooding::scheduleTimeout(int index, IPv4Address addr) {
     if (index >= timeouts.size()) {
         timeouts.push_back(timeoutMsg);
     } else {
-        cancelAndDelete(timeouts[index]);
+        if ( timeouts[index] != NULL )
+            cancelAndDelete(timeouts[index]);
         timeouts[index] = timeoutMsg;
     }
     scheduleAt(simTime(), timeoutMsg);
