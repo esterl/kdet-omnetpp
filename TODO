@@ -1,20 +1,19 @@
 * Sketches as a library
 * Code "properness"
 * Think about maps vs unordered_maps
-* Change find --> count in maps
-* Unify addr and address
+* Unify addr and address --> addr
 * Evaluation message should delete sketch that contains
-* IP as ints instead of strs.
 * See how to make SketchMonitor derive from another, more easily.
 * Naming everywhere (report --> owner)
-* Document
 * Fix reports & so on so that they are generic to the type of summary
-* GraphServer IP str --> int
 * Flooding --> finish
 * CoreEvaluation --> core from list to set
-* Reorder FakeFlooding.*
 * Fix memory leak ip routes
 * Reorder TrustedAuthority.cpp
 * Migrate to INET 3.0
-* Fix to save cvs in results TrustedAuthority.cpp 
 * Flooding base class
+* Fix header files
+* Think a better approach for the Robust flooding (do not have pointers to Report in two different places)
+* Class CoreSummary
+* Document
+* Configurable whether to randomize or not interval duration

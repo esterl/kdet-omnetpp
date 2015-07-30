@@ -1,0 +1,20 @@
+file 31672 1438271176                                           
+version 2
+run General-0-20150730-17:39:49-15059
+attr configname General
+attr datetime 20150730-17:39:49
+attr experiment 1402246.1
+attr inifile omnetpp_1402246.1.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network kdet
+attr processid 15059
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 393  kdet.ta  coreRealDropProbability  ETV
+393	424 31248 320596 13461794 24.5 299.5 1568 0 0 0 0

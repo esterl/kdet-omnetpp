@@ -1,0 +1,4527 @@
+version 2
+run General-0-20150730-17:39:49-15059
+attr configname General
+attr datetime 20150730-17:39:49
+attr experiment 1402246.1
+attr inifile omnetpp_1402246.1.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network kdet
+attr processid 15059
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+scalar kdet.hosts[0].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[0].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[0].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[0].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[0].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[0].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[0].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[0].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[0].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[0].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[0].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].mgmt 	dataQueueLen:max 	12
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[0].wlan[0].mgmt 	dataQueueLen:timeavg 	0.044068273781343
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[0].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[0].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].mac 	"number of received packets" 	1695
+scalar kdet.hosts[0].wlan[0].mac 	"number of collisions" 	11871
+scalar kdet.hosts[0].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[0].wlan[0].mac 	"number of retry for AC 0" 	2781
+scalar kdet.hosts[0].wlan[0].mac 	"sent and received bits" 	1357312
+scalar kdet.hosts[0].wlan[0].mac 	"sent packet within AC 0" 	1917
+scalar kdet.hosts[0].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[0].wlan[0].mac 	"sentWithoutRetry AC 0" 	1059
+scalar kdet.hosts[0].wlan[0].mac 	"numGivenUp AC 0" 	121
+scalar kdet.hosts[0].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[0].wlan[0].mac 	rcvdPkFromHL:count 	2657
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[0].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	177166
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].mac 	passedUpPk:count 	5749
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[0].wlan[0].mac 	passedUpPk:sum(packetBytes) 	523698
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].mac 	rcvdPkFromLL:count 	34153
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[0].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1818330
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].mac 	sentDownPk:count 	7133
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[0].wlan[0].mac 	sentDownPk:sum(packetBytes) 	373318
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[0].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[0].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[0].wlan[0].radio 	lossRate:timeavg 	0.1678023653056
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[0].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[0].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[0].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[0].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[0].wlan[0].radio 	radioState:count 	85686
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[0].monitor.monitor 	MemoryBytes 	65536
+scalar kdet.hosts[0].dropper 	DropProbability 	0
+scalar kdet.hosts[0].dropper 	HostFaulty 	0
+scalar kdet.hosts[0].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[0].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[1].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[1].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[1].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[1].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[1].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[1].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[1].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[1].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[1].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[1].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[1].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].mgmt 	dataQueueLen:max 	12
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[1].wlan[0].mgmt 	dataQueueLen:timeavg 	0.06671840129472
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[1].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[1].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].mac 	"number of received packets" 	2815
+scalar kdet.hosts[1].wlan[0].mac 	"number of collisions" 	14530
+scalar kdet.hosts[1].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[1].wlan[0].mac 	"number of retry for AC 0" 	2840
+scalar kdet.hosts[1].wlan[0].mac 	"sent and received bits" 	2189040
+scalar kdet.hosts[1].wlan[0].mac 	"sent packet within AC 0" 	2403
+scalar kdet.hosts[1].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[1].wlan[0].mac 	"sentWithoutRetry AC 0" 	1459
+scalar kdet.hosts[1].wlan[0].mac 	"numGivenUp AC 0" 	109
+scalar kdet.hosts[1].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[1].wlan[0].mac 	rcvdPkFromHL:count 	3832
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[1].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	280388
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].mac 	passedUpPk:count 	9002
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[1].wlan[0].mac 	passedUpPk:sum(packetBytes) 	833260
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].mac 	rcvdPkFromLL:count 	45205
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[1].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2465610
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].mac 	sentDownPk:count 	9487
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[1].wlan[0].mac 	sentDownPk:sum(packetBytes) 	495878
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[1].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[1].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[1].wlan[0].radio 	lossRate:timeavg 	0.1315952841914
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[1].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[1].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[1].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[1].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[1].wlan[0].radio 	radioState:count 	112474
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[1].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[1].dropper 	DropProbability 	0
+scalar kdet.hosts[1].dropper 	HostFaulty 	0
+scalar kdet.hosts[1].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[1].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[2].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[2].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[2].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[2].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[2].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[2].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[2].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[2].lo0.lo 	rcvdPkFromHL:count 	1
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[2].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	48
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[2].lo0.lo 	passedUpPk:count 	1
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[2].lo0.lo 	passedUpPk:sum(packetBytes) 	48
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].mgmt 	dataQueueLen:max 	10
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[2].wlan[0].mgmt 	dataQueueLen:timeavg 	0.064944149660533
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[2].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[2].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].mac 	"number of received packets" 	2817
+scalar kdet.hosts[2].wlan[0].mac 	"number of collisions" 	14511
+scalar kdet.hosts[2].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[2].wlan[0].mac 	"number of retry for AC 0" 	2792
+scalar kdet.hosts[2].wlan[0].mac 	"sent and received bits" 	2420576
+scalar kdet.hosts[2].wlan[0].mac 	"sent packet within AC 0" 	1891
+scalar kdet.hosts[2].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[2].wlan[0].mac 	"sentWithoutRetry AC 0" 	1069
+scalar kdet.hosts[2].wlan[0].mac 	"numGivenUp AC 0" 	131
+scalar kdet.hosts[2].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[2].wlan[0].mac 	rcvdPkFromHL:count 	3803
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[2].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	310694
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].mac 	passedUpPk:count 	7178
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[2].wlan[0].mac 	passedUpPk:sum(packetBytes) 	653628
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].mac 	rcvdPkFromLL:count 	37009
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[2].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2048862
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].mac 	sentDownPk:count 	9412
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[2].wlan[0].mac 	sentDownPk:sum(packetBytes) 	523236
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[2].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[2].wlan[0].radio 	lossRate:max 	0.82
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[2].wlan[0].radio 	lossRate:timeavg 	0.18046322674184
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[2].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[2].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[2].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[2].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[2].wlan[0].radio 	radioState:count 	106793
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[2].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[2].dropper 	DropProbability 	0
+scalar kdet.hosts[2].dropper 	HostFaulty 	0
+scalar kdet.hosts[2].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[2].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[3].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[3].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[3].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[3].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[3].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[3].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[3].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[3].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[3].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[3].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[3].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].mgmt 	dataQueueLen:max 	6
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[3].wlan[0].mgmt 	dataQueueLen:timeavg 	0.011626585021637
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[3].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[3].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].mac 	"number of received packets" 	1054
+scalar kdet.hosts[3].wlan[0].mac 	"number of collisions" 	8550
+scalar kdet.hosts[3].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[3].wlan[0].mac 	"number of retry for AC 0" 	2567
+scalar kdet.hosts[3].wlan[0].mac 	"sent and received bits" 	1031872
+scalar kdet.hosts[3].wlan[0].mac 	"sent packet within AC 0" 	1471
+scalar kdet.hosts[3].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[3].wlan[0].mac 	"sentWithoutRetry AC 0" 	748
+scalar kdet.hosts[3].wlan[0].mac 	"numGivenUp AC 0" 	125
+scalar kdet.hosts[3].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[3].wlan[0].mac 	rcvdPkFromHL:count 	2035
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[3].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	136734
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].mac 	passedUpPk:count 	4687
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[3].wlan[0].mac 	passedUpPk:sum(packetBytes) 	452498
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].mac 	rcvdPkFromLL:count 	24736
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[3].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1365236
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].mac 	sentDownPk:count 	5656
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[3].wlan[0].mac 	sentDownPk:sum(packetBytes) 	310644
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[3].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[3].wlan[0].radio 	lossRate:max 	0.72
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[3].wlan[0].radio 	lossRate:timeavg 	0.19884002234085
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[3].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[3].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[3].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[3].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[3].wlan[0].radio 	radioState:count 	77944
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[3].monitor.monitor 	MemoryBytes 	49152
+scalar kdet.hosts[3].dropper 	DropProbability 	0
+scalar kdet.hosts[3].dropper 	HostFaulty 	0
+scalar kdet.hosts[3].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[3].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[4].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[4].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[4].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[4].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[4].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[4].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[4].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[4].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[4].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[4].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[4].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].mgmt 	dataQueueLen:max 	13
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[4].wlan[0].mgmt 	dataQueueLen:timeavg 	0.11532521643904
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[4].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[4].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].mac 	"number of received packets" 	2672
+scalar kdet.hosts[4].wlan[0].mac 	"number of collisions" 	15275
+scalar kdet.hosts[4].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[4].wlan[0].mac 	"number of retry for AC 0" 	2959
+scalar kdet.hosts[4].wlan[0].mac 	"sent and received bits" 	1446560
+scalar kdet.hosts[4].wlan[0].mac 	"sent packet within AC 0" 	1992
+scalar kdet.hosts[4].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[4].wlan[0].mac 	"sentWithoutRetry AC 0" 	1149
+scalar kdet.hosts[4].wlan[0].mac 	"numGivenUp AC 0" 	131
+scalar kdet.hosts[4].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[4].wlan[0].mac 	rcvdPkFromHL:count 	2809
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[4].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	188942
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].mac 	passedUpPk:count 	7454
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[4].wlan[0].mac 	passedUpPk:sum(packetBytes) 	684544
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].mac 	rcvdPkFromLL:count 	39843
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[4].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2203606
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].mac 	sentDownPk:count 	8440
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[4].wlan[0].mac 	sentDownPk:sum(packetBytes) 	409808
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[4].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[4].wlan[0].radio 	lossRate:max 	0.86
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[4].wlan[0].radio 	lossRate:timeavg 	0.17241467567341
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[4].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[4].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[4].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[4].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[4].wlan[0].radio 	radioState:count 	110100
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[4].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[4].dropper 	DropProbability 	0
+scalar kdet.hosts[4].dropper 	HostFaulty 	0
+scalar kdet.hosts[4].dropper 	TotalDropped 	14803425
+scalar kdet.hosts[4].dropper 	TotalIn 	14803425
+scalar kdet.hosts[5].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[5].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[5].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[5].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[5].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[5].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[5].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[5].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[5].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[5].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[5].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].mgmt 	dataQueueLen:max 	11
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[5].wlan[0].mgmt 	dataQueueLen:timeavg 	0.021921464114937
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[5].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[5].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].mac 	"number of received packets" 	1711
+scalar kdet.hosts[5].wlan[0].mac 	"number of collisions" 	9481
+scalar kdet.hosts[5].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[5].wlan[0].mac 	"number of retry for AC 0" 	2532
+scalar kdet.hosts[5].wlan[0].mac 	"sent and received bits" 	2207920
+scalar kdet.hosts[5].wlan[0].mac 	"sent packet within AC 0" 	1794
+scalar kdet.hosts[5].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[5].wlan[0].mac 	"sentWithoutRetry AC 0" 	965
+scalar kdet.hosts[5].wlan[0].mac 	"numGivenUp AC 0" 	98
+scalar kdet.hosts[5].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[5].wlan[0].mac 	rcvdPkFromHL:count 	3401
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[5].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	282066
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].mac 	passedUpPk:count 	5423
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[5].wlan[0].mac 	passedUpPk:sum(packetBytes) 	494838
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].mac 	rcvdPkFromLL:count 	28146
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[5].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1562328
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].mac 	sentDownPk:count 	7644
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[5].wlan[0].mac 	sentDownPk:sum(packetBytes) 	463004
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[5].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[5].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[5].wlan[0].radio 	lossRate:timeavg 	0.2002914798596
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[5].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[5].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[5].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[5].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[5].wlan[0].radio 	radioState:count 	73652
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[5].monitor.monitor 	MemoryBytes 	65536
+scalar kdet.hosts[5].dropper 	DropProbability 	0
+scalar kdet.hosts[5].dropper 	HostFaulty 	0
+scalar kdet.hosts[5].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[5].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[6].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[6].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[6].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[6].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[6].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[6].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[6].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[6].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[6].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[6].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[6].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].mgmt 	dataQueueLen:max 	3
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[6].wlan[0].mgmt 	dataQueueLen:timeavg 	0.00125659838616
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[6].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[6].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].mac 	"number of received packets" 	553
+scalar kdet.hosts[6].wlan[0].mac 	"number of collisions" 	3631
+scalar kdet.hosts[6].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[6].wlan[0].mac 	"number of retry for AC 0" 	1461
+scalar kdet.hosts[6].wlan[0].mac 	"sent and received bits" 	1453744
+scalar kdet.hosts[6].wlan[0].mac 	"sent packet within AC 0" 	636
+scalar kdet.hosts[6].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[6].wlan[0].mac 	"sentWithoutRetry AC 0" 	256
+scalar kdet.hosts[6].wlan[0].mac 	"numGivenUp AC 0" 	86
+scalar kdet.hosts[6].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[6].wlan[0].mac 	rcvdPkFromHL:count 	1921
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[6].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	187050
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].mac 	passedUpPk:count 	2156
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[6].wlan[0].mac 	passedUpPk:sum(packetBytes) 	211364
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].mac 	rcvdPkFromLL:count 	9088
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[6].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	552180
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].mac 	sentDownPk:count 	3935
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[6].wlan[0].mac 	sentDownPk:sum(packetBytes) 	285374
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[6].wlan[0].radio 	lossRate:min 	0.04
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[6].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[6].wlan[0].radio 	lossRate:timeavg 	0.40061040097835
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[6].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[6].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[6].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[6].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[6].wlan[0].radio 	radioState:count 	36940
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[6].monitor.monitor 	MemoryBytes 	32768
+scalar kdet.hosts[6].dropper 	DropProbability 	0
+scalar kdet.hosts[6].dropper 	HostFaulty 	0
+scalar kdet.hosts[6].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[6].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[7].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[7].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[7].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[7].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[7].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[7].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[7].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[7].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[7].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[7].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[7].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].mgmt 	dataQueueLen:max 	15
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[7].wlan[0].mgmt 	dataQueueLen:timeavg 	0.069396805215723
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[7].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[7].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].mac 	"number of received packets" 	2498
+scalar kdet.hosts[7].wlan[0].mac 	"number of collisions" 	14124
+scalar kdet.hosts[7].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[7].wlan[0].mac 	"number of retry for AC 0" 	2752
+scalar kdet.hosts[7].wlan[0].mac 	"sent and received bits" 	2469440
+scalar kdet.hosts[7].wlan[0].mac 	"sent packet within AC 0" 	2539
+scalar kdet.hosts[7].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[7].wlan[0].mac 	"sentWithoutRetry AC 0" 	1553
+scalar kdet.hosts[7].wlan[0].mac 	"numGivenUp AC 0" 	98
+scalar kdet.hosts[7].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[7].wlan[0].mac 	rcvdPkFromHL:count 	4116
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[7].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	314756
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].mac 	passedUpPk:count 	8712
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[7].wlan[0].mac 	passedUpPk:sum(packetBytes) 	801676
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].mac 	rcvdPkFromLL:count 	44821
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[7].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2410010
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].mac 	sentDownPk:count 	9366
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[7].wlan[0].mac 	sentDownPk:sum(packetBytes) 	520352
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[7].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[7].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[7].wlan[0].radio 	lossRate:timeavg 	0.1255163802217
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[7].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[7].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[7].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[7].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[7].wlan[0].radio 	radioState:count 	117954
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[7].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[7].dropper 	DropProbability 	0
+scalar kdet.hosts[7].dropper 	HostFaulty 	0
+scalar kdet.hosts[7].dropper 	TotalDropped 	14803425
+scalar kdet.hosts[7].dropper 	TotalIn 	14803425
+scalar kdet.hosts[8].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[8].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[8].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[8].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[8].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[8].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[8].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[8].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[8].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[8].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[8].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].mgmt 	dataQueueLen:max 	13
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[8].wlan[0].mgmt 	dataQueueLen:timeavg 	0.067788558906893
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[8].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[8].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].mac 	"number of received packets" 	2531
+scalar kdet.hosts[8].wlan[0].mac 	"number of collisions" 	13867
+scalar kdet.hosts[8].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[8].wlan[0].mac 	"number of retry for AC 0" 	2802
+scalar kdet.hosts[8].wlan[0].mac 	"sent and received bits" 	1823792
+scalar kdet.hosts[8].wlan[0].mac 	"sent packet within AC 0" 	2726
+scalar kdet.hosts[8].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[8].wlan[0].mac 	"sentWithoutRetry AC 0" 	1706
+scalar kdet.hosts[8].wlan[0].mac 	"numGivenUp AC 0" 	96
+scalar kdet.hosts[8].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[8].wlan[0].mac 	rcvdPkFromHL:count 	3545
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[8].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	233926
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].mac 	passedUpPk:count 	9557
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[8].wlan[0].mac 	passedUpPk:sum(packetBytes) 	895946
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].mac 	rcvdPkFromLL:count 	46064
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[8].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2514064
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].mac 	sentDownPk:count 	8878
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[8].wlan[0].mac 	sentDownPk:sum(packetBytes) 	443084
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[8].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[8].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[8].wlan[0].radio 	lossRate:timeavg 	0.11666790348501
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[8].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[8].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[8].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[8].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[8].wlan[0].radio 	radioState:count 	119249
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[8].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[8].dropper 	DropProbability 	0
+scalar kdet.hosts[8].dropper 	HostFaulty 	0
+scalar kdet.hosts[8].dropper 	TotalDropped 	4290295992
+scalar kdet.hosts[8].dropper 	TotalIn 	4290295992
+scalar kdet.hosts[9].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[9].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[9].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[9].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[9].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[9].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[9].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[9].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[9].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[9].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[9].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].mgmt 	dataQueueLen:max 	4
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[9].wlan[0].mgmt 	dataQueueLen:timeavg 	0.0032966294514233
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[9].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[9].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].mac 	"number of received packets" 	500
+scalar kdet.hosts[9].wlan[0].mac 	"number of collisions" 	5452
+scalar kdet.hosts[9].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[9].wlan[0].mac 	"number of retry for AC 0" 	1995
+scalar kdet.hosts[9].wlan[0].mac 	"sent and received bits" 	776400
+scalar kdet.hosts[9].wlan[0].mac 	"sent packet within AC 0" 	1013
+scalar kdet.hosts[9].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[9].wlan[0].mac 	"sentWithoutRetry AC 0" 	430
+scalar kdet.hosts[9].wlan[0].mac 	"numGivenUp AC 0" 	88
+scalar kdet.hosts[9].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[9].wlan[0].mac 	rcvdPkFromHL:count 	1493
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[9].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	102506
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].mac 	passedUpPk:count 	2711
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[9].wlan[0].mac 	passedUpPk:sum(packetBytes) 	257762
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].mac 	rcvdPkFromLL:count 	15248
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[9].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	830712
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].mac 	sentDownPk:count 	3988
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[9].wlan[0].mac 	sentDownPk:sum(packetBytes) 	233196
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[9].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[9].wlan[0].radio 	lossRate:max 	0.7
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[9].wlan[0].radio 	lossRate:timeavg 	0.29500710201887
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[9].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[9].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[9].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[9].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[9].wlan[0].radio 	radioState:count 	43154
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[9].monitor.monitor 	MemoryBytes 	32768
+scalar kdet.hosts[9].dropper 	DropProbability 	0.1
+scalar kdet.hosts[9].dropper 	HostFaulty 	1
+scalar kdet.hosts[9].dropper 	TotalDropped 	14803425
+scalar kdet.hosts[9].dropper 	TotalIn 	14803425
+scalar kdet.hosts[10].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[10].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[10].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[10].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[10].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[10].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[10].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[10].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[10].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[10].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[10].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].mgmt 	dataQueueLen:max 	4
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[10].wlan[0].mgmt 	dataQueueLen:timeavg 	0.0022993699070733
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[10].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[10].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].mac 	"number of received packets" 	535
+scalar kdet.hosts[10].wlan[0].mac 	"number of collisions" 	5276
+scalar kdet.hosts[10].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[10].wlan[0].mac 	"number of retry for AC 0" 	1847
+scalar kdet.hosts[10].wlan[0].mac 	"sent and received bits" 	733968
+scalar kdet.hosts[10].wlan[0].mac 	"sent packet within AC 0" 	891
+scalar kdet.hosts[10].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[10].wlan[0].mac 	"sentWithoutRetry AC 0" 	416
+scalar kdet.hosts[10].wlan[0].mac 	"numGivenUp AC 0" 	96
+scalar kdet.hosts[10].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[10].wlan[0].mac 	rcvdPkFromHL:count 	1405
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[10].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	97698
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].mac 	passedUpPk:count 	2542
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[10].wlan[0].mac 	passedUpPk:sum(packetBytes) 	242484
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].mac 	rcvdPkFromLL:count 	13828
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[10].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	773700
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].mac 	sentDownPk:count 	3787
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[10].wlan[0].mac 	sentDownPk:sum(packetBytes) 	219702
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[10].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[10].wlan[0].radio 	lossRate:max 	0.7
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[10].wlan[0].radio 	lossRate:timeavg 	0.33806412765896
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[10].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[10].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[10].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[10].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[10].wlan[0].radio 	radioState:count 	35393
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[10].monitor.monitor 	MemoryBytes 	32768
+scalar kdet.hosts[10].dropper 	DropProbability 	0
+scalar kdet.hosts[10].dropper 	HostFaulty 	0
+scalar kdet.hosts[10].dropper 	TotalDropped 	14803425
+scalar kdet.hosts[10].dropper 	TotalIn 	14803425
+scalar kdet.hosts[11].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[11].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[11].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[11].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[11].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[11].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[11].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[11].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[11].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[11].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[11].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].mgmt 	dataQueueLen:max 	1
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[11].wlan[0].mgmt 	dataQueueLen:timeavg 	0.00010347679249667
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[11].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[11].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].mac 	"number of received packets" 	230
+scalar kdet.hosts[11].wlan[0].mac 	"number of collisions" 	2286
+scalar kdet.hosts[11].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[11].wlan[0].mac 	"number of retry for AC 0" 	994
+scalar kdet.hosts[11].wlan[0].mac 	"sent and received bits" 	361472
+scalar kdet.hosts[11].wlan[0].mac 	"sent packet within AC 0" 	367
+scalar kdet.hosts[11].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[11].wlan[0].mac 	"sentWithoutRetry AC 0" 	136
+scalar kdet.hosts[11].wlan[0].mac 	"numGivenUp AC 0" 	63
+scalar kdet.hosts[11].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[11].wlan[0].mac 	rcvdPkFromHL:count 	649
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[11].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	49090
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].mac 	passedUpPk:count 	1523
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[11].wlan[0].mac 	passedUpPk:sum(packetBytes) 	165226
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].mac 	rcvdPkFromLL:count 	5813
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[11].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	383950
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].mac 	sentDownPk:count 	1873
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[11].wlan[0].mac 	sentDownPk:sum(packetBytes) 	113938
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[11].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[11].wlan[0].radio 	lossRate:max 	0.74
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[11].wlan[0].radio 	lossRate:timeavg 	0.45341770989549
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[11].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[11].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[11].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[11].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[11].wlan[0].radio 	radioState:count 	16027
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[11].monitor.monitor 	MemoryBytes 	16384
+scalar kdet.hosts[11].dropper 	DropProbability 	0
+scalar kdet.hosts[11].dropper 	HostFaulty 	0
+scalar kdet.hosts[11].dropper 	TotalDropped 	0
+scalar kdet.hosts[11].dropper 	TotalIn 	0
+scalar kdet.hosts[12].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[12].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[12].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[12].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[12].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[12].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[12].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[12].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[12].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[12].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[12].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].mgmt 	dataQueueLen:max 	9
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[12].wlan[0].mgmt 	dataQueueLen:timeavg 	0.03401895543631
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[12].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[12].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].mac 	"number of received packets" 	2579
+scalar kdet.hosts[12].wlan[0].mac 	"number of collisions" 	11694
+scalar kdet.hosts[12].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[12].wlan[0].mac 	"number of retry for AC 0" 	2673
+scalar kdet.hosts[12].wlan[0].mac 	"sent and received bits" 	2226112
+scalar kdet.hosts[12].wlan[0].mac 	"sent packet within AC 0" 	1648
+scalar kdet.hosts[12].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[12].wlan[0].mac 	"sentWithoutRetry AC 0" 	805
+scalar kdet.hosts[12].wlan[0].mac 	"numGivenUp AC 0" 	105
+scalar kdet.hosts[12].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[12].wlan[0].mac 	rcvdPkFromHL:count 	3407
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[12].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	284774
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].mac 	passedUpPk:count 	5559
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[12].wlan[0].mac 	passedUpPk:sum(packetBytes) 	462806
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].mac 	rcvdPkFromLL:count 	27554
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[12].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1536884
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].mac 	sentDownPk:count 	8659
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[12].wlan[0].mac 	sentDownPk:sum(packetBytes) 	486606
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[12].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[12].wlan[0].radio 	lossRate:max 	0.8
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[12].wlan[0].radio 	lossRate:timeavg 	0.26626772548685
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[12].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[12].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[12].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[12].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[12].wlan[0].radio 	radioState:count 	72425
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[12].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[12].dropper 	DropProbability 	0
+scalar kdet.hosts[12].dropper 	HostFaulty 	0
+scalar kdet.hosts[12].dropper 	TotalDropped 	0
+scalar kdet.hosts[12].dropper 	TotalIn 	0
+scalar kdet.hosts[13].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[13].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[13].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[13].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[13].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[13].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[13].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[13].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[13].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[13].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[13].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].mgmt 	dataQueueLen:max 	9
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[13].wlan[0].mgmt 	dataQueueLen:timeavg 	0.045707523161567
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[13].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[13].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].mac 	"number of received packets" 	2459
+scalar kdet.hosts[13].wlan[0].mac 	"number of collisions" 	13300
+scalar kdet.hosts[13].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[13].wlan[0].mac 	"number of retry for AC 0" 	2781
+scalar kdet.hosts[13].wlan[0].mac 	"sent and received bits" 	2381424
+scalar kdet.hosts[13].wlan[0].mac 	"sent packet within AC 0" 	2019
+scalar kdet.hosts[13].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[13].wlan[0].mac 	"sentWithoutRetry AC 0" 	1118
+scalar kdet.hosts[13].wlan[0].mac 	"numGivenUp AC 0" 	119
+scalar kdet.hosts[13].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[13].wlan[0].mac 	rcvdPkFromHL:count 	3732
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[13].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	305056
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].mac 	passedUpPk:count 	6474
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[13].wlan[0].mac 	passedUpPk:sum(packetBytes) 	575772
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].mac 	rcvdPkFromLL:count 	34041
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[13].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1862146
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].mac 	sentDownPk:count 	8972
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[13].wlan[0].mac 	sentDownPk:sum(packetBytes) 	511904
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[13].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[13].wlan[0].radio 	lossRate:max 	0.84
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[13].wlan[0].radio 	lossRate:timeavg 	0.19939853708723
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[13].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[13].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[13].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[13].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[13].wlan[0].radio 	radioState:count 	89852
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[13].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[13].dropper 	DropProbability 	0
+scalar kdet.hosts[13].dropper 	HostFaulty 	0
+scalar kdet.hosts[13].dropper 	TotalDropped 	0
+scalar kdet.hosts[13].dropper 	TotalIn 	0
+scalar kdet.hosts[14].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[14].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[14].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[14].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[14].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[14].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[14].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[14].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[14].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[14].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[14].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].mgmt 	dataQueueLen:max 	4
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[14].wlan[0].mgmt 	dataQueueLen:timeavg 	0.0038916496609767
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[14].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[14].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].mac 	"number of received packets" 	1125
+scalar kdet.hosts[14].wlan[0].mac 	"number of collisions" 	6253
+scalar kdet.hosts[14].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[14].wlan[0].mac 	"number of retry for AC 0" 	2287
+scalar kdet.hosts[14].wlan[0].mac 	"sent and received bits" 	1966128
+scalar kdet.hosts[14].wlan[0].mac 	"sent packet within AC 0" 	1322
+scalar kdet.hosts[14].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[14].wlan[0].mac 	"sentWithoutRetry AC 0" 	669
+scalar kdet.hosts[14].wlan[0].mac 	"numGivenUp AC 0" 	114
+scalar kdet.hosts[14].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[14].wlan[0].mac 	rcvdPkFromHL:count 	2901
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[14].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	252834
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].mac 	passedUpPk:count 	3588
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[14].wlan[0].mac 	passedUpPk:sum(packetBytes) 	316364
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].mac 	rcvdPkFromLL:count 	16923
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[14].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	948042
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].mac 	sentDownPk:count 	6313
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[14].wlan[0].mac 	sentDownPk:sum(packetBytes) 	410378
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[14].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[14].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[14].wlan[0].radio 	lossRate:timeavg 	0.26367983253994
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[14].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[14].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[14].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[14].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[14].wlan[0].radio 	radioState:count 	46511
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[14].monitor.monitor 	MemoryBytes 	49152
+scalar kdet.hosts[14].dropper 	DropProbability 	0
+scalar kdet.hosts[14].dropper 	HostFaulty 	0
+scalar kdet.hosts[14].dropper 	TotalDropped 	0
+scalar kdet.hosts[14].dropper 	TotalIn 	0
+scalar kdet.hosts[15].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[15].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[15].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[15].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[15].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[15].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[15].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[15].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[15].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[15].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[15].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].mgmt 	dataQueueLen:max 	13
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[15].wlan[0].mgmt 	dataQueueLen:timeavg 	0.065454699320263
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[15].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[15].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].mac 	"number of received packets" 	2823
+scalar kdet.hosts[15].wlan[0].mac 	"number of collisions" 	13407
+scalar kdet.hosts[15].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[15].wlan[0].mac 	"number of retry for AC 0" 	2879
+scalar kdet.hosts[15].wlan[0].mac 	"sent and received bits" 	2417792
+scalar kdet.hosts[15].wlan[0].mac 	"sent packet within AC 0" 	1887
+scalar kdet.hosts[15].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[15].wlan[0].mac 	"sentWithoutRetry AC 0" 	1071
+scalar kdet.hosts[15].wlan[0].mac 	"numGivenUp AC 0" 	145
+scalar kdet.hosts[15].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[15].wlan[0].mac 	rcvdPkFromHL:count 	3825
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[15].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	311214
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].mac 	passedUpPk:count 	7028
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[15].wlan[0].mac 	passedUpPk:sum(packetBytes) 	629276
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].mac 	rcvdPkFromLL:count 	35993
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[15].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1988146
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].mac 	sentDownPk:count 	9527
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[15].wlan[0].mac 	sentDownPk:sum(packetBytes) 	529234
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[15].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[15].wlan[0].radio 	lossRate:max 	0.8
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[15].wlan[0].radio 	lossRate:timeavg 	0.16984973540631
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[15].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[15].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[15].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[15].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[15].wlan[0].radio 	radioState:count 	106583
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[15].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[15].dropper 	DropProbability 	0
+scalar kdet.hosts[15].dropper 	HostFaulty 	0
+scalar kdet.hosts[15].dropper 	TotalDropped 	0
+scalar kdet.hosts[15].dropper 	TotalIn 	0
+scalar kdet.hosts[16].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[16].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[16].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[16].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[16].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[16].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[16].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[16].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[16].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[16].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[16].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].mgmt 	dataQueueLen:max 	5
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[16].wlan[0].mgmt 	dataQueueLen:timeavg 	0.012605954022497
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[16].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[16].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].mac 	"number of received packets" 	945
+scalar kdet.hosts[16].wlan[0].mac 	"number of collisions" 	7784
+scalar kdet.hosts[16].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[16].wlan[0].mac 	"number of retry for AC 0" 	2432
+scalar kdet.hosts[16].wlan[0].mac 	"sent and received bits" 	925408
+scalar kdet.hosts[16].wlan[0].mac 	"sent packet within AC 0" 	1207
+scalar kdet.hosts[16].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[16].wlan[0].mac 	"sentWithoutRetry AC 0" 	564
+scalar kdet.hosts[16].wlan[0].mac 	"numGivenUp AC 0" 	128
+scalar kdet.hosts[16].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[16].wlan[0].mac 	rcvdPkFromHL:count 	1806
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[16].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	123612
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].mac 	passedUpPk:count 	4266
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[16].wlan[0].mac 	passedUpPk:sum(packetBytes) 	418632
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].mac 	rcvdPkFromLL:count 	21196
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[16].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1204916
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].mac 	sentDownPk:count 	5183
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[16].wlan[0].mac 	sentDownPk:sum(packetBytes) 	287626
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[16].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[16].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[16].wlan[0].radio 	lossRate:timeavg 	0.24903766741757
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[16].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[16].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[16].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[16].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[16].wlan[0].radio 	radioState:count 	61770
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[16].monitor.monitor 	MemoryBytes 	49152
+scalar kdet.hosts[16].dropper 	DropProbability 	0
+scalar kdet.hosts[16].dropper 	HostFaulty 	0
+scalar kdet.hosts[16].dropper 	TotalDropped 	0
+scalar kdet.hosts[16].dropper 	TotalIn 	0
+scalar kdet.hosts[17].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[17].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[17].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[17].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[17].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[17].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[17].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[17].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[17].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[17].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[17].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].mgmt 	dataQueueLen:max 	8
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[17].wlan[0].mgmt 	dataQueueLen:timeavg 	0.03113875613902
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[17].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[17].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].mac 	"number of received packets" 	1694
+scalar kdet.hosts[17].wlan[0].mac 	"number of collisions" 	10701
+scalar kdet.hosts[17].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[17].wlan[0].mac 	"number of retry for AC 0" 	2649
+scalar kdet.hosts[17].wlan[0].mac 	"sent and received bits" 	1199024
+scalar kdet.hosts[17].wlan[0].mac 	"sent packet within AC 0" 	1512
+scalar kdet.hosts[17].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[17].wlan[0].mac 	"sentWithoutRetry AC 0" 	743
+scalar kdet.hosts[17].wlan[0].mac 	"numGivenUp AC 0" 	119
+scalar kdet.hosts[17].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[17].wlan[0].mac 	rcvdPkFromHL:count 	2270
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[17].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	157256
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].mac 	passedUpPk:count 	5135
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[17].wlan[0].mac 	passedUpPk:sum(packetBytes) 	478362
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].mac 	rcvdPkFromLL:count 	26696
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[17].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1507212
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].mac 	sentDownPk:count 	6613
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[17].wlan[0].mac 	sentDownPk:sum(packetBytes) 	345210
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[17].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[17].wlan[0].radio 	lossRate:max 	0.8
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[17].wlan[0].radio 	lossRate:timeavg 	0.24856089127957
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[17].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[17].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[17].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[17].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[17].wlan[0].radio 	radioState:count 	76524
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[17].monitor.monitor 	MemoryBytes 	65536
+scalar kdet.hosts[17].dropper 	DropProbability 	0
+scalar kdet.hosts[17].dropper 	HostFaulty 	0
+scalar kdet.hosts[17].dropper 	TotalDropped 	0
+scalar kdet.hosts[17].dropper 	TotalIn 	0
+scalar kdet.hosts[18].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[18].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[18].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[18].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[18].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[18].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[18].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[18].lo0.lo 	rcvdPkFromHL:count 	3
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[18].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	144
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[18].lo0.lo 	passedUpPk:count 	3
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[18].lo0.lo 	passedUpPk:sum(packetBytes) 	144
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].mgmt 	dataQueueLen:max 	5
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[18].wlan[0].mgmt 	dataQueueLen:timeavg 	0.012668288062627
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[18].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[18].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].mac 	"number of received packets" 	1147
+scalar kdet.hosts[18].wlan[0].mac 	"number of collisions" 	8589
+scalar kdet.hosts[18].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[18].wlan[0].mac 	"number of retry for AC 0" 	2388
+scalar kdet.hosts[18].wlan[0].mac 	"sent and received bits" 	1006928
+scalar kdet.hosts[18].wlan[0].mac 	"sent packet within AC 0" 	1321
+scalar kdet.hosts[18].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[18].wlan[0].mac 	"sentWithoutRetry AC 0" 	675
+scalar kdet.hosts[18].wlan[0].mac 	"numGivenUp AC 0" 	130
+scalar kdet.hosts[18].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[18].wlan[0].mac 	rcvdPkFromHL:count 	1991
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[18].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	133926
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].mac 	passedUpPk:count 	5470
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[18].wlan[0].mac 	passedUpPk:sum(packetBytes) 	549724
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].mac 	rcvdPkFromLL:count 	25032
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[18].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1453880
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].mac 	sentDownPk:count 	5526
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[18].wlan[0].mac 	sentDownPk:sum(packetBytes) 	298040
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[18].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[18].wlan[0].radio 	lossRate:max 	0.8
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[18].wlan[0].radio 	lossRate:timeavg 	0.18219020045742
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[18].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[18].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[18].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[18].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[18].wlan[0].radio 	radioState:count 	67507
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[18].monitor.monitor 	MemoryBytes 	49152
+scalar kdet.hosts[18].dropper 	DropProbability 	0
+scalar kdet.hosts[18].dropper 	HostFaulty 	0
+scalar kdet.hosts[18].dropper 	TotalDropped 	0
+scalar kdet.hosts[18].dropper 	TotalIn 	0
+scalar kdet.hosts[19].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[19].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[19].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[19].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[19].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[19].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[19].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[19].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[19].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[19].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[19].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].mgmt 	dataQueueLen:max 	1
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[19].wlan[0].mgmt 	dataQueueLen:timeavg 	0.00010421007856
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[19].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[19].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].mac 	"number of received packets" 	192
+scalar kdet.hosts[19].wlan[0].mac 	"number of collisions" 	2390
+scalar kdet.hosts[19].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[19].wlan[0].mac 	"number of retry for AC 0" 	1026
+scalar kdet.hosts[19].wlan[0].mac 	"sent and received bits" 	403616
+scalar kdet.hosts[19].wlan[0].mac 	"sent packet within AC 0" 	440
+scalar kdet.hosts[19].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[19].wlan[0].mac 	"sentWithoutRetry AC 0" 	177
+scalar kdet.hosts[19].wlan[0].mac 	"numGivenUp AC 0" 	52
+scalar kdet.hosts[19].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[19].wlan[0].mac 	rcvdPkFromHL:count 	718
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[19].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	53676
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].mac 	passedUpPk:count 	1640
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[19].wlan[0].mac 	passedUpPk:sum(packetBytes) 	174412
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].mac 	rcvdPkFromLL:count 	6312
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[19].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	410364
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].mac 	sentDownPk:count 	1936
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[19].wlan[0].mac 	sentDownPk:sum(packetBytes) 	119976
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[19].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[19].wlan[0].radio 	lossRate:max 	0.84
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[19].wlan[0].radio 	lossRate:timeavg 	0.42162827337686
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[19].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[19].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[19].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[19].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[19].wlan[0].radio 	radioState:count 	16498
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[19].monitor.monitor 	MemoryBytes 	16384
+scalar kdet.hosts[19].dropper 	DropProbability 	0
+scalar kdet.hosts[19].dropper 	HostFaulty 	0
+scalar kdet.hosts[19].dropper 	TotalDropped 	0
+scalar kdet.hosts[19].dropper 	TotalIn 	0
+scalar kdet.hosts[20].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[20].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[20].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[20].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[20].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[20].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[20].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[20].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[20].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[20].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[20].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].mgmt 	dataQueueLen:max 	12
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[20].wlan[0].mgmt 	dataQueueLen:timeavg 	0.02910574658383
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[20].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[20].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].mac 	"number of received packets" 	1816
+scalar kdet.hosts[20].wlan[0].mac 	"number of collisions" 	10903
+scalar kdet.hosts[20].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[20].wlan[0].mac 	"number of retry for AC 0" 	2476
+scalar kdet.hosts[20].wlan[0].mac 	"sent and received bits" 	1343648
+scalar kdet.hosts[20].wlan[0].mac 	"sent packet within AC 0" 	1843
+scalar kdet.hosts[20].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[20].wlan[0].mac 	"sentWithoutRetry AC 0" 	1032
+scalar kdet.hosts[20].wlan[0].mac 	"numGivenUp AC 0" 	100
+scalar kdet.hosts[20].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[20].wlan[0].mac 	rcvdPkFromHL:count 	2608
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[20].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	174156
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].mac 	passedUpPk:count 	5815
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[20].wlan[0].mac 	passedUpPk:sum(packetBytes) 	528038
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].mac 	rcvdPkFromLL:count 	32254
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[20].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	1771688
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].mac 	sentDownPk:count 	6900
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[20].wlan[0].mac 	sentDownPk:sum(packetBytes) 	353092
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[20].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[20].wlan[0].radio 	lossRate:max 	0.74
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[20].wlan[0].radio 	lossRate:timeavg 	0.18120611202125
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[20].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[20].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[20].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[20].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[20].wlan[0].radio 	radioState:count 	80669
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[20].monitor.monitor 	MemoryBytes 	65536
+scalar kdet.hosts[20].dropper 	DropProbability 	0
+scalar kdet.hosts[20].dropper 	HostFaulty 	0
+scalar kdet.hosts[20].dropper 	TotalDropped 	0
+scalar kdet.hosts[20].dropper 	TotalIn 	0
+scalar kdet.hosts[21].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[21].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[21].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[21].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[21].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[21].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[21].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[21].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[21].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[21].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[21].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].mgmt 	dataQueueLen:max 	14
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[21].wlan[0].mgmt 	dataQueueLen:timeavg 	0.05103717047316
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[21].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[21].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].mac 	"number of received packets" 	2208
+scalar kdet.hosts[21].wlan[0].mac 	"number of collisions" 	13395
+scalar kdet.hosts[21].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[21].wlan[0].mac 	"number of retry for AC 0" 	3045
+scalar kdet.hosts[21].wlan[0].mac 	"sent and received bits" 	2563072
+scalar kdet.hosts[21].wlan[0].mac 	"sent packet within AC 0" 	2532
+scalar kdet.hosts[21].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[21].wlan[0].mac 	"sentWithoutRetry AC 0" 	1476
+scalar kdet.hosts[21].wlan[0].mac 	"numGivenUp AC 0" 	108
+scalar kdet.hosts[21].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[21].wlan[0].mac 	rcvdPkFromHL:count 	4136
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[21].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	327080
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].mac 	passedUpPk:count 	6933
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[21].wlan[0].mac 	passedUpPk:sum(packetBytes) 	606242
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].mac 	rcvdPkFromLL:count 	38895
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[21].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2066674
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].mac 	sentDownPk:count 	9389
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[21].wlan[0].mac 	sentDownPk:sum(packetBytes) 	546782
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[21].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[21].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[21].wlan[0].radio 	lossRate:timeavg 	0.14978611857272
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[21].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[21].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[21].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[21].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[21].wlan[0].radio 	radioState:count 	97896
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[21].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[21].dropper 	DropProbability 	0
+scalar kdet.hosts[21].dropper 	HostFaulty 	0
+scalar kdet.hosts[21].dropper 	TotalDropped 	0
+scalar kdet.hosts[21].dropper 	TotalIn 	0
+scalar kdet.hosts[22].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[22].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[22].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[22].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[22].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[22].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[22].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[22].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[22].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[22].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[22].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].mgmt 	dataQueueLen:max 	12
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[22].wlan[0].mgmt 	dataQueueLen:timeavg 	0.071656185571677
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[22].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[22].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].mac 	"number of received packets" 	2605
+scalar kdet.hosts[22].wlan[0].mac 	"number of collisions" 	14902
+scalar kdet.hosts[22].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[22].wlan[0].mac 	"number of retry for AC 0" 	2730
+scalar kdet.hosts[22].wlan[0].mac 	"sent and received bits" 	2645920
+scalar kdet.hosts[22].wlan[0].mac 	"sent packet within AC 0" 	2369
+scalar kdet.hosts[22].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[22].wlan[0].mac 	"sentWithoutRetry AC 0" 	1465
+scalar kdet.hosts[22].wlan[0].mac 	"numGivenUp AC 0" 	95
+scalar kdet.hosts[22].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[22].wlan[0].mac 	rcvdPkFromHL:count 	4241
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[22].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	336630
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].mac 	passedUpPk:count 	8150
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[22].wlan[0].mac 	passedUpPk:sum(packetBytes) 	745064
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].mac 	rcvdPkFromLL:count 	45365
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[22].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2414870
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].mac 	sentDownPk:count 	9576
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[22].wlan[0].mac 	sentDownPk:sum(packetBytes) 	542360
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[22].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[22].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[22].wlan[0].radio 	lossRate:timeavg 	0.12823025807765
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[22].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[22].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[22].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[22].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[22].wlan[0].radio 	radioState:count 	120308
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[22].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[22].dropper 	DropProbability 	0
+scalar kdet.hosts[22].dropper 	HostFaulty 	0
+scalar kdet.hosts[22].dropper 	TotalDropped 	0
+scalar kdet.hosts[22].dropper 	TotalIn 	0
+scalar kdet.hosts[23].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[23].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[23].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[23].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[23].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[23].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[23].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[23].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[23].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[23].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[23].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].mgmt 	dataQueueLen:max 	13
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[23].wlan[0].mgmt 	dataQueueLen:timeavg 	0.05171474219985
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[23].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[23].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].mac 	"number of received packets" 	2762
+scalar kdet.hosts[23].wlan[0].mac 	"number of collisions" 	13577
+scalar kdet.hosts[23].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[23].wlan[0].mac 	"number of retry for AC 0" 	2835
+scalar kdet.hosts[23].wlan[0].mac 	"sent and received bits" 	2541120
+scalar kdet.hosts[23].wlan[0].mac 	"sent packet within AC 0" 	2032
+scalar kdet.hosts[23].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[23].wlan[0].mac 	"sentWithoutRetry AC 0" 	1158
+scalar kdet.hosts[23].wlan[0].mac 	"numGivenUp AC 0" 	125
+scalar kdet.hosts[23].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[23].wlan[0].mac 	rcvdPkFromHL:count 	4023
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[23].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	325390
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].mac 	passedUpPk:count 	7877
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[23].wlan[0].mac 	passedUpPk:sum(packetBytes) 	725582
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].mac 	rcvdPkFromLL:count 	38270
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[23].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2132592
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].mac 	sentDownPk:count 	9620
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[23].wlan[0].mac 	sentDownPk:sum(packetBytes) 	539828
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[23].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[23].wlan[0].radio 	lossRate:max 	0.8
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[23].wlan[0].radio 	lossRate:timeavg 	0.15418420467467
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[23].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[23].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[23].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[23].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[23].wlan[0].radio 	radioState:count 	99164
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[23].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[23].dropper 	DropProbability 	0.1
+scalar kdet.hosts[23].dropper 	HostFaulty 	1
+scalar kdet.hosts[23].dropper 	TotalDropped 	0
+scalar kdet.hosts[23].dropper 	TotalIn 	0
+scalar kdet.hosts[24].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.hosts[24].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.hosts[24].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.hosts[24].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.hosts[24].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.hosts[24].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.hosts[24].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.hosts[24].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[24].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[24].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[24].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].mgmt 	dataQueueLen:max 	12
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.hosts[24].wlan[0].mgmt 	dataQueueLen:timeavg 	0.068798892412403
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.hosts[24].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.hosts[24].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].mac 	"number of received packets" 	3121
+scalar kdet.hosts[24].wlan[0].mac 	"number of collisions" 	14982
+scalar kdet.hosts[24].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.hosts[24].wlan[0].mac 	"number of retry for AC 0" 	2660
+scalar kdet.hosts[24].wlan[0].mac 	"sent and received bits" 	2540496
+scalar kdet.hosts[24].wlan[0].mac 	"sent packet within AC 0" 	2061
+scalar kdet.hosts[24].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.hosts[24].wlan[0].mac 	"sentWithoutRetry AC 0" 	1213
+scalar kdet.hosts[24].wlan[0].mac 	"numGivenUp AC 0" 	98
+scalar kdet.hosts[24].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.hosts[24].wlan[0].mac 	rcvdPkFromHL:count 	4031
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.hosts[24].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	323638
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].mac 	passedUpPk:count 	6974
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.hosts[24].wlan[0].mac 	passedUpPk:sum(packetBytes) 	602900
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].mac 	rcvdPkFromLL:count 	40955
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.hosts[24].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	2164054
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].mac 	sentDownPk:count 	9812
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.hosts[24].wlan[0].mac 	sentDownPk:sum(packetBytes) 	532252
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.hosts[24].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.hosts[24].wlan[0].radio 	lossRate:max 	0.82
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.hosts[24].wlan[0].radio 	lossRate:timeavg 	0.1712654486527
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.hosts[24].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.hosts[24].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.hosts[24].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.hosts[24].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.hosts[24].wlan[0].radio 	radioState:count 	109906
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.hosts[24].monitor.monitor 	MemoryBytes 	81920
+scalar kdet.hosts[24].dropper 	DropProbability 	0
+scalar kdet.hosts[24].dropper 	HostFaulty 	0
+scalar kdet.hosts[24].dropper 	TotalDropped 	0
+scalar kdet.hosts[24].dropper 	TotalIn 	0
+scalar kdet.proxies[0].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.proxies[0].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.proxies[0].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.proxies[0].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.proxies[0].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.proxies[0].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.proxies[0].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.proxies[0].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[0].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[0].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[0].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].mgmt 	dataQueueLen:max 	1
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.proxies[0].wlan[0].mgmt 	dataQueueLen:timeavg 	5.6862888166667e-05
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.proxies[0].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.proxies[0].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].mac 	"number of received packets" 	185
+scalar kdet.proxies[0].wlan[0].mac 	"number of collisions" 	1510
+scalar kdet.proxies[0].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.proxies[0].wlan[0].mac 	"number of retry for AC 0" 	759
+scalar kdet.proxies[0].wlan[0].mac 	"sent and received bits" 	323856
+scalar kdet.proxies[0].wlan[0].mac 	"sent packet within AC 0" 	295
+scalar kdet.proxies[0].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.proxies[0].wlan[0].mac 	"sentWithoutRetry AC 0" 	123
+scalar kdet.proxies[0].wlan[0].mac 	"numGivenUp AC 0" 	49
+scalar kdet.proxies[0].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.proxies[0].wlan[0].mac 	rcvdPkFromHL:count 	560
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[0].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	43520
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].mac 	passedUpPk:count 	1382
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[0].wlan[0].mac 	passedUpPk:sum(packetBytes) 	153632
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].mac 	rcvdPkFromLL:count 	3935
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.proxies[0].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	285374
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].mac 	sentDownPk:count 	1504
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.proxies[0].wlan[0].mac 	sentDownPk:sum(packetBytes) 	93168
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.proxies[0].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.proxies[0].wlan[0].radio 	lossRate:max 	0.76
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.proxies[0].wlan[0].radio 	lossRate:timeavg 	0.40313329400664
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.proxies[0].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.proxies[0].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.proxies[0].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.proxies[0].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.proxies[0].wlan[0].radio 	radioState:count 	11029
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.proxies[0].monitor.monitor 	MemoryBytes 	16384
+scalar kdet.proxies[0].dropper 	DropProbability 	0
+scalar kdet.proxies[0].dropper 	HostFaulty 	0
+scalar kdet.proxies[0].dropper 	TotalDropped 	0
+scalar kdet.proxies[0].dropper 	TotalIn 	0
+scalar kdet.proxies[1].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.proxies[1].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.proxies[1].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.proxies[1].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.proxies[1].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.proxies[1].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.proxies[1].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.proxies[1].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[1].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[1].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[1].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].mgmt 	dataQueueLen:max 	5
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.proxies[1].wlan[0].mgmt 	dataQueueLen:timeavg 	0.0049259313515033
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.proxies[1].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.proxies[1].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].mac 	"number of received packets" 	1010
+scalar kdet.proxies[1].wlan[0].mac 	"number of collisions" 	5532
+scalar kdet.proxies[1].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.proxies[1].wlan[0].mac 	"number of retry for AC 0" 	2199
+scalar kdet.proxies[1].wlan[0].mac 	"sent and received bits" 	1812448
+scalar kdet.proxies[1].wlan[0].mac 	"sent packet within AC 0" 	1122
+scalar kdet.proxies[1].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.proxies[1].wlan[0].mac 	"sentWithoutRetry AC 0" 	526
+scalar kdet.proxies[1].wlan[0].mac 	"numGivenUp AC 0" 	113
+scalar kdet.proxies[1].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.proxies[1].wlan[0].mac 	rcvdPkFromHL:count 	2607
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[1].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	233562
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].mac 	passedUpPk:count 	3245
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[1].wlan[0].mac 	passedUpPk:sum(packetBytes) 	292326
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].mac 	rcvdPkFromLL:count 	14858
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.proxies[1].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	842212
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].mac 	sentDownPk:count 	5816
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.proxies[1].wlan[0].mac 	sentDownPk:sum(packetBytes) 	384040
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.proxies[1].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.proxies[1].wlan[0].radio 	lossRate:max 	0.78
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.proxies[1].wlan[0].radio 	lossRate:timeavg 	0.28963703548016
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.proxies[1].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.proxies[1].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.proxies[1].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.proxies[1].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.proxies[1].wlan[0].radio 	radioState:count 	43660
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.proxies[1].monitor.monitor 	MemoryBytes 	49152
+scalar kdet.proxies[1].dropper 	DropProbability 	0
+scalar kdet.proxies[1].dropper 	HostFaulty 	0
+scalar kdet.proxies[1].dropper 	TotalDropped 	0
+scalar kdet.proxies[1].dropper 	TotalIn 	0
+scalar kdet.proxies[2].networkLayer.arp 	failedARPResolution:count 	0
+attr title  "ARP failed resolutions, count"
+scalar kdet.proxies[2].networkLayer.arp 	completedARPResolution:count 	0
+attr title  "ARP completed resolutions, count"
+scalar kdet.proxies[2].networkLayer.arp 	initiatedARPResolution:count 	0
+attr title  "ARP initiated resolutions, count"
+scalar kdet.proxies[2].networkLayer.arp 	sentReply:count 	0
+attr title  "ARP replies sent, count"
+scalar kdet.proxies[2].networkLayer.arp 	sentReq:count 	0
+attr title  "ARP request sent, count"
+scalar kdet.proxies[2].lo0.lo 	droppedPkBitError:count 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, count"
+scalar kdet.proxies[2].lo0.lo 	droppedPkBitError:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkBitError
+attr title  "packets dropped/bit error, sum(packetBytes)"
+scalar kdet.proxies[2].lo0.lo 	rcvdPkFromHL:count 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[2].lo0.lo 	rcvdPkFromHL:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[2].lo0.lo 	passedUpPk:count 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[2].lo0.lo 	passedUpPk:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].mgmt 	dataQueueLen:max 	4
+attr interpolationmode  sample-hold
+attr title  "data queue length, max"
+scalar kdet.proxies[2].wlan[0].mgmt 	dataQueueLen:timeavg 	0.0017445249273767
+attr interpolationmode  sample-hold
+attr title  "data queue length, timeavg"
+scalar kdet.proxies[2].wlan[0].mgmt 	dropPkByQueue:count 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, count"
+scalar kdet.proxies[2].wlan[0].mgmt 	dropPkByQueue:sum(packetBytes) 	0
+attr interpolationmode  none
+attr source  dropPkByQueue
+attr title  "packets dropped by queue, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].mac 	"number of received packets" 	525
+scalar kdet.proxies[2].wlan[0].mac 	"number of collisions" 	5393
+scalar kdet.proxies[2].wlan[0].mac 	"number of internal collisions" 	0
+scalar kdet.proxies[2].wlan[0].mac 	"number of retry for AC 0" 	1713
+scalar kdet.proxies[2].wlan[0].mac 	"sent and received bits" 	691712
+scalar kdet.proxies[2].wlan[0].mac 	"sent packet within AC 0" 	893
+scalar kdet.proxies[2].wlan[0].mac 	"sent in TXOP " 	0
+scalar kdet.proxies[2].wlan[0].mac 	"sentWithoutRetry AC 0" 	426
+scalar kdet.proxies[2].wlan[0].mac 	"numGivenUp AC 0" 	90
+scalar kdet.proxies[2].wlan[0].mac 	"numDropped AC 0" 	0
+scalar kdet.proxies[2].wlan[0].mac 	rcvdPkFromHL:count 	1328
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, count"
+scalar kdet.proxies[2].wlan[0].mac 	rcvdPkFromHL:sum(packetBytes) 	92044
+attr interpolationmode  none
+attr source  packetReceivedFromUpper
+attr title  "packets received from higher layer, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].mac 	passedUpPk:count 	3414
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, count"
+scalar kdet.proxies[2].wlan[0].mac 	passedUpPk:sum(packetBytes) 	353484
+attr interpolationmode  none
+attr source  packetSentToUpper
+attr title  "packets passed to higher layer, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].mac 	rcvdPkFromLL:count 	15329
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, count"
+scalar kdet.proxies[2].wlan[0].mac 	rcvdPkFromLL:sum(packetBytes) 	912598
+attr interpolationmode  none
+attr source  packetReceivedFromLower
+attr title  "packets received from lower layer, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].mac 	sentDownPk:count 	3566
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, count"
+scalar kdet.proxies[2].wlan[0].mac 	sentDownPk:sum(packetBytes) 	205600
+attr interpolationmode  none
+attr source  packetSentToLower
+attr title  "packets sent to lower layer, sum(packetBytes)"
+scalar kdet.proxies[2].wlan[0].radio 	lossRate:min 	0
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, min"
+scalar kdet.proxies[2].wlan[0].radio 	lossRate:max 	0.72
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, max"
+scalar kdet.proxies[2].wlan[0].radio 	lossRate:timeavg 	0.26801790859124
+attr interpolationmode  backward-sample-hold
+attr title  "packet loss rate, timeavg"
+statistic kdet.proxies[2].wlan[0].radio 	channelNo:histogram
+field count 1
+field mean 0
+field stddev -nan
+field sum 0
+field sqrsum 0
+field min 0
+field max 0
+attr interpolationmode  sample-hold
+attr title  "channel no, histogram"
+bin	-INF	0
+bin	-0.5	0
+bin	-0.46666666666667	0
+bin	-0.43333333333333	0
+bin	-0.4	0
+bin	-0.36666666666667	0
+bin	-0.33333333333333	0
+bin	-0.3	0
+bin	-0.26666666666667	0
+bin	-0.23333333333333	0
+bin	-0.2	0
+bin	-0.16666666666667	0
+bin	-0.13333333333333	0
+bin	-0.1	0
+bin	-0.066666666666667	0
+bin	-0.033333333333333	0
+bin	0	1
+bin	0.033333333333333	0
+bin	0.066666666666667	0
+bin	0.1	0
+bin	0.13333333333333	0
+bin	0.16666666666667	0
+bin	0.2	0
+bin	0.23333333333333	0
+bin	0.26666666666667	0
+bin	0.3	0
+bin	0.33333333333333	0
+bin	0.36666666666667	0
+bin	0.4	0
+bin	0.43333333333333	0
+bin	0.46666666666667	0
+bin	0.5	0
+scalar kdet.proxies[2].wlan[0].radio 	bitrate:min 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, min"
+attr unit  bps
+scalar kdet.proxies[2].wlan[0].radio 	bitrate:max 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, max"
+attr unit  bps
+scalar kdet.proxies[2].wlan[0].radio 	bitrate:timeavg 	54000000
+attr interpolationmode  sample-hold
+attr title  "tx bitrate, timeavg"
+attr unit  bps
+scalar kdet.proxies[2].wlan[0].radio 	radioState:count 	47883
+attr interpolationmode  sample-hold
+attr title  "radio state (enum), count"
+scalar kdet.proxies[2].monitor.monitor 	MemoryBytes 	32768
+scalar kdet.proxies[2].dropper 	DropProbability 	0
+scalar kdet.proxies[2].dropper 	HostFaulty 	0
+scalar kdet.proxies[2].dropper 	TotalDropped 	0
+scalar kdet.proxies[2].dropper 	TotalIn 	0
+scalar kdet.graphServer 	TotalNodes 	28
+scalar kdet.clock 	Interval 	5
