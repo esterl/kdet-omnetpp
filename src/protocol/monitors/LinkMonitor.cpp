@@ -51,6 +51,7 @@ void LinkMonitor::finish() {
     }
     summaries.clear();
     recordScalar("MemoryBytes", bytes);
+    TrafficMonitor::finish();
 }
 
 void LinkMonitor::resetSummaries() {

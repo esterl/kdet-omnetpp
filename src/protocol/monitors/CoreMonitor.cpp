@@ -59,6 +59,7 @@ void CoreMonitor::finish() {
     }
     summaries.clear();
     recordScalar("MemoryBytes", bytes);
+    TrafficMonitor::finish();
 }
 
 void CoreMonitor::resetSummaries() {
