@@ -26,7 +26,6 @@
 
 NetworkSketch* SketchSummary::baseSketch = NULL;
 
-
 void SketchSummary::setBaseSketch(cModule* module) {
     if (baseSketch == NULL) {
         unsigned rows = module->par("sketchNumRows");
@@ -38,13 +37,13 @@ void SketchSummary::setBaseSketch(cModule* module) {
         const char* sketchType = module->par("sketchType").stringValue();
 
         if (strcmp(sketchType, "AGMS") == 0) {
-            baseSketch = new AGMS_Sketch<uint32_t>(rows, cols, randGenerator,
+            baseSketch = new AGMS_Sketch<uint32_t>(cols, rows, randGenerator,
                     avgFunc);
         } else if (strcmp(sketchType, "FAGMS") == 0) {
-            baseSketch = new FAGMS_Sketch<uint32_t>(rows, cols, randGenerator,
+            baseSketch = new FAGMS_Sketch<uint32_t>(cols, rows, randGenerator,
                     hashFunc, avgFunc);
         } else if (strcmp(sketchType, "FastCount") == 0) {
-            baseSketch = new FastCount_Sketch<uint32_t>(rows, cols,
+            baseSketch = new FastCount_Sketch<uint32_t>(cols, rows,
                     randGenerator);
         } else {
             throw cRuntimeError(module, "Invalid Sketch Type parameter");
