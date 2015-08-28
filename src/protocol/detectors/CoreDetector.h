@@ -20,7 +20,6 @@
 #define COREDETECTOR_H_
 
 #include "Detector.h"
-#include "CoreReport.h"
 #include <vector>
 #include <unordered_map>
 
@@ -37,7 +36,7 @@ protected:
     virtual void evaluateCore(unsigned index, CoreEvaluation* msg);
     virtual void clearReports();
     unsigned findCore(std::set<IPv4Address> core);
-    std::vector<std::unordered_map<int, CoreReport*>> reports;
+    std::vector<std::unordered_map<int, Report*>> reports;
 };
 
 #endif /* COREDETECTOR_H_ */

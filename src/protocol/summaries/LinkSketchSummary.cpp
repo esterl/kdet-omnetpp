@@ -19,9 +19,9 @@
 
 #include "LinkSketchSummary.h"
 
-LinkSketchSummary::LinkSketchSummary(IPv4Address reporter,
+LinkSketchSummary::LinkSketchSummary(IPv4Address reporterIP,
         IPv4Address neighborIP) {
-    reporter = reporter;
+    reporter = reporterIP;
     neighbor = neighborIP;
     from = SketchSummary::getBaseSketch();
     to = SketchSummary::getBaseSketch();
@@ -219,6 +219,19 @@ double LinkSketchSummary::getBytes() {
     return bytes;
 }
 
+double LinkSketchSummary::getOptimizedBytes(){
+    double bytes = 0.;
+    bytes += from->get_optimized_bytes();
+    bytes += to->get_optimized_bytes();
+    for (auto it = src.begin(); it != src.end(); it++) {
+        bytes += (*it->second).get_optimized_bytes();
+    }
+    for (auto it = dst.begin(); it != dst.end(); it++) {
+        bytes += (*it->second).get_optimized_bytes();
+    }
+    return bytes;
+}
+
 void removeNonCoreSketches(SketchHash& sketches,
         std::set<IPv4Address> coreNodes) {
     std::set<int> nonCoreNodes;
@@ -232,7 +245,7 @@ void removeNonCoreSketches(SketchHash& sketches,
         sketches.erase(*it);
     }
 }
-void LinkSketchSummary::optimizeSummary(std::set<IPv4Address> coreNodes) {
+void LinkSketchSummary::optimize(std::set<IPv4Address> coreNodes) {
     removeNonCoreSketches(src, coreNodes);
     removeNonCoreSketches(dst, coreNodes);
 }

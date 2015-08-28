@@ -296,7 +296,6 @@ void RobustFlooding::setParameters(Report* report) {
     std::stringstream name;
     report->setReporter(IP);
     name << report->getName();
-    report->optimizeSummaries(graphServer->getNeighbors(IP, par("k")));
 
     long version = 0;
     if (localReportVersions.count(report) != 0) {

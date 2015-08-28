@@ -45,7 +45,8 @@ public:
     virtual double estimateIn(std::set<IPv4Address> core);
     virtual double estimateOut(std::set<IPv4Address> core);
     virtual double getBytes();
-    virtual void optimizeSummary(std::set<IPv4Address> coreNodes);
+    virtual double getOptimizedBytes();
+    virtual void optimize(std::set<IPv4Address> kHopNodes);
     static void setBaseSketch(cModule* module);
     static void setBaseSketch(NetworkSketch* sketch);
     static NetworkSketch* getBaseSketch();

@@ -22,8 +22,8 @@
 
 #include "IPvXAddressResolver.h"
 #include "CoreEvaluation_m.h"
-#include "CoreSketchSummary.h"
 #include "CoreMonitor.h"
+#include "CoreSummary.h"
 
 Define_Module(CoreDetector);
 
@@ -32,34 +32,34 @@ void CoreDetector::initialize(int stage) {
 }
 
 void CoreDetector::updateReports(Report* report) {
-    CoreReport* coreReport = check_and_cast<CoreReport*>(report);
+    CoreSummary* summary = check_and_cast<CoreSummary*>(report->getSummary());
     //Which core is it?
-    unsigned index = findCore(coreReport->getSummary()->getCore());
+    unsigned index = findCore(summary->getCore());
     if (index >= cores.size()) {
         // Report for a core that is not being monitorized:
         delete report;
         return;
     }
     // Update the map of reports
-    if (reports[index].count(coreReport->getReporter().getInt()) != 0) {
-        delete reports[index][coreReport->getReporter().getInt()];
+    if (reports[index].count(report->getReporter().getInt()) != 0) {
+        delete reports[index][report->getReporter().getInt()];
     }
-    reports[index][coreReport->getReporter().getInt()] = coreReport;
+    reports[index][report->getReporter().getInt()] = report;
 }
 
 void CoreDetector::updateCores(CoresUpdate* update) {
     // TODO Reports should be re-placed...
     clearReports();
     reports.resize(update->getCores().size(),
-            std::unordered_map<int, CoreReport*>());
+            std::unordered_map<int, Report*>());
     Detector::updateCores(update);
 }
 
 void CoreDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
     std::set<IPv4Address> core = cores[i];
     std::set<IPv4Address> boundary = boundaries[i];
-    std::unordered_map<int, CoreReport*> coreReports = reports[i];
-    CoreSketchSummary* globalSummary = NULL;
+    std::unordered_map<int, Report*> coreReports = reports[i];
+    CoreSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
             boundaryNode++) {
@@ -67,7 +67,7 @@ void CoreDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
     }
     for (auto it = coreReports.begin(); it != coreReports.end(); it++) {
         if (globalSummary == NULL) {
-            globalSummary = check_and_cast<CoreSketchSummary*>(
+            globalSummary = check_and_cast<CoreSummary*>(
                     it->second->getSummary()->copy());
         } else {
             globalSummary->add(it->second->getSummary());

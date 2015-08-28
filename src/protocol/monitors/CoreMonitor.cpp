@@ -20,7 +20,7 @@
 
 #include "CoreMonitor.h"
 #include "CoreSketchSummary.h"
-#include "CoreReport.h"
+#include "Report.h"
 
 Define_Module(CoreMonitor);
 
@@ -38,14 +38,13 @@ void CoreMonitor::handleMessage(cMessage *msg) {
     // Send a report per summary
     for (unsigned i = 0; i < summaries.size(); i++) {
         if (shareSummaries[i]) {
-            CoreReport* report = new CoreReport();
+            Report* report = new Report();
             report->setReporter(IP);
-            CoreSketchSummary* summary =
-                    dynamic_cast<CoreSketchSummary*>(summaries[i]);
-            report->setSummary(summary);
+            report->setSummary(summaries[i]);
             report->setBogus(faulty);
+            report->setName(report->getName().c_str());
             send(report, "reports");
-            summary->clear();
+            summaries[i]->clear();
         }
     }
     delete msg;

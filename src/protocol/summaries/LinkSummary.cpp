@@ -17,39 +17,21 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
-#ifndef LINKREPORT_H_
-#define LINKREPORT_H_
-
-#include "LinkReport_m.h"
-#include "kdet_defs.h"
-#include <unordered_map>
 #include "LinkSummary.h"
 
-typedef std::unordered_map<int, LinkSummary*> LinkSummariesHash;
-
-/**
- * Message that contains a list of all the summaries from a node, one for each
- * link with its neighbors, without any post-processing.
- */
-class LinkReport : public LinkReport_Base{
-private:
-    void copy(const LinkReport& other);
-    LinkSummariesHash summaries_var;
-public:
-    LinkReport(const char *name = NULL, int kind = KDET_REPORT_MSG) : LinkReport_Base(name, kind){};
-    LinkReport(const LinkReport& other);
-    virtual ~LinkReport();
-    LinkReport& operator=(const LinkReport& other);
-    virtual LinkReport *dup() const;
-    virtual void setSummaries(const LinkSummariesHash& summaries);
-    LinkSummariesHash getSummaries();
-    virtual void updateBytes();
-    virtual bool equals_to(Report* other);
-    virtual size_t Hash() const;
-    virtual std::set<IPv4Address> sendTo(IPv4Address local, std::set<IPv4Address> neighbors);
-    virtual std::string getName();
-    virtual void optimizeSummaries(std::set<IPv4Address> kNeighbors);
-};
-
-#endif /* LINKREPORT_H_ */
+std::vector<IPv4Address> LinkSummary::getID() {
+    std::vector<IPv4Address> id;
+    id.push_back(reporter);
+    id.push_back(neighbor);
+    return id;
+}
+std::set<IPv4Address> LinkSummary::getSendTo(IPv4Address localIP,
+        std::set<IPv4Address> neighbors) {
+    if (localIP==reporter){
+        std::set<IPv4Address> result;
+        result.insert(neighbor);
+        return result;
+    }
+    // TODO remove reporter from neighbors?
+    return neighbors;
+}

@@ -22,7 +22,8 @@
 #define LINKMONITOR_H_
 
 #include "TrafficMonitor.h"
-#include "LinkReport.h"
+#include "Report.h"
+#include <unordered_map>
 
 /**
  * Traffic monitor based on the second strategy of "KDet: Coordinated Detection
@@ -37,7 +38,8 @@ protected:
     virtual void finish();
     virtual void resetSummaries();
     virtual std::vector<Summary*> findSummaries(IPv4Address addr);
-    LinkSummariesHash summaries;
+    //LinkSummariesHash summaries;
+    std::unordered_map<int, Summary*> summaries;
 };
 
 #endif /* LINKMONITOR_H_ */

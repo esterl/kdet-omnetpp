@@ -20,7 +20,6 @@
 #define LINKDETECTOR_H_
 
 #include "Detector.h"
-#include "LinkReport.h"
 #include <unordered_map>
 
 /*
@@ -36,7 +35,7 @@ protected:
     virtual void updateReports(Report* report);
     virtual void evaluateCore(unsigned index, CoreEvaluation* msg);
     virtual void clearReports();
-    std::unordered_map<int, LinkReport*> reports;
+    std::unordered_map<int, std::unordered_map<int, Report*>> reports;
 };
 
 #endif /* LINKDETECTOR_H_ */

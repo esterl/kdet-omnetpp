@@ -20,8 +20,6 @@
 #ifndef LINKSUMMARY_H_
 #define LINKSUMMARY_H_
 
-#include <IPvXAddress.h>
-#include <IPv4Datagram.h>
 #include "Summary.h"
 
 /**
@@ -31,23 +29,15 @@
  */
 class LinkSummary : public Summary{
 public:
-    LinkSummary(IPv4Address hostIP = IPv4Address::UNSPECIFIED_ADDRESS,
-            IPv4Address neighborIP = IPv4Address::UNSPECIFIED_ADDRESS) {host=hostIP; neighbor=neighborIP;};
+    LinkSummary(IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS,
+            IPv4Address neighborIP = IPv4Address::UNSPECIFIED_ADDRESS) {reporter=reporterIP; neighbor=neighborIP;};
     virtual ~LinkSummary() { };
-    virtual IPv4Address getHost(){ return host; };
     virtual IPv4Address getNeighbor(){ return neighbor; };
-    virtual void updateSummaryPreRouting(IPv4Datagram* pkt) = 0;
-    virtual void updateSummaryPostRouting(IPv4Datagram* pkt) = 0;
-    virtual void clear() = 0;
-    virtual Summary* copy() const = 0;
-    virtual void add(Summary* other) = 0;
-    virtual double estimateDrop(std::set<IPv4Address> core) = 0;
-    virtual double estimateIn(std::set<IPv4Address> core) = 0;
-    virtual double estimateOut(std::set<IPv4Address> core) = 0;
-    virtual double getBytes() = 0;
-    virtual void optimizeSummary(std::set<IPv4Address> coreNodes) = 0;
+    virtual std::vector<IPv4Address> getID();
+    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
+            std::set<IPv4Address> neighbors);
+    virtual void optimize(std::set<IPv4Address> kHopsNeighbors) = 0;
 protected:
-    IPv4Address host;
     IPv4Address neighbor;
 };
 

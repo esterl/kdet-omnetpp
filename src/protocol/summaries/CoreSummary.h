@@ -17,35 +17,33 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef COREREPORT_H_
-#define COREREPORT_H_
+#ifndef CORESUMMARY_H_
+#define CORESUMMARY_H_
 
-#include "CoreReport_m.h"
+#include "Summary.h"
+#include <set>
 
 /**
- * Message that contains a core report, that is a single report that already
- * has pre-computed the difference between the traffic sent and destined to
- * a core; as well as between the traffic received and originated from it.
+ * TODO Doc
  */
-class CoreReport: public CoreReport_Base {
+class CoreSummary: public Summary {
 public:
-    CoreReport(const char *name = NULL, int kind = KDET_REPORT_MSG) : CoreReport_Base(name, kind){ summary_var = NULL;};
-    CoreReport(const CoreReport& other);
-    virtual ~CoreReport();
-    virtual CoreReport *dup() const;
-    virtual bool equals_to(Report* other);
-    virtual size_t Hash() const;
-    virtual std::set<IPv4Address> sendTo(IPv4Address local,
+    CoreSummary(const IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS,
+            const std::set<IPv4Address>& coreIPs = std::set<IPv4Address>()) {
+        reporter = reporterIP;
+        core = coreIPs;
+    }
+    ;
+    virtual ~CoreSummary() {};
+    virtual std::set<IPv4Address> getCore() {
+        return core;
+    }
+    ;
+    virtual std::vector<IPv4Address> getID();
+    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
             std::set<IPv4Address> neighbors);
-    virtual std::string getName();
-    virtual CoreSketchSummary* getSummary();
-    virtual void setSummary(CoreSketchSummary* summary);
 protected:
-    CoreSketchSummary *summary_var;
-    // For the hash function
-    static Hash_CW2<uint8_t> hash; // Results will be within 2^13
-    static uint32_t prime; //Mersenne prime 17
-    static uint64_t seedPows[5]; // Random seed and its powers % p
+    std::set<IPv4Address> core;
 };
 
-#endif /* COREREPORT_H_ */
+#endif /* CORESUMMARY_H_ */

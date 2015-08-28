@@ -22,6 +22,8 @@
 #define REPORT_H_
 
 #include "Report_m.h"
+#include "Summary.h"
+#include "sketches/hash.h"
 
 /**
  * Base class for the message of type reports. Derived classes must implement
@@ -31,14 +33,22 @@
  */
 class Report : public Report_Base {
 public:
-    Report(const char *name, int kind) : Report_Base(name, kind){};
-    Report(const Report& other) : Report_Base(other){};
-    virtual Report* dup() const = 0;
-    virtual bool equals_to(Report* other) = 0;
-    virtual size_t Hash() const = 0;
-    virtual std::set<IPv4Address> sendTo(IPv4Address local, std::set<IPv4Address> neighbors) = 0;
-    virtual std::string getName() = 0;
-    virtual void optimizeSummaries(std::set<IPv4Address> kNeighbors) {};
+    Report();
+    Report(const char *name, int kind);
+    Report(const Report& other);
+    virtual Report* dup() const;
+    virtual bool equals_to(Report* other);
+    virtual size_t Hash() const;
+    virtual std::set<IPv4Address> sendTo(IPv4Address local, std::set<IPv4Address> neighbors);
+    virtual std::string getName();
+    Summary* getSummary() const;
+    void setSummary(Summary* summary);
+protected:
+    Summary *summary_var;
+    // For the hash function
+    static Hash_CW2<uint8_t> hash; // Results will be within 2^13
+    static uint32_t prime; //Mersenne prime 17
+    static uint64_t seedPows[10]; // Random seed and its powers % p (max k == 9)
 };
 
 struct ReportHash{

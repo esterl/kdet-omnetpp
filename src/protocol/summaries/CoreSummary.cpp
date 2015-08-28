@@ -17,41 +17,27 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include "CoreSummary.h"
 
-#ifndef SUMMARY_H_
-#define SUMMARY_H_
-
-#include <IPvXAddress.h>
-#include <IPv4Datagram.h>
-#include <vector>
-#include <set>
-
-
-// TODO do we want sets or vectors?
-/**
- * Base class for traffic summaries.
- */
-class Summary {
-public:
-    Summary(IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS) {reporter=reporterIP;};
-    virtual ~Summary() { };
-    virtual IPv4Address getReporter(){ return reporter; };
-    virtual void updateSummaryPreRouting(IPv4Datagram* pkt) = 0;
-    virtual void updateSummaryPostRouting(IPv4Datagram* pkt) = 0;
-    virtual void clear() = 0;
-    virtual Summary* copy() const = 0;
-    virtual void add(Summary* other) = 0;
-    virtual double estimateDrop(std::set<IPv4Address> core) = 0;
-    virtual double estimateIn(std::set<IPv4Address> core) = 0;
-    virtual double estimateOut(std::set<IPv4Address> core) = 0;
-    virtual double getBytes() = 0;
-    virtual double getOptimizedBytes() = 0;
-    virtual std::vector<IPv4Address> getID() = 0;
-    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
-            std::set<IPv4Address> neighbors) = 0;
-
-protected:
-    IPv4Address reporter;
-};
-
-#endif /* SUMMARY_H_ */
+std::vector<IPv4Address> CoreSummary::getID() {
+    std::vector<IPv4Address> id;
+    id.push_back(reporter);
+    for (auto it = core.begin(); it != core.end(); it++)
+        id.push_back(*it);
+    return id;
+}
+std::set<IPv4Address> CoreSummary::getSendTo(IPv4Address localIP,
+        std::set<IPv4Address> neighbors) {
+    if (localIP == reporter) {
+        std::set<IPv4Address> result;
+        for (auto it = core.begin(); it != core.end(); it++) {
+            if (neighbors.count(*it) > 0) {
+                result.insert(*it);
+            }
+        }
+        return result;
+    } else if (core.count(localIP) > 0) {
+        return neighbors;
+    }
+    return std::set<IPv4Address>();
+}

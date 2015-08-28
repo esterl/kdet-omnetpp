@@ -20,7 +20,7 @@
 #include <monitors/LinkMonitor.h>
 #include "LinkSketchSummary.h"
 
-Define_Module (LinkMonitor);
+Define_Module(LinkMonitor);
 
 void LinkMonitor::initialize(int stage) {
     if (stage == 0) {
@@ -32,14 +32,26 @@ void LinkMonitor::initialize(int stage) {
 }
 
 void LinkMonitor::handleMessage(cMessage *msg) {
-    // Send report
-    LinkReport* report = new LinkReport();
-    report->setReporter(IP);
-    report->setSummaries(summaries);
-    report->setBogus(faulty);
-    send(report, "reports");
-    // Clear sketches
-    resetSummaries();
+    for (auto it = summaries.begin(); it != summaries.end(); it++) {
+        std::set<IPv4Address> coreAddresses;
+        // See if there is any core for that link that needs to share its summaries:
+        for (unsigned i = 0; i < cores.size(); i++) {
+            if (shareSummaries[i] && cores[i].count(IPv4Address(it->first)) != 0) {
+                coreAddresses.insert(cores[i].begin(), cores[i].end());
+            }
+        }
+        if (coreAddresses.size() > 0){
+            Report* report = new Report();
+            report->setReporter(IP);
+            LinkSummary* linkSummary = check_and_cast<LinkSummary*>(it->second);
+            linkSummary->optimize(coreAddresses);
+            report->setSummary(linkSummary);
+            report->setBogus(faulty);
+            report->setName(report->getName().c_str());
+            send(report, "reports");
+            linkSummary->clear();
+        }
+    }
     delete msg;
 }
 

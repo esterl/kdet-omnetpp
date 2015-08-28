@@ -20,13 +20,13 @@
 #ifndef CORESKETCHSUMMARY_H_
 #define CORESKETCHSUMMARY_H_
 
-#include "Summary.h"
+#include "CoreSummary.h"
 #include "SketchSummary.h"
 
 /**
  * Traffic summary based on cores and sketches.
  */
-class CoreSketchSummary: public Summary, public SketchSummary {
+class CoreSketchSummary: public CoreSummary, public SketchSummary {
 public:
     CoreSketchSummary(const IPv4Address reporter, const std::set<IPv4Address>& core);
     CoreSketchSummary(const CoreSketchSummary& other);
@@ -42,10 +42,8 @@ public:
     virtual double estimateOut(std::set<IPv4Address> core);
     virtual double getBytes();
     virtual double getOptimizedBytes();
-    virtual std::set<IPv4Address> getCore() const {return core;};
 
 protected:
-    std::set<IPv4Address> core;
     std::set<IPv4Address> boundaryReportsIncluded;
     NetworkSketch *sketchIn, *sketchOut;
 
