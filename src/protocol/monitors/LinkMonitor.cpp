@@ -22,13 +22,14 @@
 
 Define_Module(LinkMonitor);
 
-void LinkMonitor::setCores(std::vector<std::set<IPv4Address>> cores){
+void LinkMonitor::setCores(std::vector<std::set<IPv4Address>> cores) {
     resetSummaries();
     summaries.clear();
-    for (auto core = cores.begin(); core != cores.end(); core++){
-        if (core->size()==1){
+    for (auto core = cores.begin(); core != cores.end(); core++) {
+        if (core->size() == 1) {
             auto neighbor = core->begin();
-            summaries[neighbor->getInt()] = new LinkSketchSummary(IP, *neighbor);
+            summaries[neighbor->getInt()] = new LinkSketchSummary(IP,
+                    *neighbor);
         }
     }
     TrafficMonitor::setCores(cores);
@@ -52,18 +53,17 @@ void LinkMonitor::handleMessage(cMessage *msg) {
                     && cores[i].count(IPv4Address(it->first)) != 0) {
                 coreAddresses.insert(cores[i].begin(), cores[i].end());
             }
-            if (coreAddresses.size() > 0) {
-                Report* report = new Report();
-                report->setReporter(IP);
-                LinkSummary* linkSummary = check_and_cast<LinkSummary*>(
-                        it->second);
-                linkSummary->optimize(coreAddresses);
-                report->setSummary(linkSummary);
-                report->setBogus(faulty);
-                report->setName(report->getName().c_str());
-                send(report, "reports");
-                linkSummary->clear();
-            }
+        }
+        if (coreAddresses.size() > 0) {
+            Report* report = new Report();
+            report->setReporter(IP);
+            LinkSummary* linkSummary = check_and_cast<LinkSummary*>(it->second);
+            linkSummary->optimize(coreAddresses);
+            report->setSummary(linkSummary);
+            report->setBogus(faulty);
+            report->setName(report->getName().c_str());
+            send(report, "reports");
+            linkSummary->clear();
         }
     }
     delete msg;

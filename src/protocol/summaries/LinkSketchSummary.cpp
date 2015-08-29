@@ -20,12 +20,14 @@
 #include "LinkSketchSummary.h"
 
 LinkSketchSummary::LinkSketchSummary(IPv4Address reporterIP,
-        IPv4Address neighborIP) : LinkSummary(reporterIP, neighborIP){
+        IPv4Address neighborIP) :
+        LinkSummary(reporterIP, neighborIP) {
     from = SketchSummary::getBaseSketch();
     to = SketchSummary::getBaseSketch();
 }
 
-LinkSketchSummary::LinkSketchSummary(const LinkSketchSummary& other) : LinkSummary(other.reporter, other.neighbor){
+LinkSketchSummary::LinkSketchSummary(const LinkSketchSummary& other) :
+        LinkSummary(other.reporter, other.neighbor) {
     from = other.from->copy();
     to = other.to->copy();
     for (auto it = other.src.begin(); it != other.src.end(); it++) {
@@ -98,7 +100,7 @@ void LinkSketchSummary::updateSummaryPostRouting(IPv4Datagram* pkt) {
     // Update from and src sketches
     try {
         uint32_t pktHash = getPacketHash(pkt);
-        to->update(pktHash, 1);
+       to->update(pktHash, 1);
         // Create Sketch if it doesn't exist
         IPv4Address address = pkt->getDestAddress();
         if (dst.count(address.getInt()) == 0) {
@@ -215,7 +217,7 @@ double LinkSketchSummary::getBytes() {
     return bytes;
 }
 
-double LinkSketchSummary::getOptimizedBytes(){
+double LinkSketchSummary::getOptimizedBytes() {
     double bytes = 0.;
     bytes += from->get_optimized_bytes();
     bytes += to->get_optimized_bytes();

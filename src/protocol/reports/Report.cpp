@@ -71,7 +71,7 @@ std::string Report::getName() {
     for (auto it = summaryID.begin(); it != summaryID.end(); it++) {
         ss << *it << ",";
     }
-    ss << ">] : " << version_var;
+    ss << ">] : " << simTime();
     return ss.str();
 }
 

@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "TrafficMonitor.h"
 
 #include "kdet_defs.h"
@@ -112,5 +111,4 @@ IPv4Address TrafficMonitor::getIPAddress(IPv4Datagram* datagram) {
         datagram->setControlInfo(ctrl);
     return arp->getIPv4AddressFor(ctrl->getSrc());
 }
-
 

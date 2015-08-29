@@ -88,7 +88,7 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
 
 void LinkDetector::clearReports() {
     for (auto it = reports.begin(); it != reports.end(); it++) {
-        for (auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
+        for (auto it2 = it->second.begin(); it2 != it->second.end(); it2++) {
             delete it2->second;
         }
         it->second.clear();
