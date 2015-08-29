@@ -29,8 +29,8 @@
  */
 class LinkSummary : public Summary{
 public:
-    LinkSummary(IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS,
-            IPv4Address neighborIP = IPv4Address::UNSPECIFIED_ADDRESS) {reporter=reporterIP; neighbor=neighborIP;};
+    LinkSummary(IPv4Address reporterIP,
+            IPv4Address neighborIP) {reporter=reporterIP; neighbor=neighborIP;};
     virtual ~LinkSummary() { };
     virtual IPv4Address getNeighbor(){ return neighbor; };
     virtual std::vector<IPv4Address> getID();

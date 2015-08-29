@@ -32,6 +32,8 @@
  * of the detector to later compose those to create the core's summary.
  */
 class LinkMonitor: public TrafficMonitor {
+public:
+    virtual void setCores(std::vector<std::set<IPv4Address>> cores);
 protected:
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);

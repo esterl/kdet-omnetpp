@@ -20,16 +20,12 @@
 #include "LinkSketchSummary.h"
 
 LinkSketchSummary::LinkSketchSummary(IPv4Address reporterIP,
-        IPv4Address neighborIP) {
-    reporter = reporterIP;
-    neighbor = neighborIP;
+        IPv4Address neighborIP) : LinkSummary(reporterIP, neighborIP){
     from = SketchSummary::getBaseSketch();
     to = SketchSummary::getBaseSketch();
 }
 
-LinkSketchSummary::LinkSketchSummary(const LinkSketchSummary& other) {
-    reporter = other.reporter;
-    neighbor = other.neighbor;
+LinkSketchSummary::LinkSketchSummary(const LinkSketchSummary& other) : LinkSummary(other.reporter, other.neighbor){
     from = other.from->copy();
     to = other.to->copy();
     for (auto it = other.src.begin(); it != other.src.end(); it++) {

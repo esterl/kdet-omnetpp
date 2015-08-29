@@ -37,6 +37,7 @@ simple LinkMonitor like IMonitor
         string sketchHashFunction @enum("cw2", "cw4", "tab") = default("cw2");
         string sketchType @enum("AGMS", "FAGMS", "FastCount") = default("FastCount");
         bool faulty = default(false);
+        bool randomized = default(false);
     gates:
         input clock;
         output reports;

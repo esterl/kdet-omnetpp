@@ -31,8 +31,7 @@ typedef std::map<uint32_t, NetworkSketch*> SketchHash;
  */
 class LinkSketchSummary: public LinkSummary, public SketchSummary {
 public:
-    LinkSketchSummary(IPv4Address reporter, IPv4Address link =
-            IPv4Address::UNSPECIFIED_ADDRESS);
+    LinkSketchSummary(IPv4Address reporter, IPv4Address link);
     LinkSketchSummary(const LinkSketchSummary& other);
     LinkSketchSummary& operator=(const LinkSketchSummary& other);
     virtual ~LinkSketchSummary();
@@ -53,7 +52,6 @@ public:
 protected:
     void updateSketch(NetworkSketch* sketch, IPv4Datagram* pkt);
     static NetworkSketch* baseSketch;
-    IPv4Address neighbor;
     NetworkSketch* from;
     NetworkSketch* to;
     SketchHash src;

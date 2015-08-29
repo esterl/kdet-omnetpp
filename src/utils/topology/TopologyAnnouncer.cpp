@@ -43,7 +43,7 @@ void printIter(iterator begin, iterator end){
 void TopologyAnnouncer::handleMessage(cMessage *msg) {
     std::set<IPv4Address> new_neigh = neighbors;
     seqNumber++;
-    for (unsigned int i = 0; i < rt->getNumRoutes(); i++) {
+    for (int i = 0; i < rt->getNumRoutes(); i++) {
         IPv4Route *route = rt->getRoute(i);
         if (route->getDestination() == route->getGateway()) {
             //1-hop node

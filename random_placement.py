@@ -1,3 +1,4 @@
+
 ###################### Random scenarios generation #############################
 import random
 import math
@@ -61,20 +62,28 @@ def getNpositions(N, radius):
     positions = [(0,0)]
     for i in range(N-1):
         (x, y) = get_random_position(positions, radius)
-        while ( get_min_distance(positions, x, y) < radius/5 or 
+        max_tries = 100
+        while (( get_min_distance(positions, x, y) < radius/5 or 
                 #get_next_min_distance(positions, x, y, radius) < 1.25*radius or
-                get_max_neighbors(positions + [(x,y)], radius) > 5):
+                get_max_neighbors(positions + [(x,y)], radius) > 5) and 
+                max_tries > 0 ) :
             (x, y) = get_random_position(positions, radius)
+            max_tries -= 1
         positions += [ (x,y) ]
     return positions
 
-def getRandomFiles(N):
+def getRandomFiles(N, time):
     import glob
-    filenames = glob.glob("traffic/trafGen*.5")
+    import os
+    filenames = glob.glob("examples/traffic/trafGen*.%i" % time)
+    filenames = [ os.path.abspath(file) for file in filenames ]
+    # Smaller filenames:
+    filenames = [ file for file in filenames if os.stat(file).st_size < 10000 ]
     return random.sample(filenames, N)
 
 def generateScenario(nHosts, nProxies, faultyProportion, dropProbability, filename):
     positions = getNpositions(nHosts+nProxies, 750)
+    time = random.choice(range(40))
     random.shuffle(positions)
     faulty = random.sample(range(nHosts), int(nHosts*faultyProportion))
     context = {
@@ -83,7 +92,7 @@ def generateScenario(nHosts, nProxies, faultyProportion, dropProbability, filena
         'positions': positions,
         'faulty': faulty,
         'selectedProxy': [ random.choice(range(nProxies)) for i in range(nHosts) ],
-        'selectedFile': getRandomFiles(nHosts),
+        'selectedFile': getRandomFiles(nHosts, time),
         'dropProbability' : dropProbability
     }
     with open(filename, 'w') as context_json:
@@ -103,7 +112,8 @@ if __name__ == '__main__':
         help="Drop probability of faulty  nodes", type=float)
     args = parser.parse_args()
     for i in range(args.N):
-        filename = args.basename + str(i) + ".json"
+        print i
+        filename = "examples/contexts/" + args.basename + str(i) + ".json"
         generateScenario(args.nHosts, args.nProxies, args.faultProbability, 
                             args.dropProbability, filename)
 
