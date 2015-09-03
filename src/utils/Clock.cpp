@@ -32,10 +32,12 @@ void Clock::initialize()
 void Clock::finish(){
     cancelAndDelete(timer);
     recordScalar("Interval", interval);
+    recordScalar("StartTime", par("waitTime").doubleValue());
+    recordScalar("EndTime", simTime());
 }
 void Clock::handleMessage(cMessage *msg)
 {
-    for (unsigned i = 0; i < gateSize("out"); i++)
+    for (int i = 0; i < gateSize("out"); i++)
         send(msg->dup(), "out",i);
     scheduleAt(simTime()+ interval, msg);
 }
