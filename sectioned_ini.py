@@ -13,7 +13,7 @@ def generate(context_file, experiment_label):
         experiment-label = {{ expLabel }}
         output-vector-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.vec
         output-scalar-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.sca
-        sim-time-limit = 240s
+        sim-time-limit = 500s
         **.numNodes = {{ nHosts }}
         **.numProxies = {{ nProxies }}
         **.mobility.numHosts = 200
@@ -81,21 +81,21 @@ def generate(context_file, experiment_label):
         **.detectorType = "LinkDetector"
         
         [Config interval]
-        **.interval = ${5,10, 20, 30, 60}s
+        **.interval = ${interval=5,10, 20, 30, 60}s
         
         [Config sketchSize]
-        **.sketchNumRows = ${1, 8, 16, 32}
-        **.sketchNumColumns = ${8, 16, 32}
+        **.sketchNumRows = ${rows=1, 8, 16, 32}
+        **.sketchNumColumns = ${columns=8, 16, 32}
         
         [Config sketchType]
-        **.sketchType = ${FastCount, FAGMS}
+        **.sketchType = ${sketchType="FastCount", "FAGMS"}
         
         [Config k]
-        **.k = ${1..4}
+        **.k = ${k=1..4}
         
         [Config implementation]
-        **.monitorType = ${type="CoreMonitor", "LinkMonitor"}
-        **.detectorType = ${"CoreDetector", "LinkDetector" ! type }
+        **.monitorType = ${implementation="CoreMonitor", "LinkMonitor"}
+        **.detectorType = ${"CoreDetector", "LinkDetector" ! implementation }
     """))
     print template.render(context)
 
