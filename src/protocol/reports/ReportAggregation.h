@@ -17,13 +17,25 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef __KDET_DEFS_H_
-#define __KDET_DEFS_H_
 
-#define KDET_PROTOCOL_NUMBER 158
-#define KDET_REPORT_MSG 1
-#define KDET_REPORT_MSG_AGGR 3
-#define KDET_ACK_MSG 2
-#define DATA_PROTOCOL_NUMBER 258
+#ifndef REPORTAGGREGATION_H_
+#define REPORTAGGREGATION_H_
 
-#endif
+#include "ReportAggregation_m.h"
+
+/**
+ * TODO
+ */
+class ReportAggregation : public ReportAggregation_Base {
+public:
+    ReportAggregation() : ReportAggregation_Base() {};
+    ReportAggregation(const char *name, int kind): ReportAggregation_Base(name,kind) {};
+    ReportAggregation(const ReportAggregation& other);
+    ReportAggregation& operator=(const ReportAggregation& other);
+    virtual ~ReportAggregation();
+    virtual ReportAggregation* dup() const;
+    virtual const ReportPtr& getReports(unsigned int k) const;
+};
+
+Register_Class(ReportAggregation);
+#endif /* REPORTAGGREGATION_H_ */

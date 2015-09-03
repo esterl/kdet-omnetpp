@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "RobustFlooding.h"
 #include "IPvXAddressResolver.h"
 #include "IPv4ControlInfo.h"
@@ -35,12 +34,14 @@ std::string printSet(std::set<IPv4Address> ipSet) {
 
 void RobustFlooding::initialize(int stage) {
     if (stage == 3) {
+        sendTimeout = NULL;
         IP = IPvXAddressResolver().addressOf(
                 getParentModule()->getParentModule(),
                 IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
         cModule* graphSrvModule = getModuleByPath("graphServer");
         graphServer = check_and_cast<GraphServer*>(graphSrvModule);
         TTL = int(par("k")) + 1;
+        // TODO parameter?
         timeout = 0.5;
         overhead.setName("Overhead");
 
@@ -51,6 +52,7 @@ void RobustFlooding::initialize(int stage) {
         // Monitoring
         WATCH_PTRVECTOR(messages);
         WATCH_VECTOR(sendToStr);
+        WATCH_PTR(sendTimeout);
     }
 }
 
@@ -62,7 +64,8 @@ void RobustFlooding::finish() {
         if (*it != NULL)
             cancelAndDelete(*it);
     }
-
+    if (sendTimeout != NULL)
+        cancelAndDelete(sendTimeout);
 }
 
 void RobustFlooding::handleMessage(cMessage *msg) {
@@ -70,20 +73,24 @@ void RobustFlooding::handleMessage(cMessage *msg) {
         // Flood to the rest
         newReport(check_and_cast<Report*>(msg));
     } else if (!msg->isSelfMessage()) {
-        if (msg->getKind() == KDET_REPORT_MSG) {
-            if (dynamic_cast<Report*>(msg))
-                processReport(check_and_cast<Report*>(msg));
-            else
-                delete msg;
-        } else { // msg->getKind() == KDET_ACK_MSG
+        if (msg->getKind() == KDET_REPORT_MSG_AGGR) {
+            if (dynamic_cast<ReportAggregation*>(msg))
+                processReport(check_and_cast<ReportAggregation*>(msg));
+            delete msg;
+        } else if (msg->getKind() == KDET_ACK_MSG) {
             if (dynamic_cast<ReportAck*>(msg))
                 processAck(check_and_cast<ReportAck*>(msg));
             else
                 delete msg;
+        } else {
+            std::cout << "handle unknown msg" << endl;
+            delete msg;
         }
-    } else {
+    } else if (msg->getKind() == 0) {
         // Timeout Expired:
         timeoutExpired(check_and_cast<ReportIdMsg*>(msg));
+    } else {
+        flushQueues();
     }
 
 }
@@ -97,18 +104,22 @@ void RobustFlooding::newReport(Report *report) {
     reliablyFlood(report);
 }
 
-void RobustFlooding::processReport(Report *report) {
+void RobustFlooding::processReport(ReportAggregation *reportAggr) {
     // Send ACK
-    sendAck(report);
-    // Deliver locally if is new
-    bool newReport = isNew(report);
-    if (newReport) {
-        send(report->dup(), "out");
+    sendAck(reportAggr);
+    // Process each individual report:
+    for (unsigned i = 0; i < reportAggr->getReportsArraySize(); i++) {
+        Report* report = reportAggr->getReports(i);
+        // Deliver locally if is new
+        bool newReport = isNew(report);
+        if (newReport) {
+            send(report->dup(), "out");
+        }
+        // Update TTL
+        int ttlReport = report->getTTL();
+        report->setTTL(--ttlReport);
+        reliablyFlood(report);
     }
-    // Update TTL
-    int ttlReport = report->getTTL();
-    report->setTTL(--ttlReport);
-    reliablyFlood(report);
 }
 
 void RobustFlooding::processAck(ReportAck* ack) {
@@ -116,14 +127,17 @@ void RobustFlooding::processAck(ReportAck* ack) {
             ack->getControlInfo());
     IPv4Address addr = ctrlInfo->getSrcAddr();
     //
-    int index = ack->getId();
-    if (index < messages.size()) {
-        // Same version?
-        Report* report = messages[index];
-        if (report->getVersion() == ack->getVersion()) {
-            // Delete addr from sentTo
-            sendTo[index].erase(addr);
-            sendToStr[index] = printSet(sendTo[index]);
+    for (unsigned i = 0; i < ack->getIdsArraySize(); i++) {
+        int index = ack->getIds(i);
+        long version = ack->getVersions(i);
+        if (index < messages.size()) {
+            // Same version?
+            Report* report = messages[index];
+            if (report->getVersion() == version) {
+                // Delete addr from sentTo
+                sendTo[index].erase(addr);
+                sendToStr[index] = printSet(sendTo[index]);
+            }
         }
     }
     delete ack;
@@ -203,7 +217,8 @@ bool RobustFlooding::isNew(Report* report) {
     return false;
 }
 
-void RobustFlooding::setControlInfo(Report* report, IPv4Address dst) {
+void RobustFlooding::setControlInfo(ReportAggregation* report,
+        IPv4Address dst) {
     // Report should not have ControlInfo
     IPv4ControlInfo *controlInfo = new IPv4ControlInfo();
     controlInfo->setSrcAddr(IP);
@@ -213,15 +228,22 @@ void RobustFlooding::setControlInfo(Report* report, IPv4Address dst) {
     report->setControlInfo(controlInfo);
 }
 
-void RobustFlooding::sendAck(Report* report) {
+void RobustFlooding::sendAck(ReportAggregation* reportAggr) {
     ReportAck* ack = new ReportAck("Flooding ACK");
-    ack->setId(report->getIndex());
-    ack->setVersion(report->getVersion());
+    unsigned numReports = reportAggr->getReportsArraySize();
+    ack->setIdsArraySize(numReports);
+    ack->setVersionsArraySize(numReports);
+    for (unsigned i = 0; i < numReports; i++) {
+        Report* report = reportAggr->getReports(i);
+        ack->setIds(i, report->getIndex());
+        ack->setVersions(i, report->getVersion());
+        delete report;
+    }
 
     // Set controlInfo
     IPv4ControlInfo *ctrlReport, *ctrlAck;
     // TODO removeCtrlInfo?
-    ctrlReport = check_and_cast<IPv4ControlInfo*>(report->getControlInfo());
+    ctrlReport = check_and_cast<IPv4ControlInfo*>(reportAggr->getControlInfo());
     ctrlAck = new IPv4ControlInfo();
     ctrlAck->setSrcAddr(IP);
     ctrlAck->setDestAddr(ctrlReport->getSrcAddr());
@@ -248,7 +270,6 @@ void RobustFlooding::scheduleTimeout(int index) {
 
 void RobustFlooding::timeoutExpired(ReportIdMsg* idMsg) {
     int index = idMsg->getId();
-
     if (sendTo[index].size() > 0) {
         if (!par("multicast").boolValue() or sendTo[index].size() == 1) {
             sendUnicast(idMsg);
@@ -266,22 +287,69 @@ void RobustFlooding::sendMulticast(ReportIdMsg* idMsg) {
         sendUnicast(idMsg);
     } else {
         idMsg->setTries(--tries);
-        Report* report = messages[index]->dup();
-        setControlInfo(report, IPv4Address::ALL_ROUTERS_MCAST);
-        sendDelayed(report, jitter(), "othersOut");
-        if (report->getBytes() != 0)
-            overhead.record(report->getBytes());
+        //Report* report = messages[index]->dup();
+        //setControlInfo(report, IPv4Address::ALL_ROUTERS_MCAST);
+        //sendDelayed(report, jitter(), "othersOut");
+        queueReport(index, IPv4Address::ALL_ROUTERS_MCAST.getInt());
+        //if (report->getBytes() != 0)
+        //    overhead.record(report->getBytes());
     }
 }
 void RobustFlooding::sendUnicast(ReportIdMsg* idMsg) {
     int index = idMsg->getId();
     for (auto it = sendTo[index].begin(); it != sendTo[index].end(); it++) {
-        Report* report = messages[index]->dup();
-        setControlInfo(report, *it);
-        sendDelayed(report, jitter(), "othersOut");
-        if (report->getBytes() != 0)
-            overhead.record(report->getBytes());
+        //Report* report = messages[index]->dup();
+        //setControlInfo(report, *it);
+        //sendDelayed(report, jitter(), "othersOut");
+        queueReport(index, it->getInt());
+        //if (report->getBytes() != 0)
+        //    overhead.record(report->getBytes());
     }
+}
+
+void RobustFlooding::queueReport(int reportIndex, int addr) {
+    if (reportQueues.count(addr) == 0) {
+        reportQueues[addr] = std::vector<int>();
+    }
+    reportQueues[addr].push_back(reportIndex);
+    if (sendTimeout == NULL) {
+        sendTimeout = new cMessage("send Timeout", 1);
+        scheduleAt(simTime() + timeout / 4, sendTimeout);
+    }
+}
+
+void RobustFlooding::flushQueues() {
+    for (auto queue = reportQueues.begin(); queue != reportQueues.end();
+            queue++) {
+        auto index = queue->second.begin();
+        // Remove Reports that have been already ack'd
+        while (index != queue->second.end()) {
+            if (sendTo[*index].size() == 0) {
+                index = queue->second.erase(index);
+            } else {
+                index++;
+            }
+        }
+        // Create Aggregated report
+        if (queue->second.size() > 0) {
+            ReportAggregation* reportAggr = new ReportAggregation();
+            reportAggr->setReportsArraySize(queue->second.size());
+            for (unsigned i = 0; i < queue->second.size(); i++) {
+                Report* report = messages[queue->second[i]]->dup();
+                if (report->getBytes() != 0)
+                    overhead.record(report->getBytes());
+                reportAggr->setReports(i, report);
+            }
+            setControlInfo(reportAggr, IPv4Address(queue->first));
+            // TODO check if delayed or directly
+            sendDelayed(reportAggr, jitter(), "othersOut");
+            // Clear queue
+            queue->second.clear();
+        }
+
+    }
+    delete sendTimeout;
+    sendTimeout = NULL;
 }
 
 simtime_t RobustFlooding::jitter() {

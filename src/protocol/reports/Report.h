@@ -51,6 +51,8 @@ protected:
     static uint64_t seedPows[10]; // Random seed and its powers % p (max k == 9)
 };
 
+Register_Class(Report);
+
 struct ReportHash{
     size_t operator() (const Report* report) const {
         return report->Hash();

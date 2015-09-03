@@ -26,6 +26,7 @@
 #include <set>
 #include <unordered_map>
 #include "Report.h"
+#include "ReportAggregation.h"
 #include "ReportIdMsg_m.h"
 #include "ReportAck_m.h"
 #include "IPv4Address.h"
@@ -46,24 +47,28 @@ protected:
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     void newReport(Report* report);
-    void processReport(Report *report);
+    void processReport(ReportAggregation *report);
     void processAck(ReportAck* ack);
     void reliablyFlood(Report *report);
     bool isNew(Report* report);
-    void setControlInfo(Report *report, IPv4Address dst);
-    void sendAck(Report* report);
+    void setControlInfo(ReportAggregation *report, IPv4Address dst);
+    void sendAck(ReportAggregation* report);
     void scheduleTimeout(int);
     void timeoutExpired(ReportIdMsg* idMsg);
     void sendMulticast(ReportIdMsg* idMsg);
     void sendUnicast(ReportIdMsg* idMsg);
+    void queueReport(int reportIndex, int addr);
+    void flushQueues();
     void setParameters(Report *report);
     IPv4Address getIP();
     simtime_t jitter();
 private:
     std::unordered_map<Report*, int, ReportHash, ReportEqual> reportToIndex;
     std::unordered_map<Report*, long, ReportHash, ReportEqual> localReportVersions;
+    std::unordered_map<int, std::vector<int>> reportQueues;
     std::vector<Report*> messages;
     std::vector<ReportIdMsg*> timeouts;
+    cMessage* sendTimeout;
     std::vector<std::set<IPv4Address>> sendTo;
     long version = 0;
     unsigned TTL;

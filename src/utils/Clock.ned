@@ -22,8 +22,8 @@ package kdet.utils;
 simple Clock
 {
     parameters:
-        double interval @unit(s) = default(5s);
-        double waitTime @unit(s) = default(20s);
+        double interval @unit(s) = default(20s);
+        double waitTime @unit(s) = default(50s);
     gates:
         output out[];
 }

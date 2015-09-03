@@ -17,13 +17,39 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-#ifndef __KDET_DEFS_H_
-#define __KDET_DEFS_H_
+#include "ReportAggregation.h"
 
-#define KDET_PROTOCOL_NUMBER 158
-#define KDET_REPORT_MSG 1
-#define KDET_REPORT_MSG_AGGR 3
-#define KDET_ACK_MSG 2
-#define DATA_PROTOCOL_NUMBER 258
+ReportAggregation::ReportAggregation(const ReportAggregation& other) :
+        ReportAggregation_Base(other) {
+    for (unsigned int i = 0; i < reports_arraysize; i++)
+        this->reports_var[i] = other.reports_var[i]->dup();
+}
 
-#endif
+ReportAggregation& ReportAggregation::operator=(
+        const ReportAggregation& other) {
+    if (this == &other)
+        return *this;
+    //Delete Reports:
+    for (unsigned int i = 0; i < reports_arraysize; i++)
+        delete this->reports_var[i];
+    // Call Base copy
+    ReportAggregation_Base::operator=(other);
+    // Dup reports:
+    for (unsigned int i = 0; i < reports_arraysize; i++)
+        this->reports_var[i] = other.reports_var[i]->dup();
+    return *this;
+}
+
+ReportAggregation::~ReportAggregation() {
+    //Delete Reports:
+    for (unsigned int i = 0; i < reports_arraysize; i++)
+        delete this->reports_var[i];
+}
+
+ReportAggregation* ReportAggregation::dup() const {
+    return new ReportAggregation(*this);
+}
+
+const ReportPtr& ReportAggregation::getReports(unsigned int k) const {
+    return reports_var[k]->dup();
+}

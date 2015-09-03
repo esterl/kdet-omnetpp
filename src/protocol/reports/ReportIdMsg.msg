@@ -29,4 +29,5 @@ class noncobject IPSet;
 message ReportIdMsg{
     int id;
     int tries=4;
+    kind = 0;
 }

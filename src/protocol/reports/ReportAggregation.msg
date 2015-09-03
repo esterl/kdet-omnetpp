@@ -18,12 +18,16 @@
 // ***************************************************************************/
 
 cplusplus {{
+#include "Report.h"
 #include "kdet_defs.h"
+typedef Report *ReportPtr;
 }}
 
-packet ReportAck{
-    int ids[];
-    long versions[];
-    kind = KDET_ACK_MSG;
+class noncobject ReportPtr;
+
+packet ReportAggregation{
+    @customize(true);
+    ReportPtr reports[];
+    kind = KDET_REPORT_MSG_AGGR;
 }
 

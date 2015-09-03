@@ -10,3 +10,5 @@
 * Migrate to INET 3.0
 * Think a better approach for the Robust flooding (do not have pointers to Report in two different places)
 * Class CoreSummary
+* README -> IPv4Serializer has been changed
+* Make sure that Report does not have a memory leak because of summary_var --> there is no delete.
