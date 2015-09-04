@@ -2,10 +2,11 @@ from jinja2 import Template, Environment
 import json
 import textwrap
 
-def generate(context_file, experiment_label):
+def generate(context_file, experiment_label, dropProbability):
     
     context = json.load(context_file)
     context['expLabel'] = experiment_label
+    context['dropProbability'] = dropProbability
     
     template = Template( textwrap.dedent("""
         [General]
@@ -60,7 +61,7 @@ def generate(context_file, experiment_label):
         **.proxies[*].trafGenType = "IPvXTrafSink"
         **.hosts[*].trafGen.startTime = uniform(61s, 70s)
         **.hosts[*].trafGen.protocol = 258
-        **.hosts[*].trafGen.sendInterval = exponential(1s)
+        **.hosts[*].trafGen.sendInterval = exponential(10s)
         **.hosts[*].trafGen.packetLength = uniform(20B,2000B)
         {% for i in range(nHosts) if i not in faulty %}
         **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}}]"
@@ -70,6 +71,7 @@ def generate(context_file, experiment_label):
 
         ### Vector recording
         **.ta.*.vector-recording = true
+        **.dropper.*.vector-recording = true
         **.flooding.*.vector-recording = true
         **.vector-recording = false
         # Routing
@@ -90,7 +92,7 @@ def generate(context_file, experiment_label):
         **.sketchNumColumns = ${columns=8, 16, 32}
         
         [Config sketchType]
-        **.sketchType = ${"FastCount", "FAGMS"}
+        **.sketchType = ${sketchType="FastCount", "FAGMS"}
         
         [Config k]
         **.k = ${k=1..4}
@@ -108,6 +110,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Dumps a *.ini file for a KDet experiment")
     parser.add_argument("context", help="Name of the json file with the experiment scenario", type=argparse.FileType('r'))
     parser.add_argument("experiment_label", help="Label of the experiment", type=str)
+    parser.add_argument("dropProbability", 
+        help="Drop probability of faulty  nodes", type=float)
     args = parser.parse_args()
-    generate(args.context, args.experiment_label)
+    generate(args.context, args.experiment_label, args.dropProbability)
 

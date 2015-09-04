@@ -2,10 +2,11 @@ from jinja2 import Template, Environment
 import json
 import textwrap
 
-def generate(context_file, experiment_label):
+def generate(context_file, experiment_label, dropProbability):
     
     context = json.load(context_file)
     context['expLabel'] = experiment_label
+    context['dropProbability'] = dropProbability
     
     template = Template( textwrap.dedent("""
         [General]
@@ -58,7 +59,7 @@ def generate(context_file, experiment_label):
         #### Traffic Generator
         **.trafGenType = "WCNTrafGen"
 
-        **.hosts[*].trafGen.startTime = 20s
+        **.hosts[*].trafGen.startTime = uniform(61s, 70s)
         **.hosts[*].trafGen.protocol = 258
         {% for i in range(nHosts) if i not in faulty %}
         **.hosts[{{ i }}].trafGen.destAddresses = "proxies[{{ selectedProxy[i]}}]"
@@ -68,12 +69,13 @@ def generate(context_file, experiment_label):
 
         ### Vector recording
         **.ta.*.vector-recording = true
+        **.dropper.*.vector-recording = true
         **.flooding.*.vector-recording = true
         **.vector-recording = false
         # Routing
         **.routingProtocol = "OLSR"
         **.Tc_redundancy = 2    
-        **.waitTime = 20s  
+        **.waitTime = 60s  
         **.maxDistance = 750m
         
         # Implementation
@@ -104,6 +106,8 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Dumps a *.ini file for a KDet experiment")
     parser.add_argument("context", help="Name of the json file with the experiment scenario", type=argparse.FileType('r'))
     parser.add_argument("experiment_label", help="Label of the experiment", type=str)
+    parser.add_argument("dropProbability", 
+        help="Drop probability of faulty  nodes", type=float)
     args = parser.parse_args()
-    generate(args.context, args.experiment_label)
+    generate(args.context, args.experiment_label, args.dropProbability)
 

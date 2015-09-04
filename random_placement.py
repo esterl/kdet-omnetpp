@@ -81,7 +81,7 @@ def getRandomFiles(N, time):
     filenames = [ file for file in filenames if os.stat(file).st_size < 10000 ]
     return random.sample(filenames, N)
 
-def generateScenario(nHosts, nProxies, faultyProportion, dropProbability, filename):
+def generateScenario(nHosts, nProxies, faultyProportion, filename):
     positions = getNpositions(nHosts+nProxies, 750)
     time = random.choice(range(40))
     random.shuffle(positions)
@@ -93,7 +93,6 @@ def generateScenario(nHosts, nProxies, faultyProportion, dropProbability, filena
         'faulty': faulty,
         'selectedProxy': [ random.choice(range(nProxies)) for i in range(nHosts) ],
         'selectedFile': getRandomFiles(nHosts, time),
-        'dropProbability' : dropProbability
     }
     with open(filename, 'w') as context_json:
         json.dump(context, context_json)
@@ -108,12 +107,12 @@ if __name__ == '__main__':
     parser.add_argument("nProxies", help="Number of proxies", type=int)
     parser.add_argument("faultProbability", help="Proportion of faulty hosts", 
         type=float)
-    parser.add_argument("dropProbability", 
-        help="Drop probability of faulty  nodes", type=float)
+    #parser.add_argument("dropProbability", 
+    #    help="Drop probability of faulty  nodes", type=float)
     args = parser.parse_args()
     for i in range(args.N):
         print i
         filename = "examples/contexts/" + args.basename + str(i) + ".json"
         generateScenario(args.nHosts, args.nProxies, args.faultProbability, 
-                            args.dropProbability, filename)
+                            filename)
 
