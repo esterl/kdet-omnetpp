@@ -13,7 +13,7 @@ def generate(context_file, experiment_label):
         experiment-label = {{ expLabel }}
         output-vector-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.vec
         output-scalar-file = ${resultdir}/${configname}-${runnumber}-{{ expLabel }}.sca
-        sim-time-limit = 240s
+        sim-time-limit = 500s
         **.numNodes = {{ nHosts }}
         **.numProxies = {{ nProxies }}
         **.mobility.numHosts = 200
@@ -58,7 +58,7 @@ def generate(context_file, experiment_label):
         #### Traffic Generator
         **.hosts[*].trafGenType = "IPvXTrafGen"
         **.proxies[*].trafGenType = "IPvXTrafSink"
-        **.hosts[*].trafGen.startTime = 20s
+        **.hosts[*].trafGen.startTime = uniform(61s, 70s)
         **.hosts[*].trafGen.protocol = 258
         **.hosts[*].trafGen.sendInterval = exponential(1s)
         **.hosts[*].trafGen.packetLength = uniform(20B,2000B)
@@ -75,7 +75,7 @@ def generate(context_file, experiment_label):
         # Routing
         **.routingProtocol = "OLSR"
         **.Tc_redundancy = 2    
-        **.waitTime = 20s  
+        **.waitTime = 60s  
         **.maxDistance = 750m
         
         # Implementation
@@ -83,23 +83,23 @@ def generate(context_file, experiment_label):
         **.detectorType = "LinkDetector"
         
         [Config interval]
-        **.interval = ${5,10, 20, 30, 60}s
+        **.interval = ${interval=5,10, 20, 30, 60}s
         
         [Config sketchSize]
-        **.sketchNumRows = ${1, 8, 16, 32}
-        **.sketchNumColumns = ${8, 16, 32}
+        **.sketchNumRows = ${rows=1, 8, 16, 32}
+        **.sketchNumColumns = ${columns=8, 16, 32}
         
         [Config sketchType]
-        **.sketchType = ${FastCount, FAGMS}
+        **.sketchType = ${"FastCount", "FAGMS"}
         
         [Config k]
-        **.k = ${1..4}
+        **.k = ${k=1..4}
         
         [Config Flows]
-        **.trafGen.sendInterval = exponential(${packetRate=0.1, 0.2, 0.5, 1, 2, 5}s)
+        **.trafGen.sendInterval = exponential(${packetRate=1, 2, 3, 5, 10}s)
         [Config implementation]
-        **.monitorType = ${type="CoreMonitor", "LinkMonitor"}
-        **.detectorType = ${"CoreDetector", "LinkDetector" ! type }
+        **.monitorType = ${implementation="CoreMonitor", "LinkMonitor"}
+        **.detectorType = ${"CoreDetector", "LinkDetector" ! implementation }
     """))
     print template.render(context)
 
