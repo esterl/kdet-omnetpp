@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "Dropper.h"
 #include "DropperReport_m.h"
 #include "IPv4.h"
@@ -59,12 +58,26 @@ INetfilter::IHook::Result Dropper::datagramPostRoutingHook(
 
 INetfilter::IHook::Result Dropper::datagramLocalInHook(IPv4Datagram* datagram,
         const InterfaceEntry* inIE) {
+    cMessage *encapPacket = datagram->getEncapsulatedPacket();
+    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
+        std::cout << simTime() << ": [" << getFullPath()
+                << "] Receiving ICMP message" << endl;
+    }
     return IHook::ACCEPT;
 }
 
 // TODO this should be done by another class
 INetfilter::IHook::Result Dropper::datagramLocalOutHook(IPv4Datagram* datagram,
         const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+    cMessage *encapPacket = datagram->getEncapsulatedPacket();
+    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
+        std::cout << simTime() << ": [" << getFullPath()
+                << "] Sending ICMP message" << endl;
+    }
+    // Record data statistics
+    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
+        dataOverhead.record(datagram->getByteLength());
+    }
     return IHook::ACCEPT;
 }
 
@@ -77,6 +90,7 @@ void Dropper::initialize() {
     inPackets = 0;
     outPackets = 0;
     droppedPackets = 0;
+    dataOverhead.setName("DataOverhead");
 }
 
 void Dropper::finish() {

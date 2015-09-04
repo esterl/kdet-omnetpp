@@ -54,6 +54,8 @@ protected:
     unsigned totalOut;
     unsigned totalDropped;
     bool faulty;
+    cOutVector dataOverhead;
+
 };
 
 #endif
