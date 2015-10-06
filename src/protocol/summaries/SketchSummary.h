@@ -21,7 +21,7 @@
 #define SKETCHSUMMARY_H_
 
 #include "Summary.h"
-#include "sketches/sketches.h"
+#include <sketches.h>
 typedef Sketch<uint32_t> NetworkSketch;
 
 /**

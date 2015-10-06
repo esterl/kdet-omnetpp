@@ -218,16 +218,16 @@ double LinkSketchSummary::getBytes() {
 }
 
 double LinkSketchSummary::getOptimizedBytes() {
-    double bytes = 0.;
-    bytes += from->get_optimized_bytes();
-    bytes += to->get_optimized_bytes();
+    double bits = 0.;
+    bits += from->get_optimized_bits();
+    bits += to->get_optimized_bits();
     for (auto it = src.begin(); it != src.end(); it++) {
-        bytes += (*it->second).get_optimized_bytes();
+        bits += (*it->second).get_optimized_bits();
     }
     for (auto it = dst.begin(); it != dst.end(); it++) {
-        bytes += (*it->second).get_optimized_bytes();
+        bits += (*it->second).get_optimized_bits();
     }
-    return bytes;
+    return bits/8;
 }
 
 void removeNonCoreSketches(SketchHash& sketches,

@@ -22,7 +22,7 @@
 
 #include "LinkSummary.h"
 #include "SketchSummary.h"
-#include "sketches/sketches.h"
+#include <sketches.h>
 typedef Sketch<uint32_t> NetworkSketch;
 typedef std::map<uint32_t, NetworkSketch*> SketchHash;
 

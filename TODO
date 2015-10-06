@@ -1,4 +1,3 @@
-* Sketches as a library
 * Code "properness"
 * Think about maps vs unordered_maps
 * Evaluation message should delete sketch that contains
@@ -12,3 +11,4 @@
 * Class CoreSummary
 * README -> IPv4Serializer has been changed
 * Make sure that Report does not have a memory leak because of summary_var --> there is no delete.
+* Optimized bytes to bits

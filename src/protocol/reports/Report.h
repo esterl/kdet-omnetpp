@@ -23,7 +23,7 @@
 
 #include "Report_m.h"
 #include "Summary.h"
-#include "sketches/hash.h"
+#include <hash.h>
 
 /**
  * Base class for the message of type reports. Derived classes must implement

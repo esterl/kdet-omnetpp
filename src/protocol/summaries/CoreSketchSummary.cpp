@@ -121,5 +121,5 @@ double CoreSketchSummary::getBytes() {
 }
 
 double CoreSketchSummary::getOptimizedBytes() {
-    return sketchIn->get_optimized_bytes() + sketchOut->get_optimized_bytes();
+    return sketchIn->get_optimized_bits()/8 + sketchOut->get_optimized_bits()/8;
 }

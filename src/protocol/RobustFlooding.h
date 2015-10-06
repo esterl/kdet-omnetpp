@@ -31,8 +31,8 @@
 #include "ReportAck_m.h"
 #include "IPv4Address.h"
 #include "GraphServer.h"
-#include "sketches/hash.h"
-#include "sketches/mersenne.h"
+#include <hash.h>
+#include <mersenne.h>
 
 /**
  * RobustFlooding floods reliably every report received through gate "in" to
