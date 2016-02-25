@@ -22,6 +22,8 @@
 
 #include "Summary.h"
 #include <sketches.h>
+
+namespace kdet{
 typedef Sketch<uint32_t> NetworkSketch;
 
 /**
@@ -33,10 +35,10 @@ public:
     static void setBaseSketch(cModule* module);
     static void setBaseSketch(NetworkSketch* sketch);
     static NetworkSketch* getBaseSketch();
-    uint32_t getPacketHash(IPv4Datagram* pkt);
+    uint32_t getPacketHash(inet::INetworkDatagram* pkt);
 protected:
     static NetworkSketch* baseSketch;
 
 };
-
+}
 #endif /* SKETCHSUMMARY_H_ */

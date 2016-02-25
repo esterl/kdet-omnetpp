@@ -23,6 +23,7 @@
 
 #include <omnetpp.h>
 
+namespace kdet{
 /**
  * The clock reaches every module periodically, based on the interval set as
  * parameter.
@@ -36,5 +37,5 @@ class Clock : public cSimpleModule
     cMessage* timer;
     simtime_t interval;
 };
-
+}
 #endif

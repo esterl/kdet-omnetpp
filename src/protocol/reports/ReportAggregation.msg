@@ -20,9 +20,13 @@
 cplusplus {{
 #include "Report.h"
 #include "kdet_defs.h"
+
+namespace kdet{
 typedef Report *ReportPtr;
+}
 }}
 
+namespace kdet;
 class noncobject ReportPtr;
 
 packet ReportAggregation{

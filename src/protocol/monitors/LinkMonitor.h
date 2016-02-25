@@ -25,6 +25,7 @@
 #include "Report.h"
 #include <unordered_map>
 
+namespace kdet{
 /**
  * Traffic monitor based on the second strategy of "KDet: Coordinated Detection
  * of Forwarding Faults in Wireless Community Networks". Only the summaries of
@@ -33,15 +34,15 @@
  */
 class LinkMonitor: public TrafficMonitor {
 public:
-    virtual void setCores(std::vector<std::set<IPv4Address>> cores);
+    virtual void setCores(std::vector<std::set<inet::IPv4Address>> cores);
 protected:
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
     virtual void finish();
     virtual void resetSummaries();
-    virtual std::vector<Summary*> findSummaries(IPv4Address addr);
+    virtual std::vector<Summary*> findSummaries(inet::IPv4Address addr);
     //LinkSummariesHash summaries;
     std::unordered_map<int, Summary*> summaries;
 };
-
+}
 #endif /* LINKMONITOR_H_ */

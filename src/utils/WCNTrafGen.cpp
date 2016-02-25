@@ -22,9 +22,10 @@
 #include <string>
 #include "IPSocket.h"
 #include "IPv4ControlInfo.h"
-#include "IPvXAddressResolver.h"
+#include "L3AddressResolver.h"
 #include <algorithm>
 
+namespace kdet{
 #define IN true
 #define OUT false
 
@@ -96,8 +97,8 @@ void WCNTrafGen::initialize(int stage) {
         numReceived = 0;
         WATCH(numSent);
         WATCH(numReceived);
-    } else if (stage == 3) {
-        IPSocket ipSocket(gate("ipOut"));
+    } else if (stage == inet::INITSTAGE_LAST) {
+        inet::IPSocket ipSocket(gate("ipOut"));
         ipSocket.registerProtocol(protocol);
         if (par("filename") != "") {
             file.open(par("filename").stringValue());
@@ -138,7 +139,7 @@ void WCNTrafGen::newAppMsg(AppMsg* msg) {
     msg->setResponses(readAndScheduleNextIn());
 
     // Create IPv4 Packet & send
-    IPv4ControlInfo *controlInfo = new IPv4ControlInfo();
+    inet::IPv4ControlInfo *controlInfo = new inet::IPv4ControlInfo();
     controlInfo->setDestAddr(msg->getIPAddress());
     controlInfo->setProtocol(protocol);
     msg->setControlInfo(controlInfo);
@@ -159,9 +160,9 @@ void WCNTrafGen::replyAppMsg(AppMsg* msg) {
     // Schedule a message for each required response
     std::vector<std::pair<double, long>> responses = msg->getResponses();
     simtime_t schedTime;
-    IPv4ControlInfo *ctrl =
-            dynamic_cast<IPv4ControlInfo *>(msg->getControlInfo());
-    IPv4Address ip = ctrl->getSrcAddr();
+    inet::IPv4ControlInfo *ctrl =
+            dynamic_cast<inet::IPv4ControlInfo *>(msg->getControlInfo());
+    inet::IPv4Address ip = ctrl->getSrcAddr();
     for (auto it = responses.begin(); it != responses.end(); it++) {
         AppMsg* newMsg = new AppMsg();
         schedTime = it->first + startTime;
@@ -177,9 +178,10 @@ void WCNTrafGen::replyAppMsg(AppMsg* msg) {
     delete msg;
 }
 
-IPv4Address WCNTrafGen::getIP() {
+inet::IPv4Address WCNTrafGen::getIP() {
     // Look up destination
-    IPvXAddress result;
-    IPvXAddressResolver().tryResolve(par("destAddresses"), result);
-    return result.get4();
+    inet::L3Address result;
+    inet::L3AddressResolver().tryResolve(par("destAddresses"), result, inet::L3Address::IPv4);
+    return result.toIPv4();
+}
 }

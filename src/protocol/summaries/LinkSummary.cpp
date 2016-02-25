@@ -19,19 +19,21 @@
 
 #include "LinkSummary.h"
 
-std::vector<IPv4Address> LinkSummary::getID() {
-    std::vector<IPv4Address> id;
+namespace kdet{
+std::vector<inet::IPv4Address> LinkSummary::getID() {
+    std::vector<inet::IPv4Address> id;
     id.push_back(reporter);
     id.push_back(neighbor);
     return id;
 }
-std::set<IPv4Address> LinkSummary::getSendTo(IPv4Address localIP,
-        std::set<IPv4Address> neighbors) {
-    if (localIP==reporter){
-        std::set<IPv4Address> result;
+std::set<inet::IPv4Address> LinkSummary::getSendTo(inet::IPv4Address localIP,
+        std::set<inet::IPv4Address> neighbors) {
+    if (localIP == reporter) {
+        std::set<inet::IPv4Address> result;
         result.insert(neighbor);
         return result;
     }
     // TODO remove reporter from neighbors?
     return neighbors;
+}
 }

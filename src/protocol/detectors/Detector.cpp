@@ -16,17 +16,17 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "Detector.h"
-#include "IPvXAddressResolver.h"
+#include "L3AddressResolver.h"
 #include "CoreEvaluation_m.h"
 
+namespace kdet{
 void Detector::initialize(int stage) {
-    if (stage == 3) {
+    if (stage == inet::INITSTAGE_LAST) {
         // Initialize local variables
-        IP = IPvXAddressResolver().addressOf(
+        IP = inet::L3AddressResolver().addressOf(
                 getParentModule()->getParentModule(),
-                IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
+                inet::L3AddressResolver::ADDR_IPv4).toIPv4();
         faulty = par("faulty");
         monitor = check_and_cast<TrafficMonitor*>(
                 getParentModule()->getSubmodule("monitor"));
@@ -84,7 +84,8 @@ void Detector::evaluateCores() {
             evaluationMsg->setReporter(IP);
             evaluateCore(i, evaluationMsg);
             evaluationMsg->setCore(
-                    std::vector<IPv4Address>(cores[i].begin(), cores[i].end()));
+                    std::vector<inet::IPv4Address>(cores[i].begin(),
+                            cores[i].end()));
             evaluationMsg->setBogus(faulty);
             send(evaluationMsg, "detectionOut");
             thresholds[i] = updateThreshold(thresholds[i], evaluationMsg);
@@ -121,4 +122,5 @@ bool Detector::getEvaluateNextIter(unsigned index) {
     } else {
         return true;
     }
+}
 }

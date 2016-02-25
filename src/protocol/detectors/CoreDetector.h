@@ -23,6 +23,7 @@
 #include <vector>
 #include <unordered_map>
 
+namespace kdet{
 /*
  * Implementation of the first KDet strategy proposed in "KDet: Coordinated
  * Detection of Forwarding Faults in Wireless Community Networks". Messages
@@ -35,8 +36,8 @@ protected:
     virtual void updateCores(CoresUpdate* update);
     virtual void evaluateCore(unsigned index, CoreEvaluation* msg);
     virtual void clearReports();
-    unsigned findCore(std::set<IPv4Address> core);
+    unsigned findCore(std::set<inet::IPv4Address> core);
     std::vector<std::unordered_map<int, Report*>> reports;
 };
-
+}
 #endif /* COREDETECTOR_H_ */

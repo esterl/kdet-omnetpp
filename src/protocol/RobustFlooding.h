@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #ifndef __KDET_ROBUSTFLOODING_H_
 #define __KDET_ROBUSTFLOODING_H_
 
@@ -29,11 +28,12 @@
 #include "ReportAggregation.h"
 #include "ReportIdMsg_m.h"
 #include "ReportAck_m.h"
-#include "IPv4Address.h"
+#include "L3Address.h"
 #include "GraphServer.h"
 #include <hash.h>
 #include <mersenne.h>
 
+namespace kdet {
 /**
  * RobustFlooding floods reliably every report received through gate "in" to
  * every neighbor of the node until the TTL of the report is expired. Received
@@ -43,7 +43,10 @@
 class RobustFlooding: public cSimpleModule {
 protected:
     virtual void initialize(int stage);
-    virtual int numInitStages() const { return 4;};
+    virtual int numInitStages() const {
+        return inet::NUM_INIT_STAGES;
+    }
+    ;
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     void newReport(Report* report);
@@ -51,7 +54,7 @@ protected:
     void processAck(ReportAck* ack);
     void reliablyFlood(Report *report);
     bool isNew(Report* report);
-    void setControlInfo(ReportAggregation *report, IPv4Address dst);
+    void setControlInfo(ReportAggregation *report, inet::IPv4Address dst);
     void sendAck(ReportAggregation* report);
     void scheduleTimeout(int);
     void timeoutExpired(ReportIdMsg* idMsg);
@@ -60,7 +63,7 @@ protected:
     void queueReport(int reportIndex, int addr);
     void flushQueues();
     void setParameters(Report *report);
-    IPv4Address getIP();
+    inet::IPv4Address getIP();
     simtime_t jitter();
 private:
     std::unordered_map<Report*, int, ReportHash, ReportEqual> reportToIndex;
@@ -69,14 +72,14 @@ private:
     std::vector<Report*> messages;
     std::vector<ReportIdMsg*> timeouts;
     cMessage* sendTimeout;
-    std::vector<std::set<IPv4Address>> sendTo;
+    std::vector<std::set<inet::IPv4Address>> sendTo;
     long version = 0;
     unsigned TTL;
     simtime_t timeout;
     GraphServer* graphServer;
-    IPv4Address IP;
+    inet::IPv4Address IP;
     cOutVector overhead;
     std::vector<std::string> sendToStr;
 };
-
+}
 #endif

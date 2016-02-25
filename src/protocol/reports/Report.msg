@@ -18,14 +18,16 @@
 // ***************************************************************************/
 
 cplusplus {{
-#include "IPv4Address.h"
+#include "L3Address.h"
 #include "kdet_defs.h"
 #include<set>
 
-typedef std::set<IPv4Address> IPSet;
+typedef std::set<inet::IPv4Address> IPSet;
 }}
 
-class noncobject IPv4Address;
+namespace kdet;
+
+class noncobject inet::IPv4Address;
 class noncobject IPSet;
 
 packet Report{
@@ -34,7 +36,7 @@ packet Report{
     long version;
     int TTL;
     bool bogus;
-    IPv4Address reporter;
+    inet::IPv4Address reporter;
     double bytes = 0;
     kind = KDET_REPORT_MSG;
     int nonce;

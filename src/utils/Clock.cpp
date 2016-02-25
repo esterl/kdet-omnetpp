@@ -20,6 +20,7 @@
 
 #include "Clock.h"
 
+namespace kdet{
 Define_Module(Clock);
 
 void Clock::initialize()
@@ -40,4 +41,5 @@ void Clock::handleMessage(cMessage *msg)
     for (int i = 0; i < gateSize("out"); i++)
         send(msg->dup(), "out",i);
     scheduleAt(simTime()+ interval, msg);
+}
 }

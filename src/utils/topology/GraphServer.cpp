@@ -19,31 +19,32 @@
 
 #include "GraphServer.h"
 
+namespace kdet{
 Define_Module(GraphServer);
 std::string networkToString(std::vector<std::set<int>> network,
         std::map<int, int> index_to_ip) {
     std::stringstream ss;
     for (unsigned i = 0; i < network.size(); i++) {
-        ss << "[" << IPv4Address(index_to_ip[i]) << "]";
+        ss << "[" << inet::IPv4Address(index_to_ip[i]) << "]";
         for (auto neighbor = network[i].begin(); neighbor != network[i].end();
                 neighbor++) {
-            ss << IPv4Address(index_to_ip[*neighbor]) << ";";
+            ss << inet::IPv4Address(index_to_ip[*neighbor]) << ";";
         }
         ss << endl;
     }
     return ss.str();
 }
 template<typename iterator>
-std::set<IPv4Address> indexToIP(iterator begin, iterator end,
+std::set<inet::IPv4Address> indexToIP(iterator begin, iterator end,
         std::map<int, int>& dictionary) {
-    std::set<IPv4Address> result;
+    std::set<inet::IPv4Address> result;
     for (iterator it = begin; it != end; it++) {
-        result.insert(IPv4Address(dictionary[*it]));
+        result.insert(inet::IPv4Address(dictionary[*it]));
     }
     return result;
 }
 
-int hasCore(IPSetList coreList, std::set<IPv4Address> core) {
+int hasCore(IPSetList coreList, std::set<inet::IPv4Address> core) {
     for (unsigned i = 0; i < coreList.size(); i++) {
         if (coreList[i] == core) {
             return i;
@@ -52,7 +53,7 @@ int hasCore(IPSetList coreList, std::set<IPv4Address> core) {
     return -1;
 }
 
-IPSetList GraphServer::getCores(IPv4Address addr) {
+IPSetList GraphServer::getCores(inet::IPv4Address addr) {
     IPSetList result;
     if (ip_to_index.count(addr.getInt()) != 0) {
         intListList coresAddr = cores[ip_to_index[addr.getInt()]];
@@ -70,7 +71,7 @@ IPSetList GraphServer::getAllCores() {
         for (unsigned i = 0; i < cores.size(); i++) {
             // For every node, check if there is any of its cores missing
             for (unsigned j = 0; j < cores[i].size(); j++) {
-                std::set<IPv4Address> IPcore = indexToIP<>(cores[i][j].begin(),
+                std::set<inet::IPv4Address> IPcore = indexToIP<>(cores[i][j].begin(),
                         cores[i][j].end(), index_to_ip);
                 int index = hasCore(allCores, IPcore);
                 if (index == -1) {
@@ -100,23 +101,23 @@ std::set<int> GraphServer::getNeighbors(int node) {
     return networkGraph[node];
 }
 
-std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr) {
+std::set<inet::IPv4Address> GraphServer::getNeighbors(inet::IPv4Address addr) {
     if (ip_to_index.count(addr.getInt()) == 0)
-        return std::set<IPv4Address>();
+        return std::set<inet::IPv4Address>();
     int index = ip_to_index[addr.getInt()];
     std::set<int> neighbors = getNeighbors(index);
     return indexToIP(neighbors.begin(), neighbors.end(), index_to_ip);
 }
 
-std::set<IPv4Address> GraphServer::getNeighbors(IPv4Address addr,
+std::set<inet::IPv4Address> GraphServer::getNeighbors(inet::IPv4Address addr,
         unsigned hops) {
     if (hops == 0)
-        return std::set<IPv4Address>();
-    std::set<IPv4Address> neighbors = getNeighbors(addr);
-    std::set<IPv4Address> result = neighbors;
+        return std::set<inet::IPv4Address>();
+    std::set<inet::IPv4Address> neighbors = getNeighbors(addr);
+    std::set<inet::IPv4Address> result = neighbors;
 // TODO optimize - don't ask twice for somebody's neighbors
     for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
-        std::set<IPv4Address> partial_result = getNeighbors(*it, hops - 1);
+        std::set<inet::IPv4Address> partial_result = getNeighbors(*it, hops - 1);
         result.insert(partial_result.begin(), partial_result.end());
     }
     result.erase(addr);
@@ -157,7 +158,7 @@ void GraphServer::handleMessage(cMessage *msg) {
     delete msg;
 }
 
-int GraphServer::getVertixIndex(IPv4Address node) {
+int GraphServer::getVertixIndex(inet::IPv4Address node) {
     unsigned index;
 // Is the node in the map?
     if (ip_to_index.count(node.getInt()) == 0) {
@@ -173,7 +174,7 @@ int GraphServer::getVertixIndex(IPv4Address node) {
 }
 
 void GraphServer::updateGraph(NeighborsAnnouncement* msg) {
-    IPv4Address node = msg->getNode();
+    inet::IPv4Address node = msg->getNode();
     unsigned from = getVertixIndex(node);
     index_to_gate[from] = msg->getArrivalGate()->getIndex();
 // Update edges [Only adds neighbors]:
@@ -299,4 +300,5 @@ void GraphServer::sendUpdate() {
         update->setSecrets(secrets[i]);
         send(update, "out", it->second);
     }
+}
 }

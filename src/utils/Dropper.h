@@ -24,25 +24,26 @@
 #include <omnetpp.h>
 #include <INetfilter.h>
 
+namespace kdet{
 /**
  * The dropper module, drops a percentage of the forwarding packets as
  * configured in the *.ini file.
  */
-class Dropper: public cSimpleModule, public INetfilter::IHook {
+class Dropper: public cSimpleModule, public inet::INetfilter::IHook {
 public:
-    virtual INetfilter::IHook::Result datagramPreRoutingHook(IPv4Datagram* datagram,
-            const InterfaceEntry* inIE, const InterfaceEntry*& outIE,
-            IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramForwardHook(IPv4Datagram* datagram,
-            const InterfaceEntry* inIE, const InterfaceEntry*& outIE,
-            IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramPostRoutingHook(IPv4Datagram* datagram,
-            const InterfaceEntry* inIE, const InterfaceEntry*& outIE,
-            IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramLocalInHook(IPv4Datagram* datagram,
-            const InterfaceEntry* inIE);
-    virtual INetfilter::IHook::Result datagramLocalOutHook(IPv4Datagram* datagram,
-            const InterfaceEntry*& outIE, IPv4Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramPreRoutingHook(inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry* inIE, const inet::InterfaceEntry*& outIE,
+            inet::L3Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramForwardHook(inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry* inIE, const inet::InterfaceEntry*& outIE,
+            inet::L3Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramPostRoutingHook(inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry* inIE, const inet::InterfaceEntry*& outIE,
+            inet::L3Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramLocalInHook(inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry* inIE);
+    virtual inet::INetfilter::IHook::Result datagramLocalOutHook(inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr);
 protected:
     virtual void initialize();
     virtual void finish();
@@ -57,5 +58,5 @@ protected:
     cOutVector dataOverhead;
 
 };
-
+}
 #endif

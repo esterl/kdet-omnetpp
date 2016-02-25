@@ -25,42 +25,48 @@
 #include <vector>
 #include "Summary.h"
 
+namespace kdet{
 /**
  * Base class for the traffic monitoring. It mainly implements the hook
  * to the net layer.
  */
-class TrafficMonitor: public cSimpleModule, public INetfilter::IHook {
+class TrafficMonitor: public cSimpleModule, public inet::INetfilter::IHook {
 public:
-    virtual INetfilter::IHook::Result datagramPreRoutingHook(
-            IPv4Datagram* datagram, const InterfaceEntry* inIE,
-            const InterfaceEntry*& outIE, IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramForwardHook(
-            IPv4Datagram* datagram, const InterfaceEntry* inIE,
-            const InterfaceEntry*& outIE, IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramPostRoutingHook(
-            IPv4Datagram* datagram, const InterfaceEntry* inIE,
-            const InterfaceEntry*& outIE, IPv4Address& nextHopAddr);
-    virtual INetfilter::IHook::Result datagramLocalInHook(
-            IPv4Datagram* datagram, const InterfaceEntry* inIE);
-    virtual INetfilter::IHook::Result datagramLocalOutHook(
-            IPv4Datagram* datagram, const InterfaceEntry*& outIE,
-            IPv4Address& nextHopAddr);
-    virtual void setCores(std::vector<std::set<IPv4Address>>);
+    virtual inet::INetfilter::IHook::Result datagramPreRoutingHook(
+            inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+            const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramForwardHook(
+            inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+            const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr);
+    virtual inet::INetfilter::IHook::Result datagramPostRoutingHook(
+            inet::INetworkDatagram *datagram,
+            const inet::InterfaceEntry *inputInterfaceEntry,
+            const inet::InterfaceEntry *& outputInterfaceEntry,
+            inet::L3Address& nextHopAddress);
+    virtual inet::INetfilter::IHook::Result datagramLocalInHook(
+            inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE);
+    virtual inet::INetfilter::IHook::Result datagramLocalOutHook(
+            inet::INetworkDatagram* datagram,
+            const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr);
+    virtual void setCores(std::vector<std::set<inet::IPv4Address>>);
     virtual void setShareSummaries(std::vector<bool>);
 
 protected:
     virtual void initialize(int stage);
-    virtual int numInitStages() const { return 4;};
+    virtual int numInitStages() const {
+        return inet::NUM_INIT_STAGES;
+    }
+    ;
     virtual void handleMessage(cMessage *msg) = 0;
     virtual void finish();
     virtual void resetSummaries() = 0;
-    virtual std::vector<Summary*> findSummaries(IPv4Address addr) = 0;
-    IPv4Address getIPAddress(IPv4Datagram* datagram);
-    IPv4Address IP;
+    virtual std::vector<Summary*> findSummaries(inet::IPv4Address addr) = 0;
+    inet::IPv4Address getIPAddress(inet::INetworkDatagram* datagram);
+    inet::IPv4Address IP;
     bool faulty;
-    std::vector<std::set<IPv4Address>> cores;
+    std::vector<std::set<inet::IPv4Address>> cores;
     std::vector<bool> shareSummaries;
 
 };
-
+}
 #endif

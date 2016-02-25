@@ -19,8 +19,9 @@
 
 #include <CoreSketchSummary.h>
 
-CoreSketchSummary::CoreSketchSummary(const IPv4Address reporter_var,
-        const std::set<IPv4Address>& core_var) {
+namespace kdet{
+CoreSketchSummary::CoreSketchSummary(const inet::IPv4Address reporter_var,
+        const std::set<inet::IPv4Address>& core_var) {
     sketchIn = SketchSummary::getBaseSketch();
     sketchOut = SketchSummary::getBaseSketch();
     reporter = reporter_var;
@@ -28,7 +29,7 @@ CoreSketchSummary::CoreSketchSummary(const IPv4Address reporter_var,
     boundaryReportsIncluded.insert(reporter);
 }
 
-CoreSketchSummary::CoreSketchSummary(const CoreSketchSummary& other){
+CoreSketchSummary::CoreSketchSummary(const CoreSketchSummary& other) {
     sketchIn = other.sketchIn->copy();
     sketchOut = other.sketchOut->copy();
     reporter = other.reporter;
@@ -36,7 +37,8 @@ CoreSketchSummary::CoreSketchSummary(const CoreSketchSummary& other){
     boundaryReportsIncluded = other.boundaryReportsIncluded;
 
 }
-CoreSketchSummary& CoreSketchSummary::operator=(const CoreSketchSummary& other){
+CoreSketchSummary& CoreSketchSummary::operator=(
+        const CoreSketchSummary& other) {
     NetworkSketch* tmp = other.sketchIn->copy();
     delete sketchIn;
     sketchIn = tmp;
@@ -54,8 +56,8 @@ CoreSketchSummary::~CoreSketchSummary() {
     delete sketchOut;
 }
 
-void CoreSketchSummary::updateSummaryPreRouting(IPv4Datagram* pkt) {
-    if (core.count(pkt->getSrcAddress()) == 0) {
+void CoreSketchSummary::updateSummaryPreRouting(inet::INetworkDatagram* pkt) {
+    if (core.count(pkt->getSourceAddress().toIPv4()) == 0) {
         try {
             uint32_t pktHash = getPacketHash(pkt);
             sketchOut->update(pktHash, 1);
@@ -66,8 +68,8 @@ void CoreSketchSummary::updateSummaryPreRouting(IPv4Datagram* pkt) {
     }
 }
 
-void CoreSketchSummary::updateSummaryPostRouting(IPv4Datagram* pkt) {
-    if (core.count(pkt->getDestAddress()) == 0) {
+void CoreSketchSummary::updateSummaryPostRouting(inet::INetworkDatagram* pkt) {
+    if (core.count(pkt->getDestinationAddress().toIPv4()) == 0) {
         try {
             uint32_t pktHash = getPacketHash(pkt);
             sketchIn->update(pktHash, 1);
@@ -100,7 +102,7 @@ void CoreSketchSummary::add(Summary* otherPtr) {
     }
 }
 
-double CoreSketchSummary::estimateDrop(std::set<IPv4Address> core) {
+double CoreSketchSummary::estimateDrop(std::set<inet::IPv4Address> core) {
     NetworkSketch* sketch = sketchIn->copy();
     (*sketch) -= (*sketchOut);
     double dropped = sketch->second_moment();
@@ -108,11 +110,11 @@ double CoreSketchSummary::estimateDrop(std::set<IPv4Address> core) {
     return dropped;
 }
 
-double CoreSketchSummary::estimateIn(std::set<IPv4Address> core) {
+double CoreSketchSummary::estimateIn(std::set<inet::IPv4Address> core) {
     return sketchIn->second_moment();
 }
 
-double CoreSketchSummary::estimateOut(std::set<IPv4Address> core) {
+double CoreSketchSummary::estimateOut(std::set<inet::IPv4Address> core) {
     return sketchOut->second_moment();
 }
 
@@ -121,5 +123,7 @@ double CoreSketchSummary::getBytes() {
 }
 
 double CoreSketchSummary::getOptimizedBytes() {
-    return sketchIn->get_optimized_bits()/8 + sketchOut->get_optimized_bits()/8;
+    return sketchIn->get_optimized_bits() / 8
+            + sketchOut->get_optimized_bits() / 8;
+}
 }

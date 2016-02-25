@@ -24,6 +24,7 @@
 #include "TrafficMonitor.h"
 #include "GraphServer.h"
 
+namespace kdet{
 /**
  * Traffic monitor based on the first strategy of "KDet: Coordinated Detection
  * of Forwarding Faults in Wireless Community Networks". Every time a packet
@@ -32,15 +33,15 @@
  */
 class CoreMonitor: public TrafficMonitor {
 public:
-    virtual void setCores(std::vector<std::set<IPv4Address>>);
+    virtual void setCores(std::vector<std::set<inet::IPv4Address>>);
 protected:
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
     virtual void finish();
     virtual void resetSummaries();
     virtual void deleteSummaries();
-    virtual std::vector<Summary*> findSummaries(IPv4Address addr);
+    virtual std::vector<Summary*> findSummaries(inet::IPv4Address addr);
     std::vector<Summary*> summaries;
 };
-
+}
 #endif /* COREMONITOR_H_ */

@@ -23,7 +23,9 @@
 #include <omnetpp.h>
 #include "IPv4Address.h"
 #include <set>
-#include "IRoutingTable.h"
+#include <IIPv4RoutingTable.h>
+
+namespace kdet{
 /**
  * Periodically checks whether a node's neighbors have changed, and if so
  * reports the GraphServer about the new neighbors.
@@ -35,12 +37,12 @@ private:
     int seqNumber;
   protected:
     simtime_t interval;
-    IRoutingTable* rt;
-    std::set<IPv4Address> neighbors;
-    IPv4Address IPAddress;
+    inet::IIPv4RoutingTable* rt;
+    std::set<inet::IPv4Address> neighbors;
+    inet::IPv4Address IPAddress;
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
     virtual ~TopologyAnnouncer();
 };
-
+}
 #endif

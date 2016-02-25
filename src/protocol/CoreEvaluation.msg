@@ -22,15 +22,17 @@ cplusplus {{
 #include "LinkSummary.h"
 
 typedef std::map<int, bool> BoolMap;
-typedef std::vector<IPv4Address> IPList;
-}}
+typedef std::vector<inet::IPv4Address> IPList;
 
-class noncobject IPv4Address;
+}}
+namespace kdet;
+
+class noncobject inet::IPv4Address;
 class noncobject BoolMap;
 class noncobject IPList;
 
 message CoreEvaluation{
-    IPv4Address reporter;
+    inet::IPv4Address reporter;
 	BoolMap receivedReports;
 	IPList core;
 	double dropEstimation;

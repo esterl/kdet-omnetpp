@@ -20,11 +20,12 @@
 
 #include <CoreDetector.h>
 
-#include "IPvXAddressResolver.h"
+#include "L3AddressResolver.h"
 #include "CoreEvaluation_m.h"
 #include "CoreMonitor.h"
 #include "CoreSummary.h"
 
+namespace kdet{
 Define_Module(CoreDetector);
 
 void CoreDetector::initialize(int stage) {
@@ -56,8 +57,8 @@ void CoreDetector::updateCores(CoresUpdate* update) {
 }
 
 void CoreDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
-    std::set<IPv4Address> core = cores[i];
-    std::set<IPv4Address> boundary = boundaries[i];
+    std::set<inet::IPv4Address> core = cores[i];
+    std::set<inet::IPv4Address> boundary = boundaries[i];
     std::unordered_map<int, Report*> coreReports = reports[i];
     CoreSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
@@ -101,7 +102,7 @@ void CoreDetector::clearReports() {
     }
 }
 
-unsigned CoreDetector::findCore(std::set<IPv4Address> core) {
+unsigned CoreDetector::findCore(std::set<inet::IPv4Address> core) {
     unsigned i;
     for (i = 0; i < cores.size(); i++) {
         if (cores[i] == core) {
@@ -109,4 +110,5 @@ unsigned CoreDetector::findCore(std::set<IPv4Address> core) {
         }
     }
     return i;
+}
 }

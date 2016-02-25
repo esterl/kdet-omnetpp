@@ -23,27 +23,28 @@
 #include "Summary.h"
 #include <set>
 
+namespace kdet{
 /**
  * TODO Doc
  */
 class CoreSummary: public Summary {
 public:
-    CoreSummary(const IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS,
-            const std::set<IPv4Address>& coreIPs = std::set<IPv4Address>()) {
+    CoreSummary(const inet::IPv4Address reporterIP = inet::IPv4Address::UNSPECIFIED_ADDRESS,
+            const std::set<inet::IPv4Address>& coreIPs = std::set<inet::IPv4Address>()) {
         reporter = reporterIP;
         core = coreIPs;
     }
     ;
     virtual ~CoreSummary() {};
-    virtual std::set<IPv4Address> getCore() {
+    virtual std::set<inet::IPv4Address> getCore() {
         return core;
     }
     ;
-    virtual std::vector<IPv4Address> getID();
-    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
-            std::set<IPv4Address> neighbors);
+    virtual std::vector<inet::IPv4Address> getID();
+    virtual std::set<inet::IPv4Address> getSendTo(inet::IPv4Address localIP,
+            std::set<inet::IPv4Address> neighbors);
 protected:
-    std::set<IPv4Address> core;
+    std::set<inet::IPv4Address> core;
 };
-
+}
 #endif /* CORESUMMARY_H_ */

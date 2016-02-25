@@ -1,1 +1,2 @@
 package kdet;
+@namespace(kdet);

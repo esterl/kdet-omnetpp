@@ -23,30 +23,31 @@
 #include "CoreSummary.h"
 #include "SketchSummary.h"
 
+namespace kdet{
 /**
  * Traffic summary based on cores and sketches.
  */
 class CoreSketchSummary: public CoreSummary, public SketchSummary {
 public:
-    CoreSketchSummary(const IPv4Address reporter, const std::set<IPv4Address>& core);
+    CoreSketchSummary(const inet::IPv4Address reporter, const std::set<inet::IPv4Address>& core);
     CoreSketchSummary(const CoreSketchSummary& other);
     CoreSketchSummary& operator=(const CoreSketchSummary& other);
     virtual ~CoreSketchSummary();
-    virtual void updateSummaryPreRouting(IPv4Datagram* pkt);
-    virtual void updateSummaryPostRouting(IPv4Datagram* pkt);
+    virtual void updateSummaryPreRouting(inet::INetworkDatagram* pkt);
+    virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt);
     virtual void clear();
     virtual Summary* copy() const;
     virtual void add(Summary* otherPtr);
-    virtual double estimateDrop(std::set<IPv4Address> core);
-    virtual double estimateIn(std::set<IPv4Address> core);
-    virtual double estimateOut(std::set<IPv4Address> core);
+    virtual double estimateDrop(std::set<inet::IPv4Address> core);
+    virtual double estimateIn(std::set<inet::IPv4Address> core);
+    virtual double estimateOut(std::set<inet::IPv4Address> core);
     virtual double getBytes();
     virtual double getOptimizedBytes();
 
 protected:
-    std::set<IPv4Address> boundaryReportsIncluded;
+    std::set<inet::IPv4Address> boundaryReportsIncluded;
     NetworkSketch *sketchIn, *sketchOut;
 
 };
-
+}
 #endif /* CORESKETCHSUMMARY_H_ */

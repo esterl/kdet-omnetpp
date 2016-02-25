@@ -22,6 +22,7 @@
 #include "Detector.h"
 #include <unordered_map>
 
+namespace kdet{
 /*
  * Implementation of the second KDet strategy proposed in "KDet: Coordinated
  * Detection of Forwarding Faults in Wireless Community Networks". Messages
@@ -37,5 +38,5 @@ protected:
     virtual void clearReports();
     std::unordered_map<int, std::unordered_map<int, Report*>> reports;
 };
-
+}
 #endif /* LINKDETECTOR_H_ */

@@ -19,17 +19,18 @@
 
 #include "CoreSummary.h"
 
-std::vector<IPv4Address> CoreSummary::getID() {
-    std::vector<IPv4Address> id;
+namespace kdet{
+std::vector<inet::IPv4Address> CoreSummary::getID() {
+    std::vector<inet::IPv4Address> id;
     id.push_back(reporter);
     for (auto it = core.begin(); it != core.end(); it++)
         id.push_back(*it);
     return id;
 }
-std::set<IPv4Address> CoreSummary::getSendTo(IPv4Address localIP,
-        std::set<IPv4Address> neighbors) {
+std::set<inet::IPv4Address> CoreSummary::getSendTo(inet::IPv4Address localIP,
+        std::set<inet::IPv4Address> neighbors) {
     if (localIP == reporter) {
-        std::set<IPv4Address> result;
+        std::set<inet::IPv4Address> result;
         for (auto it = core.begin(); it != core.end(); it++) {
             if (neighbors.count(*it) > 0) {
                 result.insert(*it);
@@ -39,5 +40,6 @@ std::set<IPv4Address> CoreSummary::getSendTo(IPv4Address localIP,
     } else if (core.count(localIP) > 0) {
         return neighbors;
     }
-    return std::set<IPv4Address>();
+    return std::set<inet::IPv4Address>();
+}
 }

@@ -22,19 +22,18 @@
 #include "IPv4.h"
 #include "kdet_defs.h"
 
+namespace kdet{
 Define_Module(Dropper);
 
-INetfilter::IHook::Result Dropper::datagramPreRoutingHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result Dropper::datagramPreRoutingHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     return IHook::ACCEPT;
 }
 
-// TODO added just for now
-#include <cstdlib>
-INetfilter::IHook::Result Dropper::datagramForwardHook(IPv4Datagram* datagram,
-        const InterfaceEntry* inIE, const InterfaceEntry*& outIE,
-        IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result Dropper::datagramForwardHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     // Drop with some prob.
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
         inPackets++;
@@ -50,33 +49,35 @@ INetfilter::IHook::Result Dropper::datagramForwardHook(IPv4Datagram* datagram,
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result Dropper::datagramPostRoutingHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result Dropper::datagramPostRoutingHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result Dropper::datagramLocalInHook(IPv4Datagram* datagram,
-        const InterfaceEntry* inIE) {
-    cMessage *encapPacket = datagram->getEncapsulatedPacket();
-    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
-        std::cout << simTime() << ": [" << getFullPath()
-                << "] Receiving ICMP message" << endl;
-    }
+inet::INetfilter::IHook::Result Dropper::datagramLocalInHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE) {
+//    cMessage *encapPacket = datagram->getEncapsulatedPacket();
+//    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
+//        std::cout << simTime() << ": [" << getFullPath()
+//                << "] Receiving ICMP message" << endl;
+//    }
     return IHook::ACCEPT;
 }
 
 // TODO this should be done by another class
-INetfilter::IHook::Result Dropper::datagramLocalOutHook(IPv4Datagram* datagram,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
-    cMessage *encapPacket = datagram->getEncapsulatedPacket();
-    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
-        std::cout << simTime() << ": [" << getFullPath()
-                << "] Sending ICMP message" << endl;
-    }
+inet::INetfilter::IHook::Result Dropper::datagramLocalOutHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry*& outIE,
+        inet::L3Address& nextHopAddr) {
+//    cMessage *encapPacket = datagram->getEncapsulatedPacket();
+//    if (dynamic_cast<ICMPMessage*>(encapPacket) != NULL) {
+//        std::cout << simTime() << ": [" << getFullPath()
+//                << "] Sending ICMP message" << endl;
+//    }
     // Record data statistics
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-        dataOverhead.record(datagram->getByteLength());
+        cPacket *pkt = check_and_cast<cPacket*>(datagram);
+        dataOverhead.record(pkt->getByteLength());
     }
     return IHook::ACCEPT;
 }
@@ -84,7 +85,8 @@ INetfilter::IHook::Result Dropper::datagramLocalOutHook(IPv4Datagram* datagram,
 void Dropper::initialize() {
     faulty = par("faulty");
     // Register Hook
-    IPv4* ipLayer = check_and_cast<IPv4*>(findModuleWhereverInNode("ip", this));
+    inet::IPv4* ipLayer = check_and_cast<inet::IPv4*>(
+            getModuleByPath("^.networkLayer.ip"));
     // TODO check the priority that should have
     ipLayer->registerHook(1, this);
     inPackets = 0;
@@ -114,4 +116,4 @@ void Dropper::handleMessage(cMessage *msg) {
     // Delete message
     delete msg;
 }
-
+}

@@ -19,8 +19,8 @@
 
 package kdet.examples;
 
-import inet.networklayer.autorouting.ipv4.IPv4NetworkConfigurator;
-import inet.world.radio.ChannelControl;
+import inet.networklayer.configurator.ipv4.IPv4NetworkConfigurator;
+import inet.physicallayer.ieee80211.packetlevel.Ieee80211ScalarRadioMedium;
 
 import kdet.WCNNode;
 import kdet.utils.topology.GraphServer;
@@ -41,7 +41,7 @@ network kdet
             parameters:
                 @display("r=,,#007070;");
         }
-        channelControl: ChannelControl {
+        radioMedium: Ieee80211ScalarRadioMedium {
             parameters:
                 @display("p=60,50");
         }

@@ -18,12 +18,15 @@
 // ***************************************************************************/
 
 cplusplus {{
-#include "IPv4Address.h"
+#include "L3Address.h"
 #include<set>
 
-typedef std::set<IPv4Address> IPSet;
+namespace kdet{
+typedef std::set<inet::IPv4Address> IPSet;
+}
 }}
 
+namespace kdet;
 class noncobject IPSet;
 
 message ReportIdMsg{

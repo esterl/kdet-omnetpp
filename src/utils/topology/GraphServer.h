@@ -27,18 +27,19 @@
 #include "CoresUpdate_m.h"
 #include <string>
 
+namespace kdet{
 /**
  * GraphServer allows nodes to register their neighbors and computes the
  * cores, boundaries and gives the starting seed for cores monitoring.
  */
 typedef std::vector<std::vector<int>> intListList;
-typedef std::vector<std::set<IPv4Address>> IPSetList;
+typedef std::vector<std::set<inet::IPv4Address>> IPSetList;
 
 class GraphServer: public cSimpleModule {
 public:
-    std::set<IPv4Address> getNeighbors(IPv4Address addr);
-    std::set<IPv4Address> getNeighbors(IPv4Address, unsigned);
-    IPSetList getCores(IPv4Address);
+    std::set<inet::IPv4Address> getNeighbors(inet::IPv4Address addr);
+    std::set<inet::IPv4Address> getNeighbors(inet::IPv4Address, unsigned);
+    IPSetList getCores(inet::IPv4Address);
     IPSetList getAllCores();
     IPSetList getAllBoundaries();
 protected:
@@ -61,7 +62,7 @@ protected:
     void updateGraph(NeighborsAnnouncement* msg);
     std::set<int> getNeighbors(int node);
     std::set<int> getNeighborhood(std::set<int> nodes);
-    int getVertixIndex(IPv4Address node);
+    int getVertixIndex(inet::IPv4Address node);
     std::vector<std::vector<int>> getCores(int node);
     void sendUpdate();
     void updateCores();
@@ -71,5 +72,5 @@ protected:
     std::vector<int> getBoundary(std::vector<int> core);
     IPSetList indexToIPList(intListList cores);
 };
-
+}
 #endif

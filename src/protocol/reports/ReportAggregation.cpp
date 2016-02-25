@@ -19,6 +19,7 @@
 
 #include "ReportAggregation.h"
 
+namespace kdet{
 ReportAggregation::ReportAggregation(const ReportAggregation& other) :
         ReportAggregation_Base(other) {
     for (unsigned int i = 0; i < reports_arraysize; i++)
@@ -52,4 +53,5 @@ ReportAggregation* ReportAggregation::dup() const {
 
 const ReportPtr& ReportAggregation::getReports(unsigned int k) const {
     return reports_var[k]->dup();
+}
 }

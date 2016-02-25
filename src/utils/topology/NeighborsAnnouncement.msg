@@ -18,15 +18,16 @@
 // ***************************************************************************/
 
 cplusplus {{
-#include "IPv4Address.h"
-typedef std::set<IPv4Address> IPSet;
+#include "L3Address.h"
+typedef std::set<inet::IPv4Address> IPSet;
 }}
 
-class noncobject IPv4Address;
+namespace kdet;
+class noncobject inet::IPv4Address;
 class noncobject IPSet;
 
 message NeighborsAnnouncement{
-    IPv4Address node;
+    inet::IPv4Address node;
  	IPSet neighbors;  
  	int seqNumber; 
 }

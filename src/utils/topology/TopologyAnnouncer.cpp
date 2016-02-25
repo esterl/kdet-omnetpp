@@ -20,13 +20,13 @@
 
 #include "TopologyAnnouncer.h"
 #include "NeighborsAnnouncement_m.h"
-#include "RoutingTableAccess.h"
 
+namespace kdet{
 Define_Module(TopologyAnnouncer);
 
 void TopologyAnnouncer::initialize() {
     interval = par("updateInterval");
-    rt = RoutingTableAccess().get();
+    rt = check_and_cast<inet::IIPv4RoutingTable*>(getModuleByPath("^.routingTable"));
     scheduler = new cMessage("Scheduler");
     scheduleAt(simTime(), scheduler);
     seqNumber = 0;
@@ -41,11 +41,11 @@ void printIter(iterator begin, iterator end){
 }
 
 void TopologyAnnouncer::handleMessage(cMessage *msg) {
-    std::set<IPv4Address> new_neigh = neighbors;
+    std::set<inet::IPv4Address> new_neigh = neighbors;
     seqNumber++;
     for (int i = 0; i < rt->getNumRoutes(); i++) {
-        IPv4Route *route = rt->getRoute(i);
-        if (route->getDestination() == route->getGateway()) {
+        inet::IPv4Route *route = rt->getRoute(i);
+        if (route->getDestination() == route->getGateway() || route->getGateway()==inet::IPv4Address()) {
             //1-hop node
             new_neigh.insert(route->getDestination());
         }
@@ -69,4 +69,5 @@ void TopologyAnnouncer::handleMessage(cMessage *msg) {
 
 TopologyAnnouncer::~TopologyAnnouncer(){
     cancelAndDelete(scheduler);
+}
 }

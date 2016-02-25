@@ -17,12 +17,12 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "TrustedAuthority.h"
 #include "CoreEvaluation_m.h"
 #include "DropperReport_m.h"
 #include "IPv4Address.h"
 
+namespace kdet {
 /*** Aux functions ***/
 inline double max(double a, double b) {
     return (a > b) ? a : b;
@@ -73,8 +73,9 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("inReports")) {
         // Save Core evaluation
         int gate = msg->getArrivalGate()->getIndex();
-        CoreEvaluation* evaluation = check_and_cast<CoreEvaluation*>(msg);
-        IPv4Address addr = evaluation->getReporter();
+        CoreEvaluation* evaluation =
+                check_and_cast<CoreEvaluation*>(msg);
+        inet::IPv4Address addr = evaluation->getReporter();
         IPtoIndex[addr.getInt()] = gate;
         evaluations[gate].push_back(evaluation);
         // Received all evaluations?
@@ -99,7 +100,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
     }
 }
 
-std::string coreToString(std::set<IPv4Address> core) {
+std::string coreToString(std::set<inet::IPv4Address> core) {
     std::ostringstream result;
     for (auto it = core.begin(); it != core.end(); it++) {
         result << (*it) << ";";
@@ -137,6 +138,7 @@ void TrustedAuthority::evaluateKDet() {
     }
     delete[] estimatedIn;
     delete[] estimatedDropped;
+    delete[] isBogus;
 }
 
 std::pair<bool, CoreEvaluation*> getNodeEvaluation(
@@ -238,21 +240,22 @@ std::string TrustedAuthority::getRealValues(IPSet core) {
     return os.str();
 }
 
-bool TrustedAuthority::collusion(IPv4Address boundaryNode,
-        std::set<IPv4Address> core) {
+bool TrustedAuthority::collusion(inet::IPv4Address boundaryNode,
+        std::set<inet::IPv4Address> core) {
 // Is there any neighbor of boundaryNode in the core & faulty?
-    std::set<IPv4Address> neighbors = graphServer->getNeighbors(boundaryNode);
+    std::set<inet::IPv4Address> neighbors = graphServer->getNeighbors(
+            boundaryNode);
     for (auto it = neighbors.begin(); it != neighbors.end(); it++) {
         if (faulty[IPtoIndex[it->getInt()]] & core.count(*it) != 0)
             return true;
     }
     return false;
 }
-double TrustedAuthority::getThreshold(std::set<IPv4Address> core) {
+double TrustedAuthority::getThreshold(std::set<inet::IPv4Address> core) {
     return threshold;
 }
 
-bool TrustedAuthority::isFaulty(std::set<IPv4Address> core) {
+bool TrustedAuthority::isFaulty(std::set<inet::IPv4Address> core) {
     for (auto node = core.begin(); node != core.end(); node++) {
         int index = IPtoIndex[node->getInt()];
         coreReal.record(
@@ -269,4 +272,5 @@ void TrustedAuthority::clearEvaluations() {
             delete (*it);
         evaluations[i].clear();
     }
+}
 }

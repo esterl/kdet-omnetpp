@@ -21,6 +21,8 @@
 
 #include <IPv4Serializer.h>
 #include <openssl/md5.h>
+
+namespace kdet{
 // TODO look the proper length
 #define     MAXBUFLENGTH   65536
 
@@ -73,30 +75,41 @@ uint32_t low_md5(unsigned char* hash) {
     return result;
 }
 
-uint32_t SketchSummary::getPacketHash(IPv4Datagram* pkt) {
+uint32_t SketchSummary::getPacketHash(inet::INetworkDatagram* datagram) {
     // Copy packet without TTL, ToS & Checksum (may change)
-    short int oldTTL = pkt->getTimeToLive();
-    unsigned char oldTOS = pkt->getTypeOfService();
-    pkt->setTimeToLive(0);
-    pkt->setTypeOfService(0);
-    unsigned char buf[MAXBUFLENGTH];
-    uint32_t low_hash = 0;
-    try {
-        unsigned packet_length = IPv4Serializer().serialize(pkt, buf,
-                sizeof(buf));
+    if (dynamic_cast<inet::IPv4Datagram*>(datagram)) {
+        inet::IPv4Datagram* pkt = static_cast<inet::IPv4Datagram*>(datagram);
+        short int oldTTL = pkt->getTimeToLive();
+        unsigned char oldTOS = pkt->getTypeOfService();
+        pkt->setTimeToLive(0);
+        pkt->setTypeOfService(0);
+        uint32_t low_hash = 0;
+        try {
 
-        // Compute MD5
-        unsigned char tmp_hash[MD5_DIGEST_LENGTH];
-        MD5(buf, packet_length, tmp_hash);
-        // Strip to the size of the sketch:
-        low_hash = low_md5(tmp_hash);
-    } catch (cRuntimeError e) {
+            uint8 buf[MAXBUFLENGTH];
+            memset((void *)&buf, 0, sizeof(buf));
+            inet::serializer::Buffer b(buf, sizeof(buf));
+            inet::serializer::Context c;
+            c.throwOnSerializerNotFound = false;
+            inet::serializer::IPv4Serializer().serializePacket(pkt, b, c);
+            unsigned packet_length = b.getPos();
+
+            // Compute MD5
+            unsigned char tmp_hash[MD5_DIGEST_LENGTH];
+            MD5(buf, packet_length, tmp_hash);
+            // Strip to the size of the sketch:
+            low_hash = low_md5(tmp_hash);
+        } catch (cRuntimeError e) {
+            pkt->setTimeToLive(oldTTL);
+            pkt->setTypeOfService(oldTOS);
+            throw e;
+        }
+        // Revert changes
         pkt->setTimeToLive(oldTTL);
         pkt->setTypeOfService(oldTOS);
-        throw e;
+        return low_hash;
+    } else {
+        return 0;
     }
-    // Revert changes
-    pkt->setTimeToLive(oldTTL);
-    pkt->setTypeOfService(oldTOS);
-    return low_hash;
+}
 }

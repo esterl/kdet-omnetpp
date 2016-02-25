@@ -23,6 +23,8 @@
 #include "LinkSummary.h"
 #include "SketchSummary.h"
 #include <sketches.h>
+
+namespace kdet {
 typedef Sketch<uint32_t> NetworkSketch;
 typedef std::map<uint32_t, NetworkSketch*> SketchHash;
 
@@ -31,31 +33,31 @@ typedef std::map<uint32_t, NetworkSketch*> SketchHash;
  */
 class LinkSketchSummary: public LinkSummary, public SketchSummary {
 public:
-    LinkSketchSummary(IPv4Address reporter, IPv4Address link);
+    LinkSketchSummary(inet::IPv4Address reporter, inet::IPv4Address link);
     LinkSketchSummary(const LinkSketchSummary& other);
     LinkSketchSummary& operator=(const LinkSketchSummary& other);
     virtual ~LinkSketchSummary();
-    virtual void updateSummaryPreRouting(IPv4Datagram* pkt);
-    virtual void updateSummaryPostRouting(IPv4Datagram* pkt);
+    virtual void updateSummaryPreRouting(inet::INetworkDatagram* pkt);
+    virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt);
     virtual void clear();
     virtual Summary* copy() const;
     virtual void add(Summary* otherPtr);
-    virtual double estimateDrop(std::set<IPv4Address> core);
-    virtual double estimateIn(std::set<IPv4Address> core);
-    virtual double estimateOut(std::set<IPv4Address> core);
+    virtual double estimateDrop(std::set<inet::IPv4Address> core);
+    virtual double estimateIn(std::set<inet::IPv4Address> core);
+    virtual double estimateOut(std::set<inet::IPv4Address> core);
     virtual double getBytes();
     virtual double getOptimizedBytes();
-    virtual void optimize(std::set<IPv4Address> kHopNodes);
+    virtual void optimize(std::set<inet::IPv4Address> kHopNodes);
     static void setBaseSketch(cModule* module);
     static void setBaseSketch(NetworkSketch* sketch);
     static NetworkSketch* getBaseSketch();
 protected:
-    void updateSketch(NetworkSketch* sketch, IPv4Datagram* pkt);
+    void updateSketch(NetworkSketch* sketch, inet::INetworkDatagram* pkt);
     static NetworkSketch* baseSketch;
     NetworkSketch* from;
     NetworkSketch* to;
     SketchHash src;
     SketchHash dst;
 };
-
+}
 #endif /* LINKSKETCHSUMMARY_H_ */

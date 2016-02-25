@@ -20,18 +20,21 @@
 #include "TrafficMonitor.h"
 
 #include "kdet_defs.h"
-#include "IPvXAddressResolver.h"
+#include "L3AddressResolver.h"
 #include "ModuleAccess.h"
 #include "IPv4.h"
-#include "Ieee802Ctrl_m.h"
+#include <Ieee802Ctrl.h>
 #include "ARP.h"
 
-INetfilter::IHook::Result TrafficMonitor::datagramPreRoutingHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+namespace kdet{
+inet::INetfilter::IHook::Result TrafficMonitor::datagramPreRoutingHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     // Update related summaries:
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-        IPv4Address addr = getIPAddress(datagram);
+        //inet::IPv4Address addr = getIPAddress(datagram);
+        // TODO make sure this works
+        inet::IPv4Address addr = datagram->getSourceAddress().toIPv4();
         std::vector<Summary*> summaries = findSummaries(addr);
         for (auto it = summaries.begin(); it != summaries.end(); it++) {
             (*it)->updateSummaryPreRouting(datagram);
@@ -40,18 +43,18 @@ INetfilter::IHook::Result TrafficMonitor::datagramPreRoutingHook(
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result TrafficMonitor::datagramForwardHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result TrafficMonitor::datagramForwardHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result TrafficMonitor::datagramPostRoutingHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE,
-        const InterfaceEntry*& outIE, IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result TrafficMonitor::datagramPostRoutingHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE,
+        const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     // Update related summaries:
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-        std::vector<Summary*> summaries = findSummaries(nextHopAddr);
+        std::vector<Summary*> summaries = findSummaries(nextHopAddr.toIPv4());
         for (auto it = summaries.begin(); it != summaries.end(); it++) {
             (*it)->updateSummaryPostRouting(datagram);
         }
@@ -59,23 +62,24 @@ INetfilter::IHook::Result TrafficMonitor::datagramPostRoutingHook(
     return IHook::ACCEPT;
 }
 
-INetfilter::IHook::Result TrafficMonitor::datagramLocalInHook(
-        IPv4Datagram* datagram, const InterfaceEntry* inIE) {
+inet::INetfilter::IHook::Result TrafficMonitor::datagramLocalInHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry* inIE) {
     return IHook::ACCEPT;
 }
 
 // TODO this should be done by another class
-INetfilter::IHook::Result TrafficMonitor::datagramLocalOutHook(
-        IPv4Datagram* datagram, const InterfaceEntry*& outIE,
-        IPv4Address& nextHopAddr) {
+inet::INetfilter::IHook::Result TrafficMonitor::datagramLocalOutHook(
+        inet::INetworkDatagram* datagram, const inet::InterfaceEntry*& outIE,
+        inet::L3Address& nextHopAddr) {
     // Set ip address
-    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-        datagram->setSrcAddress(IP);
-    }
+//    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
+//        datagram->setDestinationAddress(inet::L3Address(IP));
+//    }
     return IHook::ACCEPT;
 }
 
-void TrafficMonitor::setCores(std::vector<std::set<IPv4Address>> newCores) {
+void TrafficMonitor::setCores(
+        std::vector<std::set<inet::IPv4Address>> newCores) {
     cores = newCores;
 }
 
@@ -84,16 +88,16 @@ void TrafficMonitor::setShareSummaries(std::vector<bool> newShareSummaries) {
 }
 
 void TrafficMonitor::initialize(int stage) {
-    if (stage == 3) {
+    if (stage == inet::INITSTAGE_LAST) {
         // Register Hook
-        IPv4* ipLayer = check_and_cast<IPv4*>(
-                findModuleWhereverInNode("ip", this));
+        inet::IPv4* ipLayer = check_and_cast<inet::IPv4*>(
+                getModuleByPath("^.^.networkLayer.ip"));
         // TODO check the priority that should have
         ipLayer->registerHook(1, this);
         // Initialize the rest of parameters
-        IP = IPvXAddressResolver().addressOf(
+        IP = inet::L3AddressResolver().addressOf(
                 getParentModule()->getParentModule(),
-                IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
+                inet::L3AddressResolver::ADDR_IPv4).toIPv4();
         faulty = par("faulty");
         WATCH_VECTOR(shareSummaries);
     }
@@ -103,12 +107,20 @@ void TrafficMonitor::finish() {
     recordScalar("HostIP", IP.getInt());
 }
 
-IPv4Address TrafficMonitor::getIPAddress(IPv4Datagram* datagram) {
-    Ieee802Ctrl *ctrl = check_and_cast<Ieee802Ctrl*>(
-            datagram->getControlInfo());
-    ARP* arp = ArpAccess().get();
-    if (datagram->getControlInfo() == NULL)
-        datagram->setControlInfo(ctrl);
-    return arp->getIPv4AddressFor(ctrl->getSrc());
+inet::IPv4Address TrafficMonitor::getIPAddress(
+        inet::INetworkDatagram* datagram) {
+    if (dynamic_cast<inet::IPv4Datagram *>(datagram)) {
+        inet::IPv4Datagram *dgram = static_cast<inet::IPv4Datagram *>(datagram);
+        inet::Ieee802Ctrl *ctrl = check_and_cast<inet::Ieee802Ctrl*>(
+                dgram->getControlInfo());
+        inet::ARP* arp = check_and_cast<inet::ARP*>(
+                getModuleByPath("^.networkLayer.arp"));
+        if (dgram->getControlInfo() == NULL)
+            dgram->setControlInfo(ctrl);
+        std::cout << arp->getL3AddressFor(ctrl->getSrc()).toIPv4() << " vs "
+                << datagram->getSourceAddress().toIPv4() << std::endl;
+        return arp->getL3AddressFor(ctrl->getSrc()).toIPv4();
+    }
+    return inet::IPv4Address();
 }
-
+}

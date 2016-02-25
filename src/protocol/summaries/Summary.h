@@ -21,11 +21,12 @@
 #ifndef SUMMARY_H_
 #define SUMMARY_H_
 
-#include <IPvXAddress.h>
+#include <L3Address.h>
 #include <IPv4Datagram.h>
 #include <vector>
 #include <set>
 
+namespace kdet{
 
 // TODO do we want sets or vectors?
 /**
@@ -33,25 +34,25 @@
  */
 class Summary {
 public:
-    Summary(IPv4Address reporterIP = IPv4Address::UNSPECIFIED_ADDRESS) {reporter=reporterIP;};
+    Summary(inet::IPv4Address reporterIP = inet::IPv4Address::UNSPECIFIED_ADDRESS) {reporter=reporterIP;};
     virtual ~Summary() { };
-    virtual IPv4Address getReporter(){ return reporter; };
-    virtual void updateSummaryPreRouting(IPv4Datagram* pkt) = 0;
-    virtual void updateSummaryPostRouting(IPv4Datagram* pkt) = 0;
+    virtual inet::IPv4Address getReporter(){ return reporter; };
+    virtual void updateSummaryPreRouting(inet::INetworkDatagram* pkt) = 0;
+    virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt) = 0;
     virtual void clear() = 0;
     virtual Summary* copy() const = 0;
     virtual void add(Summary* other) = 0;
-    virtual double estimateDrop(std::set<IPv4Address> core) = 0;
-    virtual double estimateIn(std::set<IPv4Address> core) = 0;
-    virtual double estimateOut(std::set<IPv4Address> core) = 0;
+    virtual double estimateDrop(std::set<inet::IPv4Address> core) = 0;
+    virtual double estimateIn(std::set<inet::IPv4Address> core) = 0;
+    virtual double estimateOut(std::set<inet::IPv4Address> core) = 0;
     virtual double getBytes() = 0;
     virtual double getOptimizedBytes() = 0;
-    virtual std::vector<IPv4Address> getID() = 0;
-    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
-            std::set<IPv4Address> neighbors) = 0;
+    virtual std::vector<inet::IPv4Address> getID() = 0;
+    virtual std::set<inet::IPv4Address> getSendTo(inet::IPv4Address localIP,
+            std::set<inet::IPv4Address> neighbors) = 0;
 
 protected:
-    IPv4Address reporter;
+    inet::IPv4Address reporter;
 };
-
+}
 #endif /* SUMMARY_H_ */

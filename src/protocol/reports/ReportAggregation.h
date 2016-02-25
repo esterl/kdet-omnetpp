@@ -23,6 +23,7 @@
 
 #include "ReportAggregation_m.h"
 
+namespace kdet{
 /**
  * TODO
  */
@@ -38,4 +39,5 @@ public:
 };
 
 Register_Class(ReportAggregation);
+}
 #endif /* REPORTAGGREGATION_H_ */

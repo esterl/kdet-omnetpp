@@ -27,6 +27,7 @@
 #include <iostream>
 #include <fstream>
 
+namespace kdet {
 /**
  * The trusted authority receives Core evaluations from every node and
  * saves the results into CSV files.
@@ -37,12 +38,13 @@ protected:
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     virtual void evaluateKDet();
-    virtual void evaluateCore(std::set<IPv4Address> core,
-            std::set<IPv4Address> boundary, double&, double&, bool&);
+    virtual void evaluateCore(std::set<inet::IPv4Address> core,
+            std::set<inet::IPv4Address> boundary, double&, double&, bool&);
     std::string getRealValues(IPSet core);
-    bool collusion(IPv4Address boundaryNode, std::set<IPv4Address> core);
-    virtual double getThreshold(std::set<IPv4Address> core);
-    bool isFaulty(std::set<IPv4Address> core);
+    bool collusion(inet::IPv4Address boundaryNode,
+            std::set<inet::IPv4Address> core);
+    virtual double getThreshold(std::set<inet::IPv4Address> core);
+    bool isFaulty(std::set<inet::IPv4Address> core);
     void clearEvaluations();
     unsigned numNodes;
     int* droppedPackets;
@@ -65,5 +67,5 @@ protected:
     std::ofstream coreCSV;
     std::ofstream nodeCSV;
 };
-
+}
 #endif

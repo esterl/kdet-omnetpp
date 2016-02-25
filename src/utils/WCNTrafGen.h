@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #ifndef __KDET_WCNTRAFGEN_H_
 #define __KDET_WCNTRAFGEN_H_
 
@@ -26,6 +25,7 @@
 #include "IPvXTrafGen.h"
 #include "AppMsg_m.h"
 
+namespace kdet {
 /**
  * Generates packets as determined by the file pointed by the parameter
  * "filename" and destined to the node selected by the parameter
@@ -33,14 +33,16 @@
  */
 class WCNTrafGen: public cSimpleModule {
 public:
-    WCNTrafGen(){};
+    WCNTrafGen() {};
     virtual ~WCNTrafGen();
 protected:
     virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
     virtual void newAppMsg(AppMsg* msg);
     virtual void replyAppMsg(AppMsg* msg);
-    virtual int numInitStages() const { return 4; }
+    virtual int numInitStages() const {
+        return inet::NUM_INIT_STAGES;
+    }
     int protocol;
     int numSent;
     int numReceived;
@@ -50,9 +52,9 @@ protected:
 private:
     bool processFileLine(bool& direction, double& deltaTime, long &bytes);
     std::vector<std::pair<double, long>> readAndScheduleNextIn();
-    IPv4Address getIP();
+    inet::IPv4Address getIP();
     std::ifstream file;
     std::vector<AppMsg*> pendingMessages;
 };
-
+}
 #endif

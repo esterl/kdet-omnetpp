@@ -19,6 +19,7 @@
 
 #include "Report.h"
 
+namespace kdet{
 Hash_CW2<uint8_t> Report::hash = Hash_CW2<uint8_t>(2 << 16); // Results will be within 2^13
 uint32_t Report::prime = 131071; //Mersenne prime 17
 uint64_t Report::seedPows[10] = { 1, 4804, 9920, 76907, 103150, 84220, 107774,
@@ -40,6 +41,10 @@ Report::Report(const Report& other) :
     setSummary(other.summary_var);
 }
 
+Report::~Report(){
+    delete summary_var;
+}
+
 Report* Report::dup() const {
     return new Report(*this);
 }
@@ -49,7 +54,7 @@ bool Report::equals_to(Report* other) {
 }
 
 size_t Report::Hash() const {
-    std::vector<IPv4Address> summaryID = summary_var->getID();
+    std::vector<inet::IPv4Address> summaryID = summary_var->getID();
     // TODO throw runtime error if addresses too big
     size_t result = 0;
     for (unsigned i = 0; i < summaryID.size(); i++) {
@@ -59,13 +64,13 @@ size_t Report::Hash() const {
     return mersenne_modulus<size_t>(result, 17);
 }
 
-std::set<IPv4Address> Report::sendTo(IPv4Address local,
-        std::set<IPv4Address> neighbors) {
+std::set<inet::IPv4Address> Report::sendTo(inet::IPv4Address local,
+        std::set<inet::IPv4Address> neighbors) {
     return summary_var->getSendTo(local, neighbors);
 }
 
 std::string Report::getName() {
-    std::vector<IPv4Address> summaryID = summary_var->getID();
+    std::vector<inet::IPv4Address> summaryID = summary_var->getID();
     std::stringstream ss;
     ss << "[";
     for (auto it = summaryID.begin(); it != summaryID.end(); it++) {
@@ -87,4 +92,5 @@ void Report::setSummary(Summary* summary) {
         delete summary_var;
     summary_var = summary->copy();
     bytes_var = summary_var->getOptimizedBytes();
+}
 }

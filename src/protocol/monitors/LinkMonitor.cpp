@@ -20,10 +20,15 @@
 #include <monitors/LinkMonitor.h>
 #include "LinkSketchSummary.h"
 
+namespace kdet{
 Define_Module(LinkMonitor);
 
-void LinkMonitor::setCores(std::vector<std::set<IPv4Address>> cores) {
+void LinkMonitor::setCores(std::vector<std::set<inet::IPv4Address>> cores) {
     resetSummaries();
+    // Make sure it works:
+    for ( auto it : summaries){
+        delete it.second;
+    }
     summaries.clear();
     for (auto core = cores.begin(); core != cores.end(); core++) {
         if (core->size() == 1) {
@@ -46,11 +51,11 @@ void LinkMonitor::initialize(int stage) {
 
 void LinkMonitor::handleMessage(cMessage *msg) {
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
-        std::set<IPv4Address> coreAddresses;
+        std::set<inet::IPv4Address> coreAddresses;
         // See if there is any core for that link that needs to share its summaries:
         for (unsigned i = 0; i < cores.size(); i++) {
             if ((shareSummaries[i] || !par("randomized").boolValue())
-                    && cores[i].count(IPv4Address(it->first)) != 0) {
+                    && cores[i].count(inet::IPv4Address(it->first)) != 0) {
                 coreAddresses.insert(cores[i].begin(), cores[i].end());
             }
         }
@@ -86,11 +91,12 @@ void LinkMonitor::resetSummaries() {
     }
 }
 
-std::vector<Summary*> LinkMonitor::findSummaries(IPv4Address addr) {
+std::vector<Summary*> LinkMonitor::findSummaries(inet::IPv4Address addr) {
     if (summaries.count(addr.getInt()) == 0) {
         summaries[addr.getInt()] = new LinkSketchSummary(IP, addr);
     }
     std::vector<Summary*> result;
     result.push_back(summaries[addr.getInt()]);
     return result;
+}
 }

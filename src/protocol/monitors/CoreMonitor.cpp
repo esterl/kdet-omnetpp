@@ -17,11 +17,11 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #include "CoreMonitor.h"
 #include "CoreSketchSummary.h"
 #include "Report.h"
 
+namespace kdet {
 Define_Module(CoreMonitor);
 
 void CoreMonitor::initialize(int stage) {
@@ -74,7 +74,7 @@ void CoreMonitor::deleteSummaries() {
     summaries.clear();
 }
 
-void CoreMonitor::setCores(std::vector<std::set<IPv4Address>> newCores) {
+void CoreMonitor::setCores(std::vector<std::set<inet::IPv4Address>> newCores) {
     cores = newCores;
     deleteSummaries();
     for (auto it = cores.begin(); it != cores.end(); it++) {
@@ -82,7 +82,7 @@ void CoreMonitor::setCores(std::vector<std::set<IPv4Address>> newCores) {
     }
 }
 
-std::vector<Summary*> CoreMonitor::findSummaries(IPv4Address addr) {
+std::vector<Summary*> CoreMonitor::findSummaries(inet::IPv4Address addr) {
     std::vector<Summary*> result;
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
         CoreSketchSummary* summary = check_and_cast<CoreSketchSummary*>(*it);
@@ -92,4 +92,4 @@ std::vector<Summary*> CoreMonitor::findSummaries(IPv4Address addr) {
     }
     return result;
 }
-
+}

@@ -17,7 +17,6 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
-
 #ifndef REPORT_H_
 #define REPORT_H_
 
@@ -25,21 +24,24 @@
 #include "Summary.h"
 #include <hash.h>
 
+namespace kdet {
 /**
  * Base class for the message of type reports. Derived classes must implement
  * the equals_to operator and the Hash function, so that the RobustFlooding
  * module knows which new reports can replace older versions (equals_to) and
  * save them in a unordered_map using the Hash function.
  */
-class Report : public Report_Base {
+class Report: public Report_Base {
 public:
     Report();
     Report(const char *name, int kind);
     Report(const Report& other);
+    virtual ~Report();
     virtual Report* dup() const;
     virtual bool equals_to(Report* other);
     virtual size_t Hash() const;
-    virtual std::set<IPv4Address> sendTo(IPv4Address local, std::set<IPv4Address> neighbors);
+    virtual std::set<inet::IPv4Address> sendTo(inet::IPv4Address local,
+            std::set<inet::IPv4Address> neighbors);
     virtual std::string getName();
     Summary* getSummary() const;
     void setSummary(Summary* summary);
@@ -53,16 +55,16 @@ protected:
 
 Register_Class(Report);
 
-struct ReportHash{
-    size_t operator() (const Report* report) const {
+struct ReportHash {
+    size_t operator()(const Report* report) const {
         return report->Hash();
     }
 };
 
 struct ReportEqual {
-    bool operator() (Report* lhs, Report* rhs) const {
+    bool operator()(Report* lhs, Report* rhs) const {
         return lhs->equals_to(rhs);
     }
 };
-
+}
 #endif /* REPORT_H_ */

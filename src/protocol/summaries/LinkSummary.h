@@ -22,6 +22,7 @@
 
 #include "Summary.h"
 
+namespace kdet{
 /**
  * Traffic summary based on the second strategy: it keeps information about
  * all the traffic that comes from and to a given link, as well as which node
@@ -29,16 +30,16 @@
  */
 class LinkSummary : public Summary{
 public:
-    LinkSummary(IPv4Address reporterIP,
-            IPv4Address neighborIP) {reporter=reporterIP; neighbor=neighborIP;};
+    LinkSummary(inet::IPv4Address reporterIP,
+            inet::IPv4Address neighborIP) {reporter=reporterIP; neighbor=neighborIP;};
     virtual ~LinkSummary() { };
-    virtual IPv4Address getNeighbor(){ return neighbor; };
-    virtual std::vector<IPv4Address> getID();
-    virtual std::set<IPv4Address> getSendTo(IPv4Address localIP,
-            std::set<IPv4Address> neighbors);
-    virtual void optimize(std::set<IPv4Address> kHopsNeighbors) = 0;
+    virtual inet::IPv4Address getNeighbor(){ return neighbor; };
+    virtual std::vector<inet::IPv4Address> getID();
+    virtual std::set<inet::IPv4Address> getSendTo(inet::IPv4Address localIP,
+            std::set<inet::IPv4Address> neighbors);
+    virtual void optimize(std::set<inet::IPv4Address> kHopsNeighbors) = 0;
 protected:
-    IPv4Address neighbor;
+    inet::IPv4Address neighbor;
 };
-
+}
 #endif /* LINKSUMMARY_H_ */

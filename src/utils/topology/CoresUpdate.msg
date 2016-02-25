@@ -18,11 +18,12 @@
 // ***************************************************************************/
 
 cplusplus {{
-#include "IPv4Address.h"
-typedef std::vector<std::set<IPv4Address>> IPSetList;
+#include "L3Address.h"
+typedef std::vector<std::set<inet::IPv4Address>> IPSetList;
 typedef std::vector<unsigned> UintList;
 }}
 
+namespace kdet;
 class noncobject IPSetList;
 class noncobject UintList;
 

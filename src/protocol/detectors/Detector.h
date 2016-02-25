@@ -21,12 +21,13 @@
 
 #include <random>
 #include <omnetpp.h>
-#include <IPv4Address.h>
+#include <L3Address.h>
 #include "Report.h"
 #include "CoresUpdate_m.h"
 #include "CoreEvaluation_m.h"
 #include "TrafficMonitor.h"
 
+namespace kdet{
 /**
  * Base class that defines the behavior a Detector should have. Implements the
  * logic of randomized interval evaluation based on the core's last
@@ -35,7 +36,7 @@
 class Detector: public cSimpleModule {
 protected:
     virtual void initialize(int stage);
-    virtual int numInitStages() const { return 4; };
+    virtual int numInitStages() const { return inet::NUM_INIT_STAGES; };
     virtual void finish();
     virtual void handleMessage(cMessage *msg);
     virtual void updateReports(Report* report) = 0;
@@ -51,9 +52,9 @@ protected:
     std::vector<unsigned> thresholds;
     std::vector<std::mt19937> randGenerators;
     std::vector<bool> evaluateNextIter;
-    IPv4Address IP;
+    inet::IPv4Address IP;
     bool faulty;
     unsigned min_threshold;
 };
-
+}
 #endif

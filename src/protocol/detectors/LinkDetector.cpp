@@ -20,12 +20,13 @@
 
 #include "CoreEvaluation_m.h"
 
+namespace kdet{
 Define_Module(LinkDetector);
 
 void LinkDetector::updateReports(Report* report) {
     LinkSummary* summary = check_and_cast<LinkSummary*>(report->getSummary());
     // Is there a report from that node?
-    IPv4Address source = report->getReporter();
+    inet::IPv4Address source = report->getReporter();
     if (reports.count(source.getInt()) == 0) {
         std::unordered_map<int, Report*> reports_map;
         reports_map[summary->getNeighbor().getInt()] = report;
@@ -40,8 +41,8 @@ void LinkDetector::updateReports(Report* report) {
 }
 
 void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
-    std::set<IPv4Address> core = cores[i];
-    std::set<IPv4Address> boundary = boundaries[i];
+    std::set<inet::IPv4Address> core = cores[i];
+    std::set<inet::IPv4Address> boundary = boundaries[i];
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
@@ -95,4 +96,4 @@ void LinkDetector::clearReports() {
     }
     reports.clear();
 }
-
+}

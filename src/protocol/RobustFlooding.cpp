@@ -18,13 +18,15 @@
  ***************************************************************************/
 
 #include "RobustFlooding.h"
-#include "IPvXAddressResolver.h"
+#include "L3Address.h"
+#include "L3AddressResolver.h"
 #include "IPv4ControlInfo.h"
 #include "IPSocket.h"
 
+namespace kdet{
 Define_Module(RobustFlooding);
 
-std::string printSet(std::set<IPv4Address> ipSet) {
+std::string printSet(std::set<inet::IPv4Address> ipSet) {
     std::stringstream ss;
     for (auto it = ipSet.begin(); it != ipSet.end(); it++) {
         ss << *it << ",";
@@ -33,11 +35,11 @@ std::string printSet(std::set<IPv4Address> ipSet) {
 }
 
 void RobustFlooding::initialize(int stage) {
-    if (stage == 3) {
+    if (stage == inet::INITSTAGE_LAST) {
         sendTimeout = NULL;
-        IP = IPvXAddressResolver().addressOf(
+        IP = inet::L3AddressResolver().addressOf(
                 getParentModule()->getParentModule(),
-                IPvXAddressResolver::ADDR_PREFER_IPv4).get4();
+                inet::L3AddressResolver::ADDR_IPv4).toIPv4();
         cModule* graphSrvModule = getModuleByPath("graphServer");
         graphServer = check_and_cast<GraphServer*>(graphSrvModule);
         TTL = int(par("k")) + 1;
@@ -46,7 +48,7 @@ void RobustFlooding::initialize(int stage) {
         overhead.setName("Overhead");
 
         // Register protocol:
-        IPSocket socket(gate("othersOut"));
+        inet::IPSocket socket(gate("othersOut"));
         socket.registerProtocol(KDET_PROTOCOL_NUMBER);
 
         // Monitoring
@@ -83,7 +85,7 @@ void RobustFlooding::handleMessage(cMessage *msg) {
             else
                 delete msg;
         } else {
-            std::cout << "handle unknown msg" << endl;
+            std::cout << simTime() << "handle unknown msg" << endl;
             delete msg;
         }
     } else if (msg->getKind() == 0) {
@@ -123,9 +125,9 @@ void RobustFlooding::processReport(ReportAggregation *reportAggr) {
 }
 
 void RobustFlooding::processAck(ReportAck* ack) {
-    IPv4ControlInfo* ctrlInfo = check_and_cast<IPv4ControlInfo*>(
+    inet::IPv4ControlInfo* ctrlInfo = check_and_cast<inet::IPv4ControlInfo*>(
             ack->getControlInfo());
-    IPv4Address addr = ctrlInfo->getSrcAddr();
+    inet::IPv4Address addr = ctrlInfo->getSrcAddr();
     //
     for (unsigned i = 0; i < ack->getIdsArraySize(); i++) {
         int index = ack->getIds(i);
@@ -155,7 +157,7 @@ void RobustFlooding::reliablyFlood(Report *report) {
             sendTo.push_back(report->sendTo(IP, graphServer->getNeighbors(IP)));
             scheduleTimeout(index);
         } else {
-            sendTo.push_back(std::set<IPv4Address>());
+            sendTo.push_back(std::set<inet::IPv4Address>());
             // Null timeout
             timeouts.push_back(NULL);
         }
@@ -194,7 +196,7 @@ void RobustFlooding::reliablyFlood(Report *report) {
                         graphServer->getNeighbors(IP));
                 scheduleTimeout(index);
             } else {
-                sendTo[index] = std::set<IPv4Address>();
+                sendTo[index] = std::set<inet::IPv4Address>();
             }
             sendToStr[index] = printSet(sendTo[index]);
         }
@@ -218,9 +220,9 @@ bool RobustFlooding::isNew(Report* report) {
 }
 
 void RobustFlooding::setControlInfo(ReportAggregation* report,
-        IPv4Address dst) {
+        inet::IPv4Address dst) {
     // Report should not have ControlInfo
-    IPv4ControlInfo *controlInfo = new IPv4ControlInfo();
+    inet::IPv4ControlInfo *controlInfo = new inet::IPv4ControlInfo();
     controlInfo->setSrcAddr(IP);
     controlInfo->setDestAddr(dst);
     controlInfo->setProtocol(KDET_PROTOCOL_NUMBER);
@@ -241,10 +243,11 @@ void RobustFlooding::sendAck(ReportAggregation* reportAggr) {
     }
 
     // Set controlInfo
-    IPv4ControlInfo *ctrlReport, *ctrlAck;
+    inet::IPv4ControlInfo *ctrlReport, *ctrlAck;
     // TODO removeCtrlInfo?
-    ctrlReport = check_and_cast<IPv4ControlInfo*>(reportAggr->getControlInfo());
-    ctrlAck = new IPv4ControlInfo();
+    ctrlReport = check_and_cast<inet::IPv4ControlInfo*>(
+            reportAggr->getControlInfo());
+    ctrlAck = new inet::IPv4ControlInfo();
     ctrlAck->setSrcAddr(IP);
     ctrlAck->setDestAddr(ctrlReport->getSrcAddr());
     ctrlAck->setProtocol(KDET_PROTOCOL_NUMBER);
@@ -290,7 +293,7 @@ void RobustFlooding::sendMulticast(ReportIdMsg* idMsg) {
         //Report* report = messages[index]->dup();
         //setControlInfo(report, IPv4Address::ALL_ROUTERS_MCAST);
         //sendDelayed(report, jitter(), "othersOut");
-        queueReport(index, IPv4Address::ALL_ROUTERS_MCAST.getInt());
+        queueReport(index, inet::IPv4Address::ALL_ROUTERS_MCAST.getInt());
         //if (report->getBytes() != 0)
         //    overhead.record(report->getBytes());
     }
@@ -340,7 +343,7 @@ void RobustFlooding::flushQueues() {
                     overhead.record(report->getBytes());
                 reportAggr->setReports(i, report);
             }
-            setControlInfo(reportAggr, IPv4Address(queue->first));
+            setControlInfo(reportAggr, inet::IPv4Address(queue->first));
             // TODO check if delayed or directly
             sendDelayed(reportAggr, jitter(), "othersOut");
             // Clear queue
@@ -373,4 +376,5 @@ void RobustFlooding::setParameters(Report* report) {
     name << " : " << version;
     report->setVersion(version);
     report->setName(name.str().c_str());
+}
 }

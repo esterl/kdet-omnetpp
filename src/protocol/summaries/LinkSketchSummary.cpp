@@ -19,8 +19,9 @@
 
 #include "LinkSketchSummary.h"
 
-LinkSketchSummary::LinkSketchSummary(IPv4Address reporterIP,
-        IPv4Address neighborIP) :
+namespace kdet{
+LinkSketchSummary::LinkSketchSummary(inet::IPv4Address reporterIP,
+        inet::IPv4Address neighborIP) :
         LinkSummary(reporterIP, neighborIP) {
     from = SketchSummary::getBaseSketch();
     to = SketchSummary::getBaseSketch();
@@ -79,13 +80,13 @@ LinkSketchSummary::~LinkSketchSummary() {
     dst.clear();
 }
 
-void LinkSketchSummary::updateSummaryPreRouting(IPv4Datagram* pkt) {
+void LinkSketchSummary::updateSummaryPreRouting(inet::INetworkDatagram* pkt) {
     // Update from and src sketches
     try {
         uint32_t pktHash = getPacketHash(pkt);
         from->update(pktHash, 1);
         // Create Sketch if it doesn't exist
-        IPv4Address address = pkt->getSrcAddress();
+        inet::IPv4Address address = pkt->getSourceAddress().toIPv4();
         if (src.count(address.getInt()) == 0) {
             src[address.getInt()] = SketchSummary::getBaseSketch();
         }
@@ -96,13 +97,13 @@ void LinkSketchSummary::updateSummaryPreRouting(IPv4Datagram* pkt) {
     }
 }
 
-void LinkSketchSummary::updateSummaryPostRouting(IPv4Datagram* pkt) {
+void LinkSketchSummary::updateSummaryPostRouting(inet::INetworkDatagram* pkt) {
     // Update from and src sketches
     try {
         uint32_t pktHash = getPacketHash(pkt);
        to->update(pktHash, 1);
         // Create Sketch if it doesn't exist
-        IPv4Address address = pkt->getDestAddress();
+        inet::IPv4Address address = pkt->getDestinationAddress().toIPv4();
         if (dst.count(address.getInt()) == 0) {
             dst[address.getInt()] = SketchSummary::getBaseSketch();
         }
@@ -125,17 +126,19 @@ void LinkSketchSummary::clear() {
 }
 
 Summary* LinkSketchSummary::copy() const {
-    LinkSketchSummary* summary = new LinkSketchSummary(reporter, neighbor);
-    delete summary->from;
-    summary->from = from->copy();
-    delete summary->to;
-    summary->to = to->copy();
-    for (auto it = src.begin(); it != src.end(); it++) {
-        summary->src[it->first] = it->second->copy();
-    }
-    for (auto it = dst.begin(); it != dst.end(); it++) {
-        summary->dst[it->first] = it->second->copy();
-    }
+//    LinkSketchSummary* summary = new LinkSketchSummary(reporter, neighbor);
+//    delete summary->from;
+//    summary->from = from->copy();
+//    delete summary->to;
+//    summary->to = to->copy();
+//    for (auto it = src.begin(); it != src.end(); it++) {
+//        summary->src[it->first] = it->second->copy();
+//    }
+//    for (auto it = dst.begin(); it != dst.end(); it++) {
+//        summary->dst[it->first] = it->second->copy();
+//    }
+//    return summary;
+    LinkSketchSummary* summary = new LinkSketchSummary(*this);
     return summary;
 }
 
@@ -159,16 +162,16 @@ void LinkSketchSummary::add(Summary* otherPtr) {
     }
 }
 
-double LinkSketchSummary::estimateDrop(std::set<IPv4Address> core) {
+double LinkSketchSummary::estimateDrop(std::set<inet::IPv4Address> core) {
     NetworkSketch* sketchIn = to->copy();
     for (auto it = dst.begin(); it != dst.end(); it++) {
-        if (core.count(IPv4Address(it->first)) != 0) {
+        if (core.count(inet::IPv4Address(it->first)) != 0) {
             (*sketchIn) -= (*it->second);
         }
     }
     NetworkSketch* sketchOut = from->copy();
     for (auto it = src.begin(); it != src.end(); it++) {
-        if (core.count(IPv4Address(it->first)) != 0) {
+        if (core.count(inet::IPv4Address(it->first)) != 0) {
             (*sketchOut) -= (*it->second);
         }
     }
@@ -179,10 +182,10 @@ double LinkSketchSummary::estimateDrop(std::set<IPv4Address> core) {
     return dropped;
 }
 
-double LinkSketchSummary::estimateIn(std::set<IPv4Address> core) {
+double LinkSketchSummary::estimateIn(std::set<inet::IPv4Address> core) {
     NetworkSketch* sketchIn = to->copy();
     for (auto it = dst.begin(); it != dst.end(); it++) {
-        if (core.count(IPv4Address(it->first)) != 0) {
+        if (core.count(inet::IPv4Address(it->first)) != 0) {
             (*sketchIn) -= (*it->second);
         }
     }
@@ -191,10 +194,10 @@ double LinkSketchSummary::estimateIn(std::set<IPv4Address> core) {
     return received;
 }
 
-double LinkSketchSummary::estimateOut(std::set<IPv4Address> core) {
+double LinkSketchSummary::estimateOut(std::set<inet::IPv4Address> core) {
     NetworkSketch* sketchOut = from->copy();
     for (auto it = src.begin(); it != src.end(); it++) {
-        if (core.count(IPv4Address(it->first)) != 0) {
+        if (core.count(inet::IPv4Address(it->first)) != 0) {
             (*sketchOut) -= (*it->second);
         }
     }
@@ -231,10 +234,10 @@ double LinkSketchSummary::getOptimizedBytes() {
 }
 
 void removeNonCoreSketches(SketchHash& sketches,
-        std::set<IPv4Address> coreNodes) {
+        std::set<inet::IPv4Address> coreNodes) {
     std::set<int> nonCoreNodes;
     for (auto it = sketches.begin(); it != sketches.end(); it++) {
-        if (coreNodes.count(IPv4Address(it->first)) == 0) {
+        if (coreNodes.count(inet::IPv4Address(it->first)) == 0) {
             nonCoreNodes.insert(it->first);
         }
     }
@@ -243,7 +246,8 @@ void removeNonCoreSketches(SketchHash& sketches,
         sketches.erase(*it);
     }
 }
-void LinkSketchSummary::optimize(std::set<IPv4Address> coreNodes) {
+void LinkSketchSummary::optimize(std::set<inet::IPv4Address> coreNodes) {
     removeNonCoreSketches(src, coreNodes);
     removeNonCoreSketches(dst, coreNodes);
+}
 }

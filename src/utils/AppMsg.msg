@@ -19,16 +19,19 @@
 
 
 cplusplus {{
-#include "IPv4Address.h"
+#include "L3Address.h"
 #include <vector>
 #include <utility>
 
+namespace kdet{
 typedef std::vector<std::pair<double, long>> PairList;
+}
 }}
 
-class noncobject IPv4Address;
+namespace kdet;
+class noncobject inet::IPv4Address;
 class noncobject PairList;
 packet AppMsg {
-    IPv4Address IPAddress;
+    inet::IPv4Address IPAddress;
     PairList responses;
 }

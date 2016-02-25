@@ -20,7 +20,8 @@
 
 package kdet;
 
-import inet.nodes.inet.AdhocHost;
+import inet.node.inet.AdhocHost;
+
 import inet.applications.generic.IIPvXTrafficGenerator;
 
 import kdet.utils.topology.TopologyAnnouncer;
