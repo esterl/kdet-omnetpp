@@ -111,7 +111,7 @@ void RobustFlooding::processReport(ReportAggregation *reportAggr) {
     sendAck(reportAggr);
     // Process each individual report:
     for (unsigned i = 0; i < reportAggr->getReportsArraySize(); i++) {
-        Report* report = reportAggr->getReports(i);
+        Report* report = reportAggr->getReports(i)->dup();
         // Deliver locally if is new
         bool newReport = isNew(report);
         if (newReport) {
@@ -236,7 +236,7 @@ void RobustFlooding::sendAck(ReportAggregation* reportAggr) {
     ack->setIdsArraySize(numReports);
     ack->setVersionsArraySize(numReports);
     for (unsigned i = 0; i < numReports; i++) {
-        Report* report = reportAggr->getReports(i);
+        Report* report = reportAggr->getReports(i)->dup();
         ack->setIds(i, report->getIndex());
         ack->setVersions(i, report->getVersion());
         delete report;
@@ -248,7 +248,7 @@ void RobustFlooding::sendAck(ReportAggregation* reportAggr) {
     ctrlReport = check_and_cast<inet::IPv4ControlInfo*>(
             reportAggr->getControlInfo());
     ctrlAck = new inet::IPv4ControlInfo();
-    ctrlAck->setSrcAddr(IP);
+    //ctrlAck->setSrcAddr(IP);
     ctrlAck->setDestAddr(ctrlReport->getSrcAddr());
     ctrlAck->setProtocol(KDET_PROTOCOL_NUMBER);
     ctrlAck->setTimeToLive(16);

@@ -52,6 +52,7 @@ ReportAggregation* ReportAggregation::dup() const {
 }
 
 const ReportPtr& ReportAggregation::getReports(unsigned int k) const {
-    return reports_var[k]->dup();
+    if (k>=reports_arraysize) throw cRuntimeError("Array of size %d indexed by %d", reports_arraysize, k);
+      return reports_var[k];
 }
 }
