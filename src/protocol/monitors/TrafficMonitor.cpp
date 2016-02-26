@@ -34,7 +34,8 @@ inet::INetfilter::IHook::Result TrafficMonitor::datagramPreRoutingHook(
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
         //inet::IPv4Address addr = getIPAddress(datagram);
         // TODO make sure this works
-        inet::IPv4Address addr = datagram->getSourceAddress().toIPv4();
+        //inet::IPv4Address addr = datagram->getSourceAddress().toIPv4();
+        inet::IPv4Address addr = getIPAddress(datagram);
         std::vector<Summary*> summaries = findSummaries(addr);
         for (auto it = summaries.begin(); it != summaries.end(); it++) {
             (*it)->updateSummaryPreRouting(datagram);
@@ -54,7 +55,9 @@ inet::INetfilter::IHook::Result TrafficMonitor::datagramPostRoutingHook(
         const inet::InterfaceEntry*& outIE, inet::L3Address& nextHopAddr) {
     // Update related summaries:
     if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-        std::vector<Summary*> summaries = findSummaries(nextHopAddr.toIPv4());
+        inet::IPv4Address addr = nextHopAddr.toIPv4();
+        if (addr.isUnspecified()) addr = datagram->getDestinationAddress().toIPv4();
+        std::vector<Summary*> summaries = findSummaries(addr);
         for (auto it = summaries.begin(); it != summaries.end(); it++) {
             (*it)->updateSummaryPostRouting(datagram);
         }
@@ -72,9 +75,9 @@ inet::INetfilter::IHook::Result TrafficMonitor::datagramLocalOutHook(
         inet::INetworkDatagram* datagram, const inet::InterfaceEntry*& outIE,
         inet::L3Address& nextHopAddr) {
     // Set ip address
-//    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
-//        datagram->setDestinationAddress(inet::L3Address(IP));
-//    }
+    if (datagram->getTransportProtocol() == DATA_PROTOCOL_NUMBER) {
+        datagram->setSourceAddress(inet::L3Address(IP));
+    }
     return IHook::ACCEPT;
 }
 
@@ -114,11 +117,9 @@ inet::IPv4Address TrafficMonitor::getIPAddress(
         inet::Ieee802Ctrl *ctrl = check_and_cast<inet::Ieee802Ctrl*>(
                 dgram->getControlInfo());
         inet::ARP* arp = check_and_cast<inet::ARP*>(
-                getModuleByPath("^.networkLayer.arp"));
+                getModuleByPath("^.^.networkLayer.arp"));
         if (dgram->getControlInfo() == NULL)
             dgram->setControlInfo(ctrl);
-        std::cout << arp->getL3AddressFor(ctrl->getSrc()).toIPv4() << " vs "
-                << datagram->getSourceAddress().toIPv4() << std::endl;
         return arp->getL3AddressFor(ctrl->getSrc()).toIPv4();
     }
     return inet::IPv4Address();
