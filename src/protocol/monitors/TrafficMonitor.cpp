@@ -116,7 +116,7 @@ inet::IPv4Address TrafficMonitor::getIPAddress(
         inet::IPv4Datagram *dgram = static_cast<inet::IPv4Datagram *>(datagram);
         inet::Ieee802Ctrl *ctrl = check_and_cast<inet::Ieee802Ctrl*>(
                 dgram->getControlInfo());
-        inet::ARP* arp = check_and_cast<inet::ARP*>(
+        inet::IARP* arp = check_and_cast<inet::IARP*>(
                 getModuleByPath("^.^.networkLayer.arp"));
         if (dgram->getControlInfo() == NULL)
             dgram->setControlInfo(ctrl);

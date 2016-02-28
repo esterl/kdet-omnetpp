@@ -101,7 +101,7 @@ void LinkSketchSummary::updateSummaryPostRouting(inet::INetworkDatagram* pkt) {
     // Update from and src sketches
     try {
         uint32_t pktHash = getPacketHash(pkt);
-       to->update(pktHash, 1);
+        to->update(pktHash, 1);
         // Create Sketch if it doesn't exist
         inet::IPv4Address address = pkt->getDestinationAddress().toIPv4();
         if (dst.count(address.getInt()) == 0) {
