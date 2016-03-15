@@ -51,7 +51,7 @@ void CoreMonitor::handleMessage(cMessage *msg) {
 }
 
 void CoreMonitor::finish() {
-    double bytes;
+    double bytes = 0.0;
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
         bytes += (*it)->getBytes();
         delete (*it);

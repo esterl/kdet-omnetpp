@@ -75,7 +75,7 @@ void LinkMonitor::handleMessage(cMessage *msg) {
 }
 
 void LinkMonitor::finish() {
-    double bytes;
+    double bytes=0.;
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
         bytes += it->second->getBytes();
         delete it->second;
