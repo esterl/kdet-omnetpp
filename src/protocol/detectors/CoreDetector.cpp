@@ -75,21 +75,31 @@ void CoreDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
         }
         receivedSketches[it->first] = true;
     }
+    double dropEstimation, inEstimation, outEstimation;
     double dropPkts, inPkts, outPkts;
     if (globalSummary != NULL) {
         // Estimate the drop %
-        dropPkts = globalSummary->estimateDrop(core);
-        inPkts = globalSummary->estimateIn(core);
-        outPkts = globalSummary->estimateOut(core);
+        dropEstimation = globalSummary->estimateDrop(core);
+        inEstimation = globalSummary->estimateIn(core);
+        outEstimation = globalSummary->estimateOut(core);
+        dropPkts = globalSummary->getDrop(core);
+        inPkts = globalSummary->getIn(core);
+        outPkts = globalSummary->getOut(core);
         delete globalSummary;
     } else {
+        dropEstimation = 0.0;
+        inEstimation = 0.0;
+        outEstimation = 0.0;
         dropPkts = 0.0;
         inPkts = 0.0;
         outPkts = 0.0;
     }
-    msg->setDropEstimation(dropPkts);
-    msg->setInEstimation(inPkts);
-    msg->setOutEstimation(outPkts);
+    msg->setDropEstimation(dropEstimation);
+    msg->setInEstimation(inEstimation);
+    msg->setOutEstimation(outEstimation);
+    msg->setDropReal(dropPkts);
+    msg->setInReal(inPkts);
+    msg->setOutReal(outPkts);
     msg->setReceivedReports(receivedSketches);
 }
 

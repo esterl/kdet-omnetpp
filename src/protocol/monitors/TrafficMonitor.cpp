@@ -25,6 +25,7 @@
 #include "IPv4.h"
 #include <Ieee802Ctrl.h>
 #include "ARP.h"
+#include "TrafficSketch.h"
 
 namespace kdet{
 inet::INetfilter::IHook::Result TrafficMonitor::datagramPreRoutingHook(
@@ -103,11 +104,14 @@ void TrafficMonitor::initialize(int stage) {
                 inet::L3AddressResolver::ADDR_IPv4).toIPv4();
         faulty = par("faulty");
         WATCH_VECTOR(shareSummaries);
+        // Set the BaseSketch
+        TrafficSketch::setBaseSketch(this);
     }
 }
 
 void TrafficMonitor::finish() {
     recordScalar("HostIP", IP.getInt());
+    TrafficSketch::clearBaseSketch();
 }
 
 inet::IPv4Address TrafficMonitor::getIPAddress(

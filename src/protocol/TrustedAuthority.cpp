@@ -73,8 +73,7 @@ void TrustedAuthority::handleMessage(cMessage *msg) {
     if (msg->arrivedOn("inReports")) {
         // Save Core evaluation
         int gate = msg->getArrivalGate()->getIndex();
-        CoreEvaluation* evaluation =
-                check_and_cast<CoreEvaluation*>(msg);
+        CoreEvaluation* evaluation = check_and_cast<CoreEvaluation*>(msg);
         inet::IPv4Address addr = evaluation->getReporter();
         IPtoIndex[addr.getInt()] = gate;
         evaluations[gate].push_back(evaluation);
@@ -115,14 +114,19 @@ void TrustedAuthority::evaluateKDet() {
 
     std::vector<double> *estimatedIn = new std::vector<double>[numNodes];
     std::vector<double> *estimatedDropped = new std::vector<double>[numNodes];
+    std::vector<double> *realIn = new std::vector<double>[numNodes];
+    std::vector<double> *realDropped = new std::vector<double>[numNodes];
     std::vector<bool> *isBogus = new std::vector<bool>[numNodes];
     for (unsigned i = 0; i < cores.size(); i++) {
-        double dropped, inPkts;
+        double dropEstimation, inEstimation, dropReal, inReal;
         bool bogusEval;
-        evaluateCore(cores[i], boundaries[i], dropped, inPkts, bogusEval);
+        evaluateCore(cores[i], boundaries[i], dropEstimation, inEstimation,
+                dropReal, inReal, bogusEval);
         for (auto node = cores[i].begin(); node != cores[i].end(); node++) {
-            estimatedIn[IPtoIndex[node->getInt()]].push_back(inPkts);
-            estimatedDropped[IPtoIndex[node->getInt()]].push_back(dropped);
+            estimatedIn[IPtoIndex[node->getInt()]].push_back(inEstimation);
+            estimatedDropped[IPtoIndex[node->getInt()]].push_back(dropEstimation);
+            realIn[IPtoIndex[node->getInt()]].push_back(inReal);
+            realDropped[IPtoIndex[node->getInt()]].push_back(dropReal);
             isBogus[IPtoIndex[node->getInt()]].push_back(bogusEval);
         }
     }
@@ -163,7 +167,8 @@ std::pair<bool, CoreEvaluation*> getNodeEvaluation(
 }
 
 void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
-        double& dropEstimation, double& inEstimation, bool& bogusEval) {
+        double& dropEstimation, double& inEstimation, double& dropReal,
+        double &inReal, bool& bogusEval) {
     bool detected = true;
 // Base entry
     std::ostringstream os;
@@ -173,6 +178,8 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
     dropEstimation = -1;
     inEstimation = -1;
     outEstimation = -1;
+    inReal = -1;
+    dropReal = -1;
     bogusEval = false;
     for (auto node = boundary.begin(); node != boundary.end(); node++) {
         // Get the evaluations from that node:
@@ -185,6 +192,8 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
                     dropEstimation = evaluation.second->getDropEstimation();
                     inEstimation = evaluation.second->getInEstimation();
                     outEstimation = evaluation.second->getOutEstimation();
+                    inReal = evaluation.second->getInReal();
+                    dropReal = evaluation.second->getDropReal();
                 } else {
                     if (dropEstimation
                             != evaluation.second->getDropEstimation())
@@ -205,6 +214,7 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
                                 << evaluation.second->getOutEstimation()
                                 << endl;
                 }
+                // Bitmap marks a missing sketch
             } else {
                 std::cout << *node << ";";
             }
@@ -220,9 +230,12 @@ void TrustedAuthority::evaluateCore(IPSet core, IPSet boundary,
         }
 
     }
+    //    coreCSV << os.str() << dropEstimation << "," << inEstimation << ","
+    //            << outEstimation << "," << getRealValues(core) << "," << bogusEval
+    //            << endl;
     coreCSV << os.str() << dropEstimation << "," << inEstimation << ","
-            << outEstimation << "," << getRealValues(core) << "," << bogusEval
-            << endl;
+            << outEstimation << "," << dropReal << "," << inReal << ","
+            << inReal - dropReal << "," << bogusEval << endl;
 }
 
 std::string TrustedAuthority::getRealValues(IPSet core) {

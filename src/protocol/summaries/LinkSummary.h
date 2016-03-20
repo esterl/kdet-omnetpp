@@ -21,8 +21,11 @@
 #define LINKSUMMARY_H_
 
 #include "Summary.h"
+#include "TrafficSketch.h"
 
 namespace kdet{
+
+typedef std::map<uint32_t, TrafficSketch> SketchHash;
 /**
  * Traffic summary based on the second strategy: it keeps information about
  * all the traffic that comes from and to a given link, as well as which node
@@ -32,14 +35,33 @@ class LinkSummary : public Summary{
 public:
     LinkSummary(inet::IPv4Address reporterIP,
             inet::IPv4Address neighborIP) {reporter=reporterIP; neighbor=neighborIP;};
-    virtual ~LinkSummary() { };
+    LinkSummary(const LinkSummary& other);
+    virtual ~LinkSummary(){};
+    virtual void updateSummaryPreRouting(inet::INetworkDatagram* pkt);
+    virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt);
+    virtual void clear();
+    virtual Summary* copy() const;
+    virtual void add(Summary* otherPtr);
+    virtual double estimateDrop(std::set<inet::IPv4Address> core);
+    virtual double estimateIn(std::set<inet::IPv4Address> core);
+    virtual double estimateOut(std::set<inet::IPv4Address> core);
+    virtual double getIn(std::set<inet::IPv4Address> core);
+    virtual double getOut(std::set<inet::IPv4Address> core);
+    virtual double getDrop(std::set<inet::IPv4Address> core);
+    virtual double getBytes();
+    virtual double getOptimizedBytes();
+    virtual void print();
+    virtual void optimize(std::set<inet::IPv4Address> kHopNodes);
     virtual inet::IPv4Address getNeighbor(){ return neighbor; };
     virtual std::vector<inet::IPv4Address> getID();
     virtual std::set<inet::IPv4Address> getSendTo(inet::IPv4Address localIP,
             std::set<inet::IPv4Address> neighbors);
-    virtual void optimize(std::set<inet::IPv4Address> kHopsNeighbors) = 0;
 protected:
     inet::IPv4Address neighbor;
+    TrafficSketch from;
+    TrafficSketch to;
+    SketchHash src;
+    SketchHash dst;
 };
 }
 #endif /* LINKSUMMARY_H_ */

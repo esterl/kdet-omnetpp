@@ -21,6 +21,7 @@
 #define CORESUMMARY_H_
 
 #include "Summary.h"
+#include "TrafficSketch.h"
 #include <set>
 
 namespace kdet{
@@ -30,21 +31,33 @@ namespace kdet{
 class CoreSummary: public Summary {
 public:
     CoreSummary(const inet::IPv4Address reporterIP = inet::IPv4Address::UNSPECIFIED_ADDRESS,
-            const std::set<inet::IPv4Address>& coreIPs = std::set<inet::IPv4Address>()) {
-        reporter = reporterIP;
-        core = coreIPs;
-    }
-    ;
+            const std::set<inet::IPv4Address>& coreIPs = std::set<inet::IPv4Address>());
+    CoreSummary(const CoreSummary& other);
     virtual ~CoreSummary() {};
-    virtual std::set<inet::IPv4Address> getCore() {
-        return core;
-    }
-    ;
+    virtual std::set<inet::IPv4Address> getCore() {return core;};
     virtual std::vector<inet::IPv4Address> getID();
     virtual std::set<inet::IPv4Address> getSendTo(inet::IPv4Address localIP,
             std::set<inet::IPv4Address> neighbors);
+    CoreSummary& operator=(const CoreSummary& other);
+    virtual void updateSummaryPreRouting(inet::INetworkDatagram* pkt);
+    virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt);
+    virtual void clear();
+    virtual Summary* copy() const;
+    virtual void print(){};
+    virtual void add(Summary* otherPtr);
+    virtual double estimateDrop(std::set<inet::IPv4Address> core);
+    virtual double estimateIn(std::set<inet::IPv4Address> core);
+    virtual double estimateOut(std::set<inet::IPv4Address> core);
+    virtual double getDrop(std::set<inet::IPv4Address> core);
+    virtual double getIn(std::set<inet::IPv4Address> core);
+    virtual double getOut(std::set<inet::IPv4Address> core);
+    virtual double getBytes();
+    virtual double getOptimizedBytes();
 protected:
     std::set<inet::IPv4Address> core;
+    std::set<inet::IPv4Address> boundaryReportsIncluded;
+    TrafficSketch sketchIn, sketchOut;
+
 };
 }
 #endif /* CORESUMMARY_H_ */

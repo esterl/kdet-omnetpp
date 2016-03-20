@@ -20,7 +20,7 @@
 
 #include "CoreEvaluation_m.h"
 
-namespace kdet{
+namespace kdet {
 Define_Module(LinkDetector);
 
 void LinkDetector::updateReports(Report* report) {
@@ -45,8 +45,13 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
     std::set<inet::IPv4Address> boundary = boundaries[i];
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
+    std::cout << simTime() << ": Evaluating ";
+    for (auto node : core)
+        std::cout << node << " ";
+    std::cout << std::endl;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
             boundaryNode++) {
+        std::cout << " Boundary " << *boundaryNode << std::endl;
         // Is there any report from that node?
         receivedSketches[boundaryNode->getInt()] = false;
         if (reports.count(boundaryNode->getInt()) != 0) {
@@ -56,6 +61,8 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
                     coreNode++) {
                 // Is there any report from boundaryNode -- coreNode?
                 if (nodeReports.count(coreNode->getInt()) > 0) {
+                    std::cout << "Report from " << *boundaryNode << "--" << *coreNode << std::endl;
+                    nodeReports[coreNode->getInt()]->getSummary()->print();
                     receivedSketches[boundaryNode->getInt()] = true;
                     if (globalSummary == NULL) {
                         globalSummary =
@@ -69,21 +76,33 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
             }
         }
     }
+    double dropEstimation, inEstimation, outEstimation;
     double dropPkts, inPkts, outPkts;
     if (globalSummary != NULL) {
+        std::cout << " Global ";
+        globalSummary->print();
         // Estimate the drop %
-        dropPkts = globalSummary->estimateDrop(core);
-        inPkts = globalSummary->estimateIn(core);
-        outPkts = globalSummary->estimateOut(core);
+        dropEstimation = globalSummary->estimateDrop(core);
+        inEstimation = globalSummary->estimateIn(core);
+        outEstimation = globalSummary->estimateOut(core);
+        dropPkts = globalSummary->getDrop(core);
+        inPkts = globalSummary->getIn(core);
+        outPkts = globalSummary->getOut(core);
         delete globalSummary;
     } else {
+        dropEstimation = 0.0;
+        inEstimation = 0.0;
+        outEstimation = 0.0;
         dropPkts = 0.0;
         inPkts = 0.0;
         outPkts = 0.0;
     }
-    msg->setDropEstimation(dropPkts);
-    msg->setInEstimation(inPkts);
-    msg->setOutEstimation(outPkts);
+    msg->setDropEstimation(dropEstimation);
+    msg->setInEstimation(inEstimation);
+    msg->setOutEstimation(outEstimation);
+    msg->setDropReal(dropPkts);
+    msg->setInReal(inPkts);
+    msg->setOutReal(outPkts);
     msg->setReceivedReports(receivedSketches);
 }
 

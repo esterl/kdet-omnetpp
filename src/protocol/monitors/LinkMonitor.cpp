@@ -18,35 +18,25 @@
  ***************************************************************************/
 
 #include <monitors/LinkMonitor.h>
-#include "LinkSketchSummary.h"
+#include "LinkSummary.h"
 
-namespace kdet{
+namespace kdet {
 Define_Module(LinkMonitor);
 
 void LinkMonitor::setCores(std::vector<std::set<inet::IPv4Address>> cores) {
     resetSummaries();
     // Make sure it works:
-    for ( auto it : summaries){
+    for (auto it : summaries) {
         delete it.second;
     }
     summaries.clear();
-    for (auto core = cores.begin(); core != cores.end(); core++) {
-        if (core->size() == 1) {
-            auto neighbor = core->begin();
-            summaries[neighbor->getInt()] = new LinkSketchSummary(IP,
-                    *neighbor);
+    for (auto core : cores) {
+        if (core.size() == 1) {
+            auto neighbor = core.begin();
+            summaries[neighbor->getInt()] = new LinkSummary(IP, *neighbor);
         }
     }
     TrafficMonitor::setCores(cores);
-}
-
-void LinkMonitor::initialize(int stage) {
-    if (stage == 0) {
-        //TODO: Maybe have a SketchMonitor that does this?
-        // Set the BaseSketch
-        SketchSummary::setBaseSketch(this);
-    }
-    TrafficMonitor::initialize(stage);
 }
 
 void LinkMonitor::handleMessage(cMessage *msg) {
@@ -75,7 +65,7 @@ void LinkMonitor::handleMessage(cMessage *msg) {
 }
 
 void LinkMonitor::finish() {
-    double bytes=0.;
+    double bytes = 0.;
     for (auto it = summaries.begin(); it != summaries.end(); it++) {
         bytes += it->second->getBytes();
         delete it->second;
@@ -93,7 +83,7 @@ void LinkMonitor::resetSummaries() {
 
 std::vector<Summary*> LinkMonitor::findSummaries(inet::IPv4Address addr) {
     if (summaries.count(addr.getInt()) == 0) {
-        summaries[addr.getInt()] = new LinkSketchSummary(IP, addr);
+        summaries[addr.getInt()] = new LinkSummary(IP, addr);
     }
     std::vector<Summary*> result;
     result.push_back(summaries[addr.getInt()]);

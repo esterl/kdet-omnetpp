@@ -38,5 +38,8 @@ message CoreEvaluation{
 	double dropEstimation;
 	double inEstimation;
 	double outEstimation;
+	double inReal;
+	double outReal;
+	double dropReal;
 	bool bogus;
 }

@@ -60,7 +60,7 @@ protected:
     virtual void handleMessage(cMessage *msg) = 0;
     virtual void finish();
     virtual void resetSummaries() = 0;
-    virtual std::vector<Summary*> findSummaries(inet::IPv4Address addr) = 0;
+    virtual std::vector<Summary*> findSummaries(inet::IPv4Address from) = 0;
     inet::IPv4Address getIPAddress(inet::INetworkDatagram* datagram);
     inet::IPv4Address IP;
     bool faulty;

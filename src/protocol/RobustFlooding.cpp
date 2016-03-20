@@ -322,6 +322,7 @@ void RobustFlooding::queueReport(int reportIndex, int addr) {
 }
 
 void RobustFlooding::flushQueues() {
+    double bytes = 0.0;
     for (auto queue = reportQueues.begin(); queue != reportQueues.end();
             queue++) {
         auto index = queue->second.begin();
@@ -339,8 +340,9 @@ void RobustFlooding::flushQueues() {
             reportAggr->setReportsArraySize(queue->second.size());
             for (unsigned i = 0; i < queue->second.size(); i++) {
                 Report* report = messages[queue->second[i]]->dup();
-                if (report->getBytes() != 0)
-                    overhead.record(report->getBytes());
+                bytes += report->getBytes();
+//                if (report->getBytes() != 0)
+//                    overhead.record(report->getBytes());
                 reportAggr->setReports(i, report);
             }
             setControlInfo(reportAggr, inet::IPv4Address(queue->first));
@@ -349,8 +351,8 @@ void RobustFlooding::flushQueues() {
             // Clear queue
             queue->second.clear();
         }
-
     }
+    overhead.record(bytes);
     delete sendTimeout;
     sendTimeout = NULL;
 }

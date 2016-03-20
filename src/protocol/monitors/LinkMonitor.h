@@ -36,7 +36,6 @@ class LinkMonitor: public TrafficMonitor {
 public:
     virtual void setCores(std::vector<std::set<inet::IPv4Address>> cores);
 protected:
-    virtual void initialize(int stage);
     virtual void handleMessage(cMessage *msg);
     virtual void finish();
     virtual void resetSummaries();

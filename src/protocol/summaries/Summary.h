@@ -41,10 +41,14 @@ public:
     virtual void updateSummaryPostRouting(inet::INetworkDatagram* pkt) = 0;
     virtual void clear() = 0;
     virtual Summary* copy() const = 0;
+    virtual void print() = 0;
     virtual void add(Summary* other) = 0;
     virtual double estimateDrop(std::set<inet::IPv4Address> core) = 0;
     virtual double estimateIn(std::set<inet::IPv4Address> core) = 0;
     virtual double estimateOut(std::set<inet::IPv4Address> core) = 0;
+    virtual double getDrop(std::set<inet::IPv4Address> core) = 0;
+    virtual double getIn(std::set<inet::IPv4Address> core) = 0;
+    virtual double getOut(std::set<inet::IPv4Address> core) = 0;
     virtual double getBytes() = 0;
     virtual double getOptimizedBytes() = 0;
     virtual std::vector<inet::IPv4Address> getID() = 0;

@@ -18,7 +18,7 @@
  ***************************************************************************/
 
 #include "CoreMonitor.h"
-#include "CoreSketchSummary.h"
+#include "CoreSummary.h"
 #include "Report.h"
 
 namespace kdet {
@@ -27,9 +27,6 @@ Define_Module(CoreMonitor);
 void CoreMonitor::initialize(int stage) {
     TrafficMonitor::initialize(stage);
     if (stage == 3) {
-        //TODO: Maybe have a SketchMonitor that does this?
-        // Set the BaseSketch
-        SketchSummary::setBaseSketch(this);
         WATCH_VECTOR(summaries);
     }
 }
@@ -62,14 +59,14 @@ void CoreMonitor::finish() {
 }
 
 void CoreMonitor::resetSummaries() {
-    for (auto it = summaries.begin(); it != summaries.end(); it++) {
-        (*it)->clear();
+    for (auto it : summaries) {
+        summaries.clear();
     }
 }
 
 void CoreMonitor::deleteSummaries() {
-    for (auto it = summaries.begin(); it != summaries.end(); it++) {
-        delete (*it);
+    for (auto it : summaries ) {
+        delete it;
     }
     summaries.clear();
 }
@@ -77,19 +74,20 @@ void CoreMonitor::deleteSummaries() {
 void CoreMonitor::setCores(std::vector<std::set<inet::IPv4Address>> newCores) {
     cores = newCores;
     deleteSummaries();
-    for (auto it = cores.begin(); it != cores.end(); it++) {
-        summaries.push_back(new CoreSketchSummary(IP, *it));
+    for (auto it : cores) {
+        summaries.push_back(new CoreSummary(IP, it));
     }
 }
 
 std::vector<Summary*> CoreMonitor::findSummaries(inet::IPv4Address addr) {
     std::vector<Summary*> result;
-    for (auto it = summaries.begin(); it != summaries.end(); it++) {
-        CoreSketchSummary* summary = check_and_cast<CoreSketchSummary*>(*it);
+    for (auto it : summaries) {
+        CoreSummary* summary = check_and_cast<CoreSummary*>(it);
         if (summary->getCore().count(addr) != 0) {
             result.push_back(summary);
         }
     }
     return result;
 }
+
 }
