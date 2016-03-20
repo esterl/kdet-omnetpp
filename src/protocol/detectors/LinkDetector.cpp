@@ -45,13 +45,8 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
     std::set<inet::IPv4Address> boundary = boundaries[i];
     LinkSummary* globalSummary = NULL;
     std::map<int, bool> receivedSketches;
-    std::cout << simTime() << ": Evaluating ";
-    for (auto node : core)
-        std::cout << node << " ";
-    std::cout << std::endl;
     for (auto boundaryNode = boundary.begin(); boundaryNode != boundary.end();
             boundaryNode++) {
-        std::cout << " Boundary " << *boundaryNode << std::endl;
         // Is there any report from that node?
         receivedSketches[boundaryNode->getInt()] = false;
         if (reports.count(boundaryNode->getInt()) != 0) {
@@ -61,8 +56,6 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
                     coreNode++) {
                 // Is there any report from boundaryNode -- coreNode?
                 if (nodeReports.count(coreNode->getInt()) > 0) {
-                    std::cout << "Report from " << *boundaryNode << "--" << *coreNode << std::endl;
-                    nodeReports[coreNode->getInt()]->getSummary()->print();
                     receivedSketches[boundaryNode->getInt()] = true;
                     if (globalSummary == NULL) {
                         globalSummary =
@@ -79,8 +72,6 @@ void LinkDetector::evaluateCore(unsigned i, CoreEvaluation* msg) {
     double dropEstimation, inEstimation, outEstimation;
     double dropPkts, inPkts, outPkts;
     if (globalSummary != NULL) {
-        std::cout << " Global ";
-        globalSummary->print();
         // Estimate the drop %
         dropEstimation = globalSummary->estimateDrop(core);
         inEstimation = globalSummary->estimateIn(core);
